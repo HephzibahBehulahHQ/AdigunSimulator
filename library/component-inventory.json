@@ -834051,11 +834051,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx51-115/symbol.svg",
+        "sha256": "ac004667534e0df0b636c8ba1e9dc583a2a96167681ff1b53d5a474bcb9f906b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834064,7 +834091,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834077,13 +834104,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834096,11 +834120,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834117,11 +834138,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx51-10-115/symbol.svg",
+        "sha256": "230b5226ef36a107fb4cce9d9c74bf3411fe8fa9bb6b5e709f24f1f668eeece6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834130,7 +834178,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834143,13 +834191,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834162,11 +834207,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834183,11 +834225,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx51-16-115/symbol.svg",
+        "sha256": "ecd947ea6aa33d1e3ec7b5b1f52e1acb2b9cfdd9e052dc85fe7db2bbd560af24",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834196,7 +834265,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834209,13 +834278,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834228,11 +834294,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834249,11 +834312,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx53-115/symbol.svg",
+        "sha256": "7e7d786aa2a74c5cfada00a28161b2397a093b64062fd951328cc3c8fe13e57a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834262,7 +834352,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834275,13 +834365,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834294,11 +834381,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834315,11 +834399,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx53-10-115/symbol.svg",
+        "sha256": "a75ac649fadd895dd8e0775aa7b4beb28188f3db9143dfe4945cda39c995726f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834328,7 +834439,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834341,13 +834452,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834360,11 +834468,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834381,11 +834486,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx53-16-115/symbol.svg",
+        "sha256": "0f0882debf8c88e7a79321daf772f44366bfc19507e066cab73955bc2cfec8d9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834394,7 +834526,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834407,13 +834539,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834426,11 +834555,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834447,11 +834573,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "NPN medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx56-10-qx/symbol.svg",
+        "sha256": "9126b4da3c4fa883572a1ef964f6d49e795d831301c5d9ed62a3c1f3f1a0e4b2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834460,7 +834613,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx56-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834473,13 +834626,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834492,11 +834642,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834513,11 +834660,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "NPN medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx56-16-qx/symbol.svg",
+        "sha256": "13e1fb40b1ec6c091c8c12ac6d4a8deefa044a6b6d00a0cbe6ee6daa1794a070",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834526,7 +834700,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx56-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834539,13 +834713,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834558,11 +834729,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834579,11 +834747,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "NPN medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx56-qx/symbol.svg",
+        "sha256": "f0a8778dbd4c82504f777465e2bb3d6f5c97e1b9d63abf4e71cdf43cf6718a0b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834592,7 +834787,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx56-series"
+        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834605,13 +834800,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834624,11 +834816,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834645,11 +834834,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx51-10-qx/symbol.svg",
+        "sha256": "36ba017870a06b46ef8ff8e4737038ad964c56a2b084a71b773f096023e09c8a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834658,7 +834874,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-q-series-general"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834671,13 +834887,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834690,11 +834903,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834711,11 +834921,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx51-16-qx/symbol.svg",
+        "sha256": "86ba7c08e0b6f914d2233af7ae9610e8f6c5bff930d231b7a7e681535094c8ed",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834724,7 +834961,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-q-series-general"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834737,13 +834974,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834756,11 +834990,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834777,11 +835008,38 @@
       "package": "SOT89",
       "category": "Transistors",
       "function": "PNP medium-power bipolar transistor",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Emitter",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Collector",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Base",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bcx51-qx/symbol.svg",
+        "sha256": "188e0aa3c12d78a1535a6ee621a79c63615a93d039dc88688095755e2ffe9579",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -834790,7 +835048,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-q-series-general"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834803,13 +835061,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -834822,11 +835077,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
