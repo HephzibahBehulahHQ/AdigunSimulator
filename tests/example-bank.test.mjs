@@ -1090,7 +1090,11 @@ for (const [orderCode, value, height, startX, aperture] of [
   ["XGL4018-102MEC", "1 µH", 1.8, 38.815, "R,0.98X3.4*"],
   ["XGL4025-102MEC", "1 µH", 2.5, 38.815, "R,0.98X3.4*"],
   ["XGL4040-102MEC", "1 µH", 4.1, 38.815, "R,0.98X3.4*"],
-  ["XGL5020-102MEC", "1 µH", 2.1, 38.345, "R,1.18X4.7*"]
+  ["XGL5020-102MEC", "1 µH", 2.1, 38.345, "R,1.18X4.7*"],
+  ["XEL4020-800MEC", "0.08 µH", 2.2, 38.815, "R,0.98X3.4*"],
+  ["XEL4030-101MEC", "0.1 µH", 3.2, 38.815, "R,0.98X3.4*"],
+  ["XEL5020-101MEC", "0.1 µH", 2.2, 38.345, "R,1.18X4.7*"],
+  ["XEL5030-131MEC", "0.13 µH", 3.2, 38.345, "R,1.18X4.7*"]
 ]) {
   test(`Coilcraft ${orderCode} maps its winding start to the rotated land and RL net`, async () => {
     const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));

@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.xel5020-681mec",
+  "package": "Coilcraft XEL5020",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 5.28,
+    "lengthMm": 5.48,
+    "planarToleranceMm": 0.2,
+    "heightMaxMm": 2.1,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/c1e9a675-3137-4855-926f-3163babc1e06/xel5020d-%281%29.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 1.18,
+    "heightMm": 4.7,
+    "rowCenterSpacingMm": 3.31
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 1.655,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": -1.655,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Local pad 1 is the winding start at the right-hand stripe in the manufacturer top view.",
+    "Review solder mask, paste, courtyard and board rules before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
