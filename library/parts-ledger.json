@@ -340269,6 +340269,326 @@
         "compatible": false,
         "adapter": "Use a documented SOT323 breakout that preserves base (1), emitter (2), and collector (3)."
       }
+    },
+    {
+      "id": "nexperia.pdtb114etr",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTB114ETR",
+      "category": "Transistors",
+      "type": "PNP resistor-equipped bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTB114ET product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtb143xtvl",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTB143XTVL",
+      "category": "Transistors",
+      "type": "PNP resistor-equipped bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTB143XT product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtb1xxxt-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtd114etvl",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTD114ETVL",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTD114ET product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtd143et-qr",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTD143ET-QR",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTD143ET-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtd143xtvl",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTD143XTVL",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTD143XT product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtd143xt-qr",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTD143XT-QR",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTD143XT-Q product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtd1xxxt-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc114eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC114EQAZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC114EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc124eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC124EQAZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC124EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc143eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC143EQAZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC143EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc144eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC144EQAZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC144EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc114eqbz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC114EQBZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT8015",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC114EQB product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqb-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc144eqbz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC144EQBZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT8015",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC144EQB product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqb-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdtc144eqcz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTC144EQCZ",
+      "category": "Transistors",
+      "type": "NPN resistor-equipped bipolar transistor",
+      "package": "SOT8009",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTC144EQC product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdtc143-114-124-144eqc-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdta114eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTA114EQAZ",
+      "category": "Transistors",
+      "type": "PNP resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTA114EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdta124eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTA124EQAZ",
+      "category": "Transistors",
+      "type": "PNP resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTA124EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.pdta144eqaz",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "PDTA144EQAZ",
+      "category": "Transistors",
+      "type": "PNP resistor-equipped bipolar transistor",
+      "package": "SOT1215",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia PDTA144EQA product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/resistor-equipped-transistors-rets/serie/pdta143-114-124-144eqa-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.resistor-equipped-bipolar.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Internal resistor network and transistor behavior have not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
