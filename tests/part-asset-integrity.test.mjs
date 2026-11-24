@@ -98,7 +98,7 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 668);
+  assert.equal(records.length, 688);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
 
@@ -119,6 +119,26 @@ test("POExxPR footprints preserve top-view numbering and lands for unused termin
     assert.deepEqual([1, 4, 9, 10].map((pin) => record.symbolPinMap[pin]),
       ["Primary start", "Auxiliary start", "Secondary 1 start", "Secondary 2 start"]);
     assert.equal(record.breadboard.compatible, false);
+    assert.equal(record.simulationModel.status, "not-modelled");
+  }
+});
+
+test("Coilcraft PoE variants preserve pin 1 and the required PCB winding ties", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  for (const [id, pinCount, x, y, ties] of [
+    ["poe40q-33ed", 10, -8.27, -5, "9, 10; 6, 7"],
+    ["poe51q-48ed", 10, -8.27, -5, null],
+    ["poe62f-33ed", 12, -13.46, -7.5, "1, 2; 3, 4; 10, 11, 12; 7, 8, 9"],
+    ["poe71f-48ed", 12, -13.46, -7.5, "1, 2; 3, 4; 10, 11, 12; 7, 8, 9"]
+  ]) {
+    const record = records.find((part) => part.id === `coilcraft.${id}`);
+    const footprint = await load(`../${record.footprintEvidence.assetPath}`);
+    assert.equal(footprint.pads.length, pinCount);
+    assert.deepEqual(footprint.pads[0], { number: "1", xMm: x, yMm: y });
+    assert.deepEqual(footprint.pads.at(-1), { number: String(pinCount), xMm: -x, yMm: y });
+    assert.equal(footprint.limitations.find((line) => line.startsWith("Connect terminals")),
+      ties ? `Connect terminals together on the PCB in each group: ${ties}.` : undefined);
     assert.equal(record.simulationModel.status, "not-modelled");
   }
 });
