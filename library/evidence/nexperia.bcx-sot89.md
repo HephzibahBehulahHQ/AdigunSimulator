@@ -1,6 +1,6 @@
 # Nexperia BCX SOT89 bipolar transistor ordering evidence
 
-The manufacturer tables list these 12 SOT89 order codes as active. Each selected type contributes one order code. Engineering assets, simulation validation and independent review are pending.
+The manufacturer tables list these 12 SOT89 order codes as active. Each selected type contributes one order code. The schematic symbols use the pinning from Table 2 of each datasheet. The native PCB footprint, simulation validation and independent review remain pending.
 
 - [BCX51](https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx51-series)
 - [BCX53](https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/serie/bcx53-series)
@@ -21,3 +21,8 @@ The manufacturer tables list these 12 SOT89 order codes as active. Each selected
 | BCX51-10-QX | 934666366115 | BCX51-Q |
 | BCX51-16-QX | 934666367115 | BCX51-Q |
 | BCX51-QX | 934666361115 | BCX51-Q |
+
+- [Nexperia BCX51 series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf)
+- [Nexperia BCX53 series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf)
+- [Nexperia BCX56-Q series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf)
+- [Nexperia BCX51-Q series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf)
