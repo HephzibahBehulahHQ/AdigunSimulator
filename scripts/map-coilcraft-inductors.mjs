@@ -30,24 +30,32 @@ async function writeAsset(folder, filename, contents, metadata) {
   };
 }
 
-const xgl50xxDrawings = {
+const xglLargerPackageDrawings = {
   XGL5030: "https://www.coilcraft.com/getattachment/e86c5bb4-0f92-4a0b-b413-3aa80ed05c9d/xgl5030d.gif?lang=en-US",
-  XGL5050: "https://www.coilcraft.com/getattachment/4c56b418-bd36-431c-88a5-dd680ae7e09d/xgl5050d.gif?lang=en-US"
+  XGL5050: "https://www.coilcraft.com/getattachment/4c56b418-bd36-431c-88a5-dd680ae7e09d/xgl5050d.gif?lang=en-US",
+  XGL6030: "https://www.coilcraft.com/getattachment/04af5f0e-159c-4c20-b5cf-d118de0d6d2a/xgl6030d.gif?lang=en-US",
+  XGL6060: "https://www.coilcraft.com/getattachment/73eea929-3e6a-4a38-af9e-f0d053842c3a/xgl6060d.gif"
 };
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 
 for (const record of ledger.records) {
-  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0))-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
+  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0|60[36]0))-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
   const [, packageCode, valueCode] = match;
-  const drawing = xgl50xxDrawings[packageCode];
+  const drawing = xglLargerPackageDrawings[packageCode];
   const templateKey = packageCode.startsWith("XAL") || drawing ? "XAL" : packageCode;
   const { record: template, footprint: baseFootprint, symbol: baseSymbol } = templates[templateKey];
   const folder = `library/assets/footprints/${record.id}`;
   const footprint = structuredClone(baseFootprint);
   footprint.partId = record.id;
   footprint.package = `Coilcraft ${packageCode}`;
-  if (drawing) {
+  if (packageCode.startsWith("XGL60")) {
+    Object.assign(footprint.packageOutline, { widthMm: 6.51, lengthMm: 6.71,
+      heightMaxMm: packageCode === "XGL6060" ? 6.1 : 3.1, sourceUrl: drawing });
+    Object.assign(footprint.padPattern, { widthMm: 1.43, heightMm: 5.5, rowCenterSpacingMm: 4.04 });
+    footprint.pads[0].xMm = 2.02;
+    footprint.pads[1].xMm = -2.02;
+  } else if (drawing) {
     footprint.packageOutline.sourceUrl = drawing;
     footprint.packageOutline.heightMaxMm = packageCode === "XGL5050" ? 5.1
       : xgl5030TallCodes.has(valueCode) ? 3.2 : 3.1;
