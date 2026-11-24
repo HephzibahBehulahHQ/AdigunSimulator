@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.xfl2006-683mec",
+  "package": "Coilcraft XFL2006",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 1.9,
+    "lengthMm": 2,
+    "planarToleranceMm": 0.2,
+    "heightMaxMm": 0.6,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/1020c3b5-573a-4523-9557-5f6bd3aebf23/xfl2006d-%281%29.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.6,
+    "heightMm": 1.8,
+    "rowCenterSpacingMm": 1.35
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 0.675,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": -0.675,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Local pad 1 follows the right-hand winding-start dot in the manufacturer top view.",
+    "Review solder mask, paste, courtyard and board rules before fabrication.",
+    "Earlier production parts may lack the winding-start dot."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

@@ -31,6 +31,11 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const packageDrawings = {
+  XFL2005: "https://www.coilcraft.com/getattachment/12915e5a-8c39-40bd-8be2-0c9fb118caab/xfl2005d-%281%29.gif",
+  XFL2006: "https://www.coilcraft.com/getattachment/1020c3b5-573a-4523-9557-5f6bd3aebf23/xfl2006d-%281%29.gif",
+  XFL2010: "https://www.coilcraft.com/getattachment/bc0b0542-07c0-4f40-8ff5-54ba17b3af2d/xfl2010d.gif?lang=en-US",
+  XFL3010: "https://www.coilcraft.com/getattachment/ffd27a6f-f915-41ed-a9a7-782bf899d54a/xfl3010d-%281%29.gif",
+  XFL3012: "https://www.coilcraft.com/getattachment/02b6f684-78f7-41d5-8676-8d7ea7ead2c6/xfl3012d-%281%29.gif",
   XFL5015: "https://www.coilcraft.com/getmedia/5f7b596c-8f2f-415e-931e-74a5b6804936/xfl5015.pdf",
   XFL5018: "https://www.coilcraft.com/getmedia/5f7b596c-8f2f-415e-931e-74a5b6804936/xfl5015.pdf",
   XFL5030: "https://www.coilcraft.com/getmedia/f01e4ccd-6be9-43eb-bb01-c23b4deeb2c5/xfl5030.pdf",
@@ -78,6 +83,11 @@ const packageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const packageDimensions = {
+  XFL2005: [1.9, 2, 0.2, 0.5, 1.04, 2.2, 1.45],
+  XFL2006: [1.9, 2, 0.2, 0.6, 0.6, 1.8, 1.35],
+  XFL2010: [1.9, 2, 0.2, 1, 0.6, 1.8, 1.35],
+  XFL3010: [3, 3, 0.2, 1.1, 1, 2.9, 2.03],
+  XFL3012: [3, 3, 0.2, 1.3, 1, 2.9, 2.03],
   XFL5015: [5.28, 5.48, 0.2, 1.5, 1.18, 4.7, 3.31],
   XFL5018: [5.28, 5.48, 0.2, 1.8, 1.18, 4.7, 3.31],
   XFL5030: [5.28, 5.48, 0.2, 3.1, 1.18, 4.7, 3.31],
@@ -132,6 +142,14 @@ const heightOverrides = {
 // XFL7015 drawing 1039-2, dimension B in the recommended land pattern.
 const xfl7015PadHeightByCode = { 102: 6.16, 152: 6.16 };
 
+const markingLimitations = {
+  XFL2005: "Earlier production parts may lack the winding-start dot.",
+  XFL2006: "Earlier production parts may lack the winding-start dot.",
+  XFL3010: "Parts manufactured before June 2018 may be marked differently.",
+  XFL3012: "Parts manufactured before June 2018 may be marked differently.",
+  XFL4030: "Parts manufactured before 2011 may lack the winding-start stripe."
+};
+
 const xal7030NarrowCodes = new Set(["472", "562", "682", "822", "103"]);
 const thirteenInchReelPackages = new Set(["XAL8080", "XAL1510", "XGL1010", "XGL1313", "XGL1712"]);
 
@@ -172,9 +190,12 @@ for (const record of ledger.records) {
     }
   }
   const symbol = baseSymbol.replace(template.manufacturerPartNumber, record.manufacturerPartNumber);
-  if (packageCode === "XFL4030") {
-    footprint.limitations.push("Parts manufactured before 2011 may lack the winding-start stripe.");
+  if (packageCode === "XFL2010") {
+    footprint.limitations[0] = "The footprint top view is rotated 180° from the manufacturer top view. Local pad 1 follows the winding-start dot.";
+  } else if (/^XFL[23]/.test(packageCode)) {
+    footprint.limitations[0] = "Local pad 1 follows the right-hand winding-start dot in the manufacturer top view.";
   }
+  if (markingLimitations[packageCode]) footprint.limitations.push(markingLimitations[packageCode]);
   Object.assign(record, {
     symbolPinMap: template.symbolPinMap,
     symbolPinLabels: template.symbolPinLabels,
