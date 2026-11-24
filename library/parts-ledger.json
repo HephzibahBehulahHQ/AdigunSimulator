@@ -337665,6 +337665,466 @@
         "compatible": false,
         "adapter": "Use a documented SOD882 breakout that maps pin 1 to cathode and pin 2 to anode."
       }
+    },
+    {
+      "id": "nexperia.bc846-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC846,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC846X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC846X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc846a-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC846A,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC846X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC846X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc846b-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC846B,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC846X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC846X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc847-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC847,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC847X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc847a-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC847A,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC847X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc847b-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC847B,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC847X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc847c-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC847C,215",
+      "category": "Transistors",
+      "type": "NPN bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC847X SER bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC847X_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc856-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC856,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc856a-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC856A,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc856b-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC856B,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857a-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857A,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857b-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857B,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857c-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857C,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc858b-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC858B,215",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856 BC857 BC858 bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856_BC857_BC858.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc856aw-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC856AW,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc856bw-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC856BW,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc856w-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC856W,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857aw-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857AW,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857bw-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857BW,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857cw-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857CW,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc857w-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC857W,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bc858w-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BC858W,115",
+      "category": "Transistors",
+      "type": "PNP bipolar transistor",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BC856W BC857W BC858W bipolar transistor datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BC856W_BC857W_BC858W.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bc846-bc858.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device-specific transistor model and pin mapping have not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
