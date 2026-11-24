@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.poe120pl-12l",
+  "package": "Coilcraft POE120PL",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 23.37,
+    "lengthMaxMm": 20.83,
+    "heightMaxMm": 8.94,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/51590a4d-54c0-489a-99bb-8f7ac7590e36/poe120pld.gif"
+  },
+  "padPattern": {
+    "shape": "circle",
+    "rowCenterSpacingMm": 20.32
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -10.41,
+      "yMm": -7.874,
+      "diameterMm": 2.03
+    },
+    {
+      "number": "2",
+      "xMm": -10.41,
+      "yMm": -5.08,
+      "diameterMm": 2.03
+    },
+    {
+      "number": "4",
+      "xMm": -10.41,
+      "yMm": 2.794,
+      "diameterMm": 2.03
+    },
+    {
+      "number": "5",
+      "xMm": -10.41,
+      "yMm": 5.08,
+      "diameterMm": 2.03
+    },
+    {
+      "number": "6",
+      "xMm": -10.41,
+      "yMm": 7.874,
+      "diameterMm": 2.03
+    },
+    {
+      "number": "8",
+      "xMm": 9.91,
+      "yMm": 3.175,
+      "diameterMm": 2.79
+    },
+    {
+      "number": "10",
+      "xMm": 9.91,
+      "yMm": -3.175,
+      "diameterMm": 2.79
+    }
+  ],
+  "limitations": [
+    "Pin 1 is at the upper left in the manufacturer top view.",
+    "Review isolation, solder mask, paste and courtyard before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
