@@ -760875,11 +760875,38 @@
       "package": "CS60 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Secondary return",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs60-050l/symbol.svg",
+        "sha256": "93f244c35724804f7ba12595f77b9bff2c1d9f833d14d2f59d9f6d531986eda4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -760901,13 +760928,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -760920,11 +760944,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -760941,11 +760962,38 @@
       "package": "CS60 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Secondary return",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs60-075l/symbol.svg",
+        "sha256": "c3a90ccf453e586e4a842f1dc46c0bcb81a7e0c946fb7b0bc1d17e801d74411a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -760967,13 +761015,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -760986,11 +761031,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761007,11 +761049,38 @@
       "package": "CS60 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary terminal",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Secondary return",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs60-100l/symbol.svg",
+        "sha256": "a5bec87f35b780782f1463688deee866c43a3cb35496beeb23746122b8072909",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761033,13 +761102,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761052,11 +761118,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761073,11 +761136,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-020ld/symbol.svg",
+        "sha256": "a4e368112437473ee3083175754b03cf85cf2bec9a5794377d6c7295f130a0d9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-020ld/footprint.json",
+        "sha256": "2089ac621e785222bab7be94f026c0f090e144c20e8e8d6858b425da0f27efcc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761086,7 +761212,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761094,18 +761221,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761113,21 +761234,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761139,11 +761254,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-020lc/symbol.svg",
+        "sha256": "05a43ee955558049dc3223aa6acfc572826c8b0737e96af8a98536f5f298b0c5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-020lc/footprint.json",
+        "sha256": "c658085e3b248ea322070bd1b131b120ae0bfd60a070866d476a9e170efb6171",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761152,7 +761330,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761160,18 +761339,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761179,21 +761352,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761205,11 +761372,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-030ld/symbol.svg",
+        "sha256": "ba667d72608a6c9423a45f7a76fb0ae2a00957c91ebad38b82724b293b2318bf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-030ld/footprint.json",
+        "sha256": "083b991f65585f35d90e26c5bc025c8b818260759cc50d860aa6be1802559718",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761218,7 +761448,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761226,18 +761457,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761245,21 +761470,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761271,11 +761490,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-030lc/symbol.svg",
+        "sha256": "7af9c9d588219602e310150edd38d72de0be212a88324baa091a24686f433698",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-030lc/footprint.json",
+        "sha256": "9d1068f04a44f380a8bce40ffd51d06b905342fdf8f98ba3f95b4fbfcdd4ec9e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761284,7 +761566,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761292,18 +761575,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761311,21 +761588,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761337,11 +761608,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-040ld/symbol.svg",
+        "sha256": "58a212381514a0eba8d3675f13707720d611416e7ae914ebad4f2f5e4a0d5640",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-040ld/footprint.json",
+        "sha256": "8de080f91efb06e070c10bd08ecde92d50d6f5f0d2301012f2427b9957f1a1f6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761350,7 +761684,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761358,18 +761693,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761377,21 +761706,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761403,11 +761726,50 @@
       "package": "CS4050V series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs4050v-01l/symbol.svg",
+        "sha256": "5ce08e5326878fc5445f35dbb962852b641b8bdeafb58e01fd4fa919cae4e28f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cs4050v-01l/footprint.json",
+        "sha256": "992f6ca9d42e555827c25d8ce7c94ad11b70172109b084d19d98e166aaca19d5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761416,7 +761778,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/",
+        "https://www.coilcraft.com/getattachment/aaa33d20-60d3-4bad-8a6f-09e4e2adbc5b/senhitrd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761424,18 +761787,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761443,21 +761800,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761469,11 +761820,50 @@
       "package": "CS4100V series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs4100v-01l/symbol.svg",
+        "sha256": "f0e081ef0cac598c62bf4e51e817c1bf0d00920481dbddd0a8e88b4d29097809",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cs4100v-01l/footprint.json",
+        "sha256": "da72e503f144bc13125500b842451c165d74e0a4233aae6e32c97fcc4e61ac40",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761482,7 +761872,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/",
+        "https://www.coilcraft.com/getattachment/aaa33d20-60d3-4bad-8a6f-09e4e2adbc5b/senhitrd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761490,18 +761881,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761509,21 +761894,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -761535,11 +761914,50 @@
       "package": "CS4200V series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cs4200v-01l/symbol.svg",
+        "sha256": "ace09860b74ddf2483d17d0bc55a38b77be93446c07e68353732e766df35642a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cs4200v-01l/footprint.json",
+        "sha256": "41c909664e87d7977fb58331b76edd7cad8a03b9be92e7a4d94cf262da2bc33e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -761548,7 +761966,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/",
+        "https://www.coilcraft.com/getattachment/aaa33d20-60d3-4bad-8a6f-09e4e2adbc5b/senhitrd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -761556,18 +761975,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -761575,21 +761988,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763291,11 +763698,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-040lc/symbol.svg",
+        "sha256": "4e5ad3f3a34d0d33b3613ab616a6cb481da4eb8108df10164fb6bec3730257f2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-040lc/footprint.json",
+        "sha256": "a261b0f64bf6d2ff333267fad0b47e556b3e1593bd36da35be7fc93d7558ede9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763304,7 +763774,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763312,18 +763783,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763331,21 +763796,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763357,11 +763816,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-050ld/symbol.svg",
+        "sha256": "7246d0ffea67780d1314d15f95adc2fa9dafd17712f6e69b4ed22701d644d620",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-050ld/footprint.json",
+        "sha256": "20c094c601bd5a2af36cc76405f23496b9f74c1b807c7417f9cc99a1cf79082e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763370,7 +763892,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763378,18 +763901,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763397,21 +763914,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763423,11 +763934,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-050lc/symbol.svg",
+        "sha256": "da36ba62f9aee2bc6ab1c92309f73806b81ff9d5a8972c4d50634c0425f36440",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-050lc/footprint.json",
+        "sha256": "20370df441df12f0a293ba6995b587efd79828c10700cdc993c21d32a8623350",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763436,7 +764010,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763444,18 +764019,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763463,21 +764032,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763489,11 +764052,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-060ld/symbol.svg",
+        "sha256": "f8664025082c4315556d9977a29c058f4621420637cedb5080ba86d6f4b4af9a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-060ld/footprint.json",
+        "sha256": "47ddbefb9fa11a999fe4e3c22e0d66f4feaf6d2e5fa7f0efe39e4a17c03152d3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763502,7 +764128,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763510,18 +764137,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763529,21 +764150,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763555,11 +764170,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-060lc/symbol.svg",
+        "sha256": "324eff9e1ff0bb8d0b18c82f6e26576f05cf91d369a79d7237624810840d970d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-060lc/footprint.json",
+        "sha256": "cc366403ec90579e946e1d8afd9c62010a0e21db5cf94481a90da00405bcc171",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763568,7 +764246,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763576,18 +764255,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763595,21 +764268,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763621,11 +764288,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-070ld/symbol.svg",
+        "sha256": "92fa5620e6e5ee28b0331c566ab55cea0bf962dbb02174e9b9040058885e02eb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-070ld/footprint.json",
+        "sha256": "8e584027650b4dc518bcef02f566104936a71a28ff3f28bbce77927cc4ee4570",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763634,7 +764364,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763642,18 +764373,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763661,21 +764386,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763687,11 +764406,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-070lc/symbol.svg",
+        "sha256": "8223fbbbda683aa885a34ce740ac62d0dae2888cee8e1126fbc7f3392a8f0826",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-070lc/footprint.json",
+        "sha256": "4c72f85ac1c711ad7466c29318539154462fa874e3cb640646a466b4d84bb0aa",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763700,7 +764482,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763708,18 +764491,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763727,21 +764504,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763753,11 +764524,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-100ld/symbol.svg",
+        "sha256": "b4629a5be645ba1025f16de02220de819893c2582c22dcb753b1cc021321073c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-100ld/footprint.json",
+        "sha256": "22eb8e5d41a62375b793f2f558432dc0f8f2f2eda2d841cfbda8b60462dde53b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763766,7 +764600,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763774,18 +764609,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763793,21 +764622,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763819,11 +764642,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-100lc/symbol.svg",
+        "sha256": "a827cc77680a635f7cd2bbaeddd4876b45c94fd295ecf788a9b0f5e2500f8b13",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-100lc/footprint.json",
+        "sha256": "23675d8031ccc748639d1fe31eeff642451279661df17c93532398367ffca356",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763832,7 +764718,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763840,18 +764727,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763859,21 +764740,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763885,11 +764760,74 @@
       "package": "CST1 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst1-125ld/symbol.svg",
+        "sha256": "99ebc938f1c56504a01713cc1b982dace9fda7a40920168e13054357cca5587c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst1-125ld/footprint.json",
+        "sha256": "16698b374aebcd935008c2db6766db6843b7b981dfba89fa4660820f081921d6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763898,7 +764836,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763906,18 +764845,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763925,21 +764858,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -763951,11 +764878,74 @@
       "package": "CST2 series",
       "category": "Passive components",
       "function": "Current transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Secondary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Secondary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "8"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.cst2-125lc/symbol.svg",
+        "sha256": "8da6aac759673f0581962e02c81ee5d17fafb15cf3912755f45c51db2a058173",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.cst2-125lc/footprint.json",
+        "sha256": "838c3e54c1bd6334c296e9e8bef1e8137110061b164da58ad79724690182c36d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented fixture for this current transformer and verify the required burden, pinout, and isolation."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -763964,7 +764954,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "https://www.coilcraft.com/getattachment/175c3637-d6fc-41e5-b676-d19d4baaa7d3/cstdimensions.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -763972,18 +764963,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -763991,21 +764976,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     }

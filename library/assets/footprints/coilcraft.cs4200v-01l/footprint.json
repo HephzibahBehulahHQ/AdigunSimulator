@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-through-hole-layout",
+  "partId": "coilcraft.cs4200v-01l",
+  "package": "Coilcraft CS4xxxx",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 19.56,
+    "lengthMaxMm": 14.48,
+    "heightMaxMm": 19.05,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/aaa33d20-60d3-4bad-8a6f-09e4e2adbc5b/senhitrd.gif"
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 7.62,
+      "yMm": -2.54,
+      "drillMm": 1.76
+    },
+    {
+      "number": "2",
+      "xMm": -7.62,
+      "yMm": -2.54,
+      "drillMm": 2.01
+    },
+    {
+      "number": "3",
+      "xMm": -7.62,
+      "yMm": 2.54,
+      "drillMm": 2.01
+    },
+    {
+      "number": "4",
+      "xMm": 7.62,
+      "yMm": 2.54,
+      "drillMm": 1.76
+    }
+  ],
+  "limitations": [
+    "Hole dimensions follow the recommended layout. Copper annular ring, mask and board isolation require validation."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
