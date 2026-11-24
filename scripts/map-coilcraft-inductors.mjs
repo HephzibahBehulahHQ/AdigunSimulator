@@ -31,6 +31,9 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const packageDrawings = {
+  XAL7030: "https://www.coilcraft.com/getattachment/2fe6849e-bce3-4648-9c57-7b06c1f286b1/xal7030d.gif?lang=en-US",
+  XAL7070: "https://www.coilcraft.com/getattachment/3e82b892-c10d-48ab-874a-db9e090c452e/xal7070d.gif?lang=en-US",
+  XAL8080: "https://www.coilcraft.com/getattachment/78738e29-ddc3-4cbc-9810-2db76ca42dd3/xal8080d.gif?lang=en-US",
   XEL4020: "https://www.coilcraft.com/getattachment/84fee8d3-42df-4df5-b1e3-234f1006d18b/xel4020d.gif?lang=en-US",
   XEL4030: "https://www.coilcraft.com/getattachment/53a07e14-2bbc-455d-8f84-80e6f9e135be/xel4030d.gif?lang=en-US",
   XEL5020: "https://www.coilcraft.com/getattachment/c1e9a675-3137-4855-926f-3163babc1e06/xel5020d-%281%29.gif",
@@ -61,6 +64,9 @@ const packageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const packageDimensions = {
+  XAL7030: [7.5, 7.5, 0.5, 3.1, 1.78, 6.5, 4.72],
+  XAL7070: [7.2, 7.5, 0.5, 7, 1.92, 6.5, 4.82],
+  XAL8080: [8.1, 8.6, 0.2, 8, 1.78, 7, 5.16],
   XEL4020: [4, 4, 0.3, 2.1, 0.98, 3.4, 2.37],
   XEL4030: [4, 4, 0.3, 3.1, 0.98, 3.4, 2.37],
   XEL5020: [5.28, 5.48, 0.2, 2.1, 1.18, 4.7, 3.31],
@@ -94,12 +100,16 @@ const heightOverrides = {
   XEL5030: { 131: 3.2, 261: 3.2, 421: 3.2, 601: 3.2 }
 };
 
+const xal7030NarrowCodes = new Set(["472", "562", "682", "822", "103"]);
+const thirteenInchReelPackages = new Set(["XAL8080", "XGL1010", "XGL1313"]);
+
 for (const record of ledger.records) {
-  const match = /^(XAL50[35]0|X[GE]L\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
+  const match = /^(X[AGE]L\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
   const [, packageCode, valueCode, reel] = match;
-  if (reel !== (["XGL1010", "XGL1313"].includes(packageCode) ? "D" : "C")) continue;
+  if (reel !== (thirteenInchReelPackages.has(packageCode) ? "D" : "C")) continue;
   const drawing = packageDrawings[packageCode];
+  if (packageCode.startsWith("XAL") && !drawing && !["XAL5030", "XAL5050"].includes(packageCode)) continue;
   const templateKey = packageCode.startsWith("XAL") || drawing ? "XAL" : packageCode;
   if (!templates[templateKey]) continue;
   const { record: template, footprint: baseFootprint, symbol: baseSymbol } = templates[templateKey];
@@ -108,7 +118,10 @@ for (const record of ledger.records) {
   footprint.partId = record.id;
   footprint.package = `Coilcraft ${packageCode}`;
   if (packageDimensions[packageCode]) {
-    const [widthMm, lengthMm, planarToleranceMm, defaultHeight, padWidth, padHeight, rowCenterSpacingMm] = packageDimensions[packageCode];
+    const [widthMm, lengthMm, planarToleranceMm, defaultHeight, defaultPadWidth, padHeight, defaultSpacing] = packageDimensions[packageCode];
+    const narrow = packageCode === "XAL7030" && xal7030NarrowCodes.has(valueCode);
+    const padWidth = narrow ? 1.58 : defaultPadWidth;
+    const rowCenterSpacingMm = narrow ? 4.52 : defaultSpacing;
     const heightMaxMm = heightOverrides[packageCode]?.[valueCode] ?? defaultHeight;
     Object.assign(footprint.packageOutline, { widthMm, lengthMm, planarToleranceMm, heightMaxMm, sourceUrl: drawing });
     Object.assign(footprint.padPattern, { widthMm: padWidth, heightMm: padHeight, rowCenterSpacingMm });

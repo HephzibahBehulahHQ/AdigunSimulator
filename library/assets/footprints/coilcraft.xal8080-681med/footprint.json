@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.xal8080-681med",
+  "package": "Coilcraft XAL8080",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 8.1,
+    "lengthMm": 8.6,
+    "planarToleranceMm": 0.2,
+    "heightMaxMm": 8,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/78738e29-ddc3-4cbc-9810-2db76ca42dd3/xal8080d.gif?lang=en-US"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 1.78,
+    "heightMm": 7,
+    "rowCenterSpacingMm": 5.16
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 2.58,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": -2.58,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Local pad 1 is the winding start at the right-hand stripe in the manufacturer top view.",
+    "Review solder mask, paste, courtyard and board rules before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
