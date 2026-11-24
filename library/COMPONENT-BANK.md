@@ -10,7 +10,7 @@ Continue in source-backed batches. Attach exact pin and package evidence, retain
 
 ## Sourcing coverage after the Nexperia BZX84J batch
 
-The ledger contains 11,621 manufacturer records. It has 11,619 candidates, two in review and zero independently verified parts. 1,160 records have symbol assets and 1,150 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,621 manufacturer records. It has 11,619 candidates, two in review and zero independently verified parts. 1,212 records have symbol assets and 1,202 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |

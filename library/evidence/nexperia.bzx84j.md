@@ -1,6 +1,6 @@
 # Nexperia BZX84J ordering evidence
 
-The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx84j) lists the selected 52 active SOD323F order codes. Automotive Q types use the separate BZX84J-Q data sheet. Each type contributes one ordering code. Native mappings, model validation and independent review remain pending.
+The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx84j) lists the selected 52 active SOD323F order codes. Automotive Q types use the separate BZX84J-Q data sheet. Each type contributes one ordering code. Native breakdown model validation and independent review remain pending.
 
 | Order code | 12NC |
 | --- | --- |
@@ -56,3 +56,7 @@ The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener
 | BZX84J-C20,115 | 934060989115 |
 | BZX84J-C20-QX | 934669065115 |
 | BZX84J-C27,115 | 934060993115 |
+
+## Pin and PCB mapping
+
+Both data sheets identify pin 1 as cathode at the package marking bar and pin 2 as anode. Their Figure 12 specifies two 0.60 × 0.60 mm reflow copper lands on 2.20 mm centers. The footprint retains the SOD323F body dimensions and cites the record’s own data sheet. Board-level checks remain pending.
