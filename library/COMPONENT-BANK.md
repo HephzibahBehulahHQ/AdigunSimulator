@@ -10,7 +10,7 @@ Continue in source-backed batches. Attach exact pin and package evidence, retain
 
 ## Sourcing coverage after the Nexperia BC807W, BC817 and BC847W batch
 
-The ledger contains 11,971 manufacturer records. It has 11,969 candidates, two in review and zero independently verified parts. 1,543 records have symbol assets and 1,533 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,971 manufacturer records. It has 11,969 candidates, two in review and zero independently verified parts. 1,562 records have symbol assets and 1,552 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |

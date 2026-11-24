@@ -1,6 +1,6 @@
 # Nexperia BC807W, BC817 and BC847W ordering evidence
 
-These 19 active order codes are listed in the manufacturer tables. Each selected type contributes one order code. Native mappings, model validation, and independent review remain pending.
+These 19 active order codes are listed in the manufacturer tables. Each selected type contributes one order code. Device-specific model validation and independent review remain pending.
 
 - [BC817](https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bc817-series)
 - [BC817W](https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bc817w)
@@ -29,3 +29,7 @@ These 19 active order codes are listed in the manufacturer tables. Each selected
 | BC807-25W-QF | 934663660135 |
 | BC807-40W-QF | 934663659135 |
 | BC807W-QF | 934663661135 |
+
+## Pin and PCB mapping
+
+All five data sheets identify base at pin 1, emitter at pin 2, and collector at pin 3. BC817 uses the SOT23 reflow pattern. BC817W, BC847xW, BC807W, and BC807W-Q use the SOT323 pattern. The footprint records cite the corresponding manufacturer drawings. Breadboard use requires a documented breakout. Board-level validation remains pending.
