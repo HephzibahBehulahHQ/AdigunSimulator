@@ -275340,6 +275340,534 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XFL4030 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.xfl5030-271mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5030-271MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL5030 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl5030/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.27,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5030-561mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5030-561MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL5030 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl5030/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.56,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5030-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5030-102MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL5030 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl5030/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5030-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5030-222MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL5030 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl5030/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5030-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5030-332MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL5030 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl5030/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5030-472mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5030-472MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5030 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL5030 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl5030/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl6012-181mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL6012-181MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL6012 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL6012 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl6012/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.18,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl6012-391mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL6012-391MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL6012 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL6012 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl6012/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.39,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl6012-601mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL6012-601MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL6012 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL6012 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl6012/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.6,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl6012-801mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL6012-801MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL6012 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL6012 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl6012/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.8,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl6012-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL6012-102MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL6012 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL6012 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl6012/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl6060-473mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL6060-473MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL6060 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL6060 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl6060/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 47,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl7015-251mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL7015-251MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL7015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL7015 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl7015/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.25,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl7015-471mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL7015-471MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL7015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL7015 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl7015/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.47,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl7015-681mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL7015-681MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL7015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL7015 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl7015/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.68,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl7015-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL7015-102MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL7015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL7015 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl7015/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl7015-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL7015-152MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL7015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL7015 series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl7015/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5015-221mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5015-221MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.22,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5015-421mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5015-421MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.42,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5015-681mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5015-681MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 0.68,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5015-122mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5015-122MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 1.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5015-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5015-152MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5015 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5018-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5018-222MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5018 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xfl5018-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XFL5018-332MEC",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "package": "XFL5018 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft XFL501x series specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl501x/",
+        "accessedAt": "2026-11-24"
+      },
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "evidenceNote": "library/evidence/coilcraft.xfl501x-5030-6012-6060-7015.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
