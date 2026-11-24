@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.xal1060-472mec",
+  "package": "Coilcraft XAL1060",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 10,
+    "lengthMm": 11.3,
+    "planarToleranceMm": 0.5,
+    "heightMaxMm": 6,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 2.38,
+    "heightMm": 9,
+    "rowCenterSpacingMm": 6.65
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 3.325,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": -3.325,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Local pad 1 is the winding start at the right-hand stripe in the manufacturer top view.",
+    "Review solder mask, paste, courtyard and board rules before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
