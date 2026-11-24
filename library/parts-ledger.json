@@ -269100,6 +269100,1018 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XEL5030 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.xal7030-161mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-161MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.16,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-301mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-301MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-601mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-601MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.6,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-102MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-152mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-152MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-222MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-272mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-272MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.7,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-332MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-472mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-472MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-562mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-562MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 5.6,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-682mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-682MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-822mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-822MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 8.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7030-103mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7030-103MEC",
+      "package": "XAL7030 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 10,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7030/",
+        "title": "Coilcraft XAL7030 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-161mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-161MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.16,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-301mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-301MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-551mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-551MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.55,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-651mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-651MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.65,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-801mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-801MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-102mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-102MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-122mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-122MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-182mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-182MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-222mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-222MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-332mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-332MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-472mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-472MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-562mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-562MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 5.6,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-682mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-682MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-103mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-103MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 10,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-123mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-123MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 12,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-153mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-153MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 15,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-183mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-183MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 18,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-223mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-223MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 22,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-333mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-333MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal7070-473mec",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL7070-473MEC",
+      "package": "XAL7070 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 47,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal7070/",
+        "title": "Coilcraft XAL7070 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-681med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-681MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.68,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-841med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-841MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.84,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-102med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-102MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-222med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-222MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-472med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-472MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-682med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-682MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-103med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-103MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 10,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-123med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-123MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 12,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-153med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-153MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 15,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-183med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-183MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 18,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-223med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-223MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 22,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-333med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-333MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xal8080-473med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XAL8080-473MED",
+      "package": "XAL8080 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 47,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xal/xal8080/",
+        "title": "Coilcraft XAL8080 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xal70xx-8080.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
