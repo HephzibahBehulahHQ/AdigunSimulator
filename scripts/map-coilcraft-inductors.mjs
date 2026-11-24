@@ -31,6 +31,7 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const packageDrawings = {
+  XGL1712: "https://www.coilcraft.com/getattachment/b0a80709-fafd-4ebe-af90-b18a6cc0bc1f/xgl1712d.gif?lang=en-US",
   XAL7030: "https://www.coilcraft.com/getattachment/2fe6849e-bce3-4648-9c57-7b06c1f286b1/xal7030d.gif?lang=en-US",
   XAL7070: "https://www.coilcraft.com/getattachment/3e82b892-c10d-48ab-874a-db9e090c452e/xal7070d.gif?lang=en-US",
   XAL8080: "https://www.coilcraft.com/getattachment/78738e29-ddc3-4cbc-9810-2db76ca42dd3/xal8080d.gif?lang=en-US",
@@ -64,6 +65,7 @@ const packageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const packageDimensions = {
+  XGL1712: [17.2, 18.2, 0.2, 12, 3.8, 15.1, 11.86],
   XAL7030: [7.5, 7.5, 0.5, 3.1, 1.78, 6.5, 4.72],
   XAL7070: [7.2, 7.5, 0.5, 7, 1.92, 6.5, 4.82],
   XAL8080: [8.1, 8.6, 0.2, 8, 1.78, 7, 5.16],
@@ -101,7 +103,7 @@ const heightOverrides = {
 };
 
 const xal7030NarrowCodes = new Set(["472", "562", "682", "822", "103"]);
-const thirteenInchReelPackages = new Set(["XAL8080", "XGL1010", "XGL1313"]);
+const thirteenInchReelPackages = new Set(["XAL8080", "XGL1010", "XGL1313", "XGL1712"]);
 
 for (const record of ledger.records) {
   const match = /^(X[AGE]L\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
