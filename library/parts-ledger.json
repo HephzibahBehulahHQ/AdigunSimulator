@@ -319801,6 +319801,2226 @@
         "compatible": false,
         "adapter": "Use a documented SOD323F breakout that maps pin 1 to cathode and pin 2 to anode."
       }
+    },
+    {
+      "id": "nexperia.bzt52-b10j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B10J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b10-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B10-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b11x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B11X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b11-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B11-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b12x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B12X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b12-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B12-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b13j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B13J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b13-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B13-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b15j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B15J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b15-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B15-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b16x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B16X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b16-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B16-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b18j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B18J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b18-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B18-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b20j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B20J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b20-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B20-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b22x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B22X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b22-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B22-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b24j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B24J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b24-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B24-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b27x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B27X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b27-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B27-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b2v4j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B2V4J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b2v4-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B2V4-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b2v7j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B2V7J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b2v7-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B2V7-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b30x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B30X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b30-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B30-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b33j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B33J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b33-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B33-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b36j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B36J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b36-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B36-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b39x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B39X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b39-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B39-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v0j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V0J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v0-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V0-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v3x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V3X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v3-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V3-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v6j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V6J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v6-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V6-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v9j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V9J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b3v9-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B3V9-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b43j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B43J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b43-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B43-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b47j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B47J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b47-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B47-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b4v3x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B4V3X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b4v3-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B4V3-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b4v7x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B4V7X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b4v7-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B4V7-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b51x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B51X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b51-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B51-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b56x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B56X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b56-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B56-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b5v1x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B5V1X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b5v1-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B5V1-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b5v6x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B5V6X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b5v6-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B5V6-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b62j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B62J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b62-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B62-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b68x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B68X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b68-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B68-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b6v2x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B6V2X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b6v2-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B6V2-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b6v8j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B6V8J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b6v8-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B6V8-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b75x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B75X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b75-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B75-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b7v5j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B7V5J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b7v5-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B7V5-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b8v2x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B8V2X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b8v2-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B8V2-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b9v1j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B9V1J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-B product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/diodes/zener-diodes/series/BZT52-B.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-b9v1-qx",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-B9V1-QX",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52-Q datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52-Q_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c10j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C10J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c11j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C11J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c12x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C12X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c13j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C13J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c15j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C15J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c16x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C16X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c18j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C18J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c20j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C20J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c22x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C22X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c24j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C24J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c27x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C27X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c2v4x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C2V4X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c2v7x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C2V7X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c30x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C30X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c33x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C33X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c36j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C36J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c39x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C39X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c3v0x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C3V0X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c3v3x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C3V3X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c3v6j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C3V6J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c3v9x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C3V9X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c43x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C43X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c47j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C47J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c4v3x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C4V3X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c4v7j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C4V7J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c51j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C51J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c56j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C56J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c5v1j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C5V1J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c5v6x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C5V6X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c62j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C62J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c68j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C68J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c6v2x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C6V2X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c6v8j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C6V8J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c75j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C75J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c7v5j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C7V5J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c8v2x",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C8V2X",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bzt52-c9v1j",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BZT52-C9V1J",
+      "category": "Diodes",
+      "type": "Zener diode",
+      "package": "SOD123",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BZT52 series datasheet",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BZT52_SER.pdf",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bzt52.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Reverse-breakdown behavior for this exact device has not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
