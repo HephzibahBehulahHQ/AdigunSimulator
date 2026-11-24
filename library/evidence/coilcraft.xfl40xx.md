@@ -1,0 +1,3 @@
+# Coilcraft XFL40xx ordering evidence
+
+The [XFL4012](https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl4012/), [XFL4015](https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl4015/), [XFL4020](https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl4020/), and [XFL4030](https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xfl/xfl4030/) manufacturer tables support four, five, ten, and five selected MEC order codes respectively. The records use the published nominal inductance and ±20% tolerance. Lifecycle, native mapping, model validation, and independent review remain pending.
