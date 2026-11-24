@@ -30,7 +30,11 @@ async function writeAsset(folder, filename, contents, metadata) {
   };
 }
 
-const xglLargerPackageDrawings = {
+const xglPackageDrawings = {
+  XGL3014: "https://www.coilcraft.com/getattachment/423929ad-4529-4944-b080-65c1ca232279/xgl3014d.gif?lang=en-US",
+  XGL3020: "https://www.coilcraft.com/getattachment/4753414e-ea78-4f3a-a3d1-d9d49c162fe7/xgl3020d.gif?lang=en-US",
+  XGL3512: "https://www.coilcraft.com/getattachment/4a249b9d-6851-469f-89db-b56209604f53/xgl3512d.gif?lang=en-US",
+  XGL3515: "https://www.coilcraft.com/getattachment/0cff0f7c-79c0-4655-a937-31a9fa8ef5df/xgl3515d.gif?lang=en-US",
   XGL5030: "https://www.coilcraft.com/getattachment/e86c5bb4-0f92-4a0b-b413-3aa80ed05c9d/xgl5030d.gif?lang=en-US",
   XGL5050: "https://www.coilcraft.com/getattachment/4c56b418-bd36-431c-88a5-dd680ae7e09d/xgl5050d.gif?lang=en-US",
   XGL6030: "https://www.coilcraft.com/getattachment/04af5f0e-159c-4c20-b5cf-d118de0d6d2a/xgl6030d.gif?lang=en-US",
@@ -45,6 +49,10 @@ const xglLargerPackageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const xglDimensions = {
+  XGL3014: [3, 3, 0.2, 1.4, 0.86, 3, 1.63],
+  XGL3020: [3, 3, 0.2, 2, 0.86, 3, 1.63],
+  XGL3512: [3.2, 3.5, 0.15, 1.2, 0.81, 3.2, 1.8],
+  XGL3515: [3.2, 3.5, 0.15, 1.5, 0.81, 3.2, 1.8],
   XGL6020: [6.51, 6.71, 0.2, 2.1, 1.43, 5.5, 4.04],
   XGL6030: [6.51, 6.71, 0.2, 3.1, 1.43, 5.5, 4.04],
   XGL6060: [6.51, 6.71, 0.2, 6.1, 1.43, 5.5, 4.04],
@@ -56,11 +64,12 @@ const xglDimensions = {
 };
 
 for (const record of ledger.records) {
-  const match = /^(XAL50[35]0|XGL(?:40[23]0|50[35]0|60[236]0|7015|7030|1060|1010|1313))-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
+  const match = /^(XAL50[35]0|XGL\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
   const [, packageCode, valueCode, reel] = match;
   if (reel !== (["XGL1010", "XGL1313"].includes(packageCode) ? "D" : "C")) continue;
-  const drawing = xglLargerPackageDrawings[packageCode];
+  const drawing = xglPackageDrawings[packageCode];
+  if (packageCode.startsWith("XGL") && !drawing && !templates[packageCode]) continue;
   const templateKey = packageCode.startsWith("XAL") || drawing ? "XAL" : packageCode;
   const { record: template, footprint: baseFootprint, symbol: baseSymbol } = templates[templateKey];
   const folder = `library/assets/footprints/${record.id}`;
