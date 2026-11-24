@@ -294523,6 +294523,1126 @@
         "compatible": false,
         "adapter": "Use a documented CST3015 fixture with a suitable secondary burden and verified isolation."
       }
+    },
+    {
+      "id": "coilcraft.wb1010-1-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1010-1-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1010-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1010-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1010-1-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1010-1-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1010-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1010-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb1010ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB1010LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb1010-1ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB1010-1LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb1015ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB1015LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb1040ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB1040LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1015-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1015-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1040-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1040-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb2010-1-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB2010-1-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb2010-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB2010-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb2040-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB2040-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3010-1-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3010-1-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3010-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3010-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3015-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3015-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3040-pcl",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3040-PCL",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB through-hole",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1015-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1015-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb1040-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB1040-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb2010-1-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB2010-1-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb2010-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB2010-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb2040-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB2040-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3010-1-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3010-1-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3010-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3010-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3015-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3015-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wb3040-smld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WB3040-SMLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc3-1tlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC3-1TLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc4-14lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC4-14LC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc4-1tlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC4-1TLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc4-1wlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC4-1WLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc4-4lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC4-4LC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc4-6tlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC4-6TLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc8-1lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC8-1LC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc9-1lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC9-1LC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-16-bld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-16-BLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-1-bld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-1-BLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb2010ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB2010LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb2010-1ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB2010-1LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb2040ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB2040LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-2-bld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-2-BLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-4-bld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-4-BLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-1-cld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-1-CLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-2-cld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-2-CLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb3010ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB3010LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb3010-1ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB3010-1LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb3015ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB3015LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb3040ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB3040LD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-4-cld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-4-CLD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc1-1lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC1-1LC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc1-1tlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC1-1TLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc16-1tlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC16-1TLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.wbc2-1tlc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "WBC2-1TLC",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "WBC surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft WBC RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/wbc/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-16-ald",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-16-ALD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-1-ald",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-1-ALD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-2-ald",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-2-ALD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.ttwb-4-ald",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "TTWB-4-ALD",
+      "category": "Passive components",
+      "type": "RF transformer",
+      "package": "TTWB surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft TTWB RF transformer specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/wideband-rf-transformers/smt/ttwb/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.wb-wbc-ttwb.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and broadband transformer behavior have not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
