@@ -4,17 +4,17 @@
     "placeableDefinitions": 364,
     "taxonomyTypes": 565,
     "taxonomyCategories": 15,
-    "manufacturerRecords": 11143,
+    "manufacturerRecords": 11178,
     "verifiedManufacturerRecords": 0,
     "byKind": {
       "generic-or-virtual-definition": 289,
       "software-instruction": 25,
       "hardware-oriented-definition": 50,
-      "manufacturer-record": 11143
+      "manufacturer-record": 11178
     },
     "manufacturerByStatus": {
       "in-review": 2,
-      "candidate": 11141
+      "candidate": 11176
     }
   },
   "records": [
@@ -760864,6 +760864,2316 @@
           "VERIFIED_EVIDENCE"
         ],
         "footprintEvidence": "manufacturer-recommended",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cs60-050l",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CS60-050L",
+      "package": "CS60 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs60/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cs60-075l",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CS60-075L",
+      "package": "CS60 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs60/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cs60-100l",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CS60-100L",
+      "package": "CS60 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs60/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-020ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-020LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-020lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-020LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-030ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-030LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-030lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-030LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-040ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-040LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cs4050v-01l",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CS4050V-01L",
+      "package": "CS4050V series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cs4100v-01l",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CS4100V-01L",
+      "package": "CS4100V series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cs4200v-01l",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CS4200V-01L",
+      "package": "CS4200V series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-120m22sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-120M22SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-33m22sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-33M22SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-50m22sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-50M22SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-33d3sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-33D3SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-50d3sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-50D3SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-120d3sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-120D3SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-195d3sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-195D3SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-240d3sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-240D3SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-33l2sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-33L2SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-50l2sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-50L2SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-90l2sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-90L2SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-120l2sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-120L2SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.fct1-150l2sld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "FCT1-150L2SLD",
+      "package": "FCT1 surface mount",
+      "category": "Passive components",
+      "function": "Power transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-040lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-040LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-050ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-050LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-050lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-050LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-060ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-060LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-060lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-060LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-070ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-070LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-070lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-070LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-100ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-100LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-100lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-100LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst1-125ld",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST1-125LD",
+      "package": "CST1 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
+        "simulation": "not-modelled"
+      }
+    },
+    {
+      "kind": "manufacturer-record",
+      "id": "coilcraft.cst2-125lc",
+      "manufacturer": "Coilcraft",
+      "partNumber": "CST2-125LC",
+      "package": "CST2 series",
+      "category": "Passive components",
+      "function": "Current transformer",
+      "pinMap": [],
+      "symbolAsset": null,
+      "footprintAsset": null,
+      "viewSupport": {
+        "breadboard": null,
+        "schematic": null,
+        "pcb": null
+      },
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "sources": [
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/"
+      ],
+      "readiness": {
+        "verification": "candidate",
+        "readyForHumanReview": false,
+        "missingEvidence": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "REVIEWER_IDENTITY",
+          "REVIEW_DATE",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "blockers": [
+          "BREADBOARD_COMPATIBILITY",
+          "DATASHEET_CHECKSUM",
+          "FOOTPRINT_ASSET_EVIDENCE",
+          "FOOTPRINT_PAD_MAP",
+          "LIFECYCLE_EVIDENCE",
+          "LIMITS_AND_ALTERNATES",
+          "PACKAGE_EVIDENCE",
+          "PIN_ELECTRICAL_TYPES",
+          "PIN_MAP_ALIGNMENT",
+          "RATINGS_UNITS",
+          "SYMBOL_ASSET_EVIDENCE",
+          "SYMBOL_PIN_MAP",
+          "TRANSLATIONS",
+          "TYPE_CODE",
+          "VERIFIED_EVIDENCE"
+        ],
+        "footprintEvidence": "not-recorded",
         "simulation": "not-modelled"
       }
     }

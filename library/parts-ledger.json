@@ -289396,6 +289396,706 @@
         "compatible": false,
         "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
+    },
+    {
+      "id": "coilcraft.cs60-050l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CS60-050L",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CS60 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CS60 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs60/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cs60-075l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CS60-075L",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CS60 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CS60 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs60/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cs60-100l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CS60-100L",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CS60 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CS60 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs60/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-020ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-020LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-020lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-020LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-030ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-030LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-030lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-030LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-040ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-040LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cs4050v-01l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CS4050V-01L",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CS4050V series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CS4XXXX specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cs4100v-01l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CS4100V-01L",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CS4100V series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CS4XXXX specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cs4200v-01l",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CS4200V-01L",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CS4200V series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CS4XXXX specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cs4xxxx/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-120m22sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-120M22SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXM22SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-33m22sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-33M22SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXM22SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-50m22sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-50M22SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXM22SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxm22sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-33d3sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-33D3SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXD3SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-50d3sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-50D3SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXD3SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-120d3sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-120D3SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXD3SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-195d3sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-195D3SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXD3SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-240d3sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-240D3SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXD3SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxd3sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-33l2sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-33L2SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXL2SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-50l2sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-50L2SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXL2SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-90l2sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-90L2SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXL2SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-120l2sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-120L2SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXL2SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.fct1-150l2sld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "FCT1-150L2SLD",
+      "category": "Passive components",
+      "type": "Power transformer",
+      "package": "FCT1 surface mount",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft FCT1-XXL2SL specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-converter-transformers/fct1-xxl2sl/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-040lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-040LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-050ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-050LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-050lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-050LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-060ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-060LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-060lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-060LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-070ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-070LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-070lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-070LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-100ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-100LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-100lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-100LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst1-125ld",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST1-125LD",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST1 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
+    },
+    {
+      "id": "coilcraft.cst2-125lc",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "CST2-125LC",
+      "category": "Passive components",
+      "type": "Current transformer",
+      "package": "CST2 series",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Coilcraft CST1-CST2 specifications and ordering table",
+        "url": "https://www.coilcraft.com/en-us/products/transformers/power-transformers/current-sensing/cst1-cst2/",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.fct-current-transformers.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
