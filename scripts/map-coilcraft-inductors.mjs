@@ -8,7 +8,7 @@ const read = name => readFile(path(name), "utf8");
 const readJson = async name => JSON.parse(await read(name));
 const json = data => JSON.stringify(data, null, 2) + "\n";
 const ledger = await readJson("library/parts-ledger.json");
-const templateIds = { XAL: "coilcraft.xal5030-102mec", XGL: "coilcraft.xgl4030-102mec" };
+const templateIds = { XAL: "coilcraft.xal5030-102mec", XGL4020: "coilcraft.xgl4020-102mec", XGL4030: "coilcraft.xgl4030-102mec" };
 const templates = {};
 for (const [series, id] of Object.entries(templateIds)) {
   const record = ledger.records.find(part => part.id === id);
@@ -31,10 +31,10 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 for (const record of ledger.records) {
-  const match = /^(XAL50[35]0|XGL4030)-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
+  const match = /^(XAL50[35]0|XGL40[23]0)-(\d{3})MEC$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
   const [, packageCode, valueCode] = match;
-  const { record: template, footprint: baseFootprint, symbol: baseSymbol } = templates[packageCode.slice(0, 3)];
+  const { record: template, footprint: baseFootprint, symbol: baseSymbol } = templates[packageCode.startsWith("XAL") ? "XAL" : packageCode];
   const folder = `library/assets/footprints/${record.id}`;
   const footprint = structuredClone(baseFootprint);
   footprint.partId = record.id;
