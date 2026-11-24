@@ -1,6 +1,6 @@
 # Nexperia BZX84 ordering evidence
 
-The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx84-series/) lists these 95 active order codes, with one packaging option per base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf) describes the SOT23 package and electrical characteristics. The pin map is recorded in the symbols. PCB mapping, model validation, and independent review remain pending.
+The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener-diodes/serie/bzx84-series/) lists these 95 active order codes, with one packaging option per base type. The [series datasheet](https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf) describes the SOT23 package and electrical characteristics. The pin map is recorded in the symbols. Model validation and independent review remain pending.
 
 | Order code | 12NC |
 | --- | --- |
@@ -102,4 +102,8 @@ The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener
 
 ## Schematic mapping
 
-Nexperia’s BZX84 datasheet lists pin 1 as anode, pin 2 as unconnected, and pin 3 as cathode. The symbols preserve those assignments. Direct breadboard placement requires a documented SOT23 breakout. Figure 12 identifies the recommended reflow footprint. Copper dimensions and centers still require visual confirmation against the drawing before a footprint is published.
+Nexperia’s BZX84 datasheet lists pin 1 as anode, pin 2 as unconnected, and pin 3 as cathode. The symbols preserve those assignments. Direct breadboard placement requires a documented SOT23 breakout.
+
+## PCB mapping
+
+Figure 12 of the datasheet specifies three 0.60 × 0.70 mm copper lands. The paired lands are 1.90 mm apart and the two rows are 2.00 mm apart, center to center. The asset follows the top-view pin orientation in Table 2 and includes the unconnected land for pin 2. Board-rule checks and native breakdown model validation remain pending.

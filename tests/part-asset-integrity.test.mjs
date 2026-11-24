@@ -185,3 +185,23 @@ test("FCT1 variants preserve numbered lands and the D3SL sync winding", async ()
     }
   }
 });
+
+test("BZX84 reflow footprints preserve the top-view pinout and copper land geometry", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  const diodes = records.filter((record) => record.evidenceNote === "library/evidence/nexperia.bzx84.md");
+  assert.equal(diodes.length, 95);
+  for (const diode of diodes) {
+    const footprint = await load(`../${diode.footprintEvidence.assetPath}`);
+    assert.deepEqual(footprint.padPattern, {
+      shape: "rectangle", widthMm: 0.6, heightMm: 0.7, pitchMm: 1.9, rowCenterSpacingMm: 2
+    });
+    assert.deepEqual(footprint.pads, [
+      { number: "1", xMm: -0.95, yMm: 1 },
+      { number: "2", xMm: 0.95, yMm: 1 },
+      { number: "3", xMm: 0, yMm: -1 }
+    ]);
+    assert.deepEqual(diode.symbolPinMap, { 1: "Anode", 2: "No connection", 3: "Cathode" });
+    assert.equal(diode.simulationModel.status, "not-modelled");
+  }
+});
