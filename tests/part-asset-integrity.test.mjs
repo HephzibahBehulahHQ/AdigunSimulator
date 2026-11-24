@@ -98,7 +98,7 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 1323);
+  assert.equal(records.length, 1520);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
 
@@ -262,6 +262,28 @@ test("BZT52 maps cathode to pin 1 and uses copper dimensions from the SOD123 dra
     assert.deepEqual(footprint.pads, [
       { number: "1", xMm: -1.635, yMm: 0 },
       { number: "2", xMm: 1.635, yMm: 0 }
+    ]);
+  }
+});
+
+test("BZX38450 and BZX884 preserve package-specific copper shapes", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  const diodes = records.filter((record) => record.evidenceNote === "library/evidence/nexperia.bzx38450-bzx884.md");
+  assert.equal(diodes.length, 197);
+  const patterns = {
+    SOD323: { shape: "rectangle", widthMm: 0.6, heightMm: 0.6, rowCenterSpacingMm: 2.2 },
+    SOD882: { shape: "rounded-rectangle", widthMm: 0.4, heightMm: 0.7, cornerRadiusMm: 0.05, rowCenterSpacingMm: 0.7 }
+  };
+  for (const diode of diodes) {
+    const footprint = await load(`../${diode.footprintEvidence.assetPath}`);
+    const expected = patterns[diode.package];
+    const halfSpacing = expected.rowCenterSpacingMm / 2;
+    assert.deepEqual(diode.symbolPinMap, { 1: "Cathode", 2: "Anode" });
+    assert.deepEqual(footprint.padPattern, expected);
+    assert.deepEqual(footprint.pads, [
+      { number: "1", xMm: -halfSpacing, yMm: 0 },
+      { number: "2", xMm: halfSpacing, yMm: 0 }
     ]);
   }
 });

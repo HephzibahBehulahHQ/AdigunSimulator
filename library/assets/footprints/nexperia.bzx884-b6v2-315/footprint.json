@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "nexperia.bzx884-b6v2-315",
+  "package": "Nexperia SOD882",
+  "view": "top",
+  "units": "mm",
+  "padPattern": {
+    "shape": "rounded-rectangle",
+    "widthMm": 0.4,
+    "heightMm": 0.7,
+    "cornerRadiusMm": 0.05,
+    "rowCenterSpacingMm": 0.7
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -0.35,
+      "yMm": 0
+    },
+    {
+      "number": "2",
+      "xMm": 0.35,
+      "yMm": 0
+    }
+  ],
+  "limitations": [
+    "Pin 1 is the cathode at the marking bar.",
+    "Verify solder paste, solder mask, and board clearances for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

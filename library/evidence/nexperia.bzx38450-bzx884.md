@@ -1,6 +1,6 @@
 # Nexperia BZX38450 and BZX884 ordering evidence
 
-Each selected manufacturer type contributes one exact order code. Native mapping, model validation, and independent review remain pending.
+Each selected manufacturer type contributes one exact order code. Native breakdown model validation and independent review remain pending.
 
 ## BZX38450
 
@@ -219,3 +219,7 @@ The [manufacturer ordering table](https://www.nexperia.com/products/diodes/zener
 | BZX884-C7V5,315 | 934057220315 |
 | BZX884-C8V2,315 | 934057221315 |
 | BZX884-C9V1,315 | 934057222315 |
+
+## Pin and PCB mapping
+
+All three series identify pin 1 as cathode at the marking bar and pin 2 as anode. Figure 10 in the BZX38450 and BZX38450-Q data sheets specifies two 0.60 × 0.60 mm copper lands on 2.20 mm centers. Figure 12 in the BZX884 data sheet specifies two 0.40 × 0.70 mm copper lands on 0.70 mm centers with 0.05 mm corner radii. The SOD882 footprint records the rounded copper outline. Board-level checks and breakout validation remain pending.
