@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 204" role="img" aria-label="Transformer winding diagram">
+  <title>Coilcraft POE300F-50LD</title>
+  <path d="M 75 18 V 173 M 81 18 V 173" stroke="currentColor" fill="none" />
+  <path d="M 14 22 H 65" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Primary 1 start" data-electrical-type="passive" />
+  <text x="14" y="18" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="1">1</text>
+  <path d="M 14 58 H 65" stroke="currentColor" fill="none" data-pin="3" data-pin-name="Primary 1 end" data-electrical-type="passive" />
+  <text x="14" y="54" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="3">3</text>
+  <path d="M 65 22 a 6 6 0 0 0 0 12 a 6 6 0 0 0 0 12 a 6 6 0 0 0 0 12" stroke="currentColor" fill="none" />
+  <circle cx="59" cy="27" r="1.5" fill="currentColor" />
+  <path d="M 14 76 H 65" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Primary 2 start" data-electrical-type="passive" />
+  <text x="14" y="72" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="2">2</text>
+  <path d="M 14 112 H 65" stroke="currentColor" fill="none" data-pin="4" data-pin-name="Primary 2 end" data-electrical-type="passive" />
+  <text x="14" y="108" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="4">4</text>
+  <path d="M 65 76 a 6 6 0 0 0 0 12 a 6 6 0 0 0 0 12 a 6 6 0 0 0 0 12" stroke="currentColor" fill="none" />
+  <circle cx="59" cy="81" r="1.5" fill="currentColor" />
+  <path d="M 14 130 H 65" stroke="currentColor" fill="none" data-pin="5" data-pin-name="Auxiliary start" data-electrical-type="passive" />
+  <text x="14" y="126" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="5">5</text>
+  <path d="M 14 166 H 65" stroke="currentColor" fill="none" data-pin="6" data-pin-name="Auxiliary end" data-electrical-type="passive" />
+  <text x="14" y="162" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="6">6</text>
+  <path d="M 65 130 a 6 6 0 0 0 0 12 a 6 6 0 0 0 0 12 a 6 6 0 0 0 0 12" stroke="currentColor" fill="none" />
+  <circle cx="59" cy="135" r="1.5" fill="currentColor" />
+  <path d="M 142 22 H 91" stroke="currentColor" fill="none" data-pin="12" data-pin-name="Secondary 1 start" data-electrical-type="passive" />
+  <text x="142" y="18" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="12">12</text>
+  <path d="M 142 58 H 91" stroke="currentColor" fill="none" data-pin="7" data-pin-name="Secondary 1 end" data-electrical-type="passive" />
+  <text x="142" y="54" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="7">7</text>
+  <path d="M 91 22 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12" stroke="currentColor" fill="none" />
+  <circle cx="97" cy="27" r="1.5" fill="currentColor" />
+  <path d="M 142 76 H 91" stroke="currentColor" fill="none" data-pin="11" data-pin-name="Secondary 2 start" data-electrical-type="passive" />
+  <text x="142" y="72" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="11">11</text>
+  <path d="M 142 112 H 91" stroke="currentColor" fill="none" data-pin="8" data-pin-name="Secondary 2 end" data-electrical-type="passive" />
+  <text x="142" y="108" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="8">8</text>
+  <path d="M 91 76 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12" stroke="currentColor" fill="none" />
+  <circle cx="97" cy="81" r="1.5" fill="currentColor" />
+  <path d="M 142 130 H 91" stroke="currentColor" fill="none" data-pin="10" data-pin-name="Secondary 3 start" data-electrical-type="passive" />
+  <text x="142" y="126" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="10">10</text>
+  <path d="M 142 166 H 91" stroke="currentColor" fill="none" data-pin="9" data-pin-name="Secondary 3 end" data-electrical-type="passive" />
+  <text x="142" y="162" text-anchor="middle" font-size="9" fill="currentColor" data-pin-label-for="9">9</text>
+  <path d="M 91 130 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12" stroke="currentColor" fill="none" />
+  <circle cx="97" cy="135" r="1.5" fill="currentColor" />
+  <text x="78" y="193" text-anchor="middle" font-size="8" fill="currentColor">Board ties: 1=2, 3=4, 10=11=12, 7=8=9</text>
+</svg>

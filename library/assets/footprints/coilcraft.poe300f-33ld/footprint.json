@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.poe300f-33ld",
+  "package": "Coilcraft POE300F",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 30,
+    "lengthMaxMm": 20.57,
+    "heightMaxMm": 11.43,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/94dd003b-911a-4447-a368-7f9bc753b582/poe300d.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 3.3,
+    "heightMm": 1.27,
+    "rowCenterSpacingMm": 26.92,
+    "pitchMm": 3
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -13.46,
+      "yMm": -7.5
+    },
+    {
+      "number": "2",
+      "xMm": -13.46,
+      "yMm": -4.5
+    },
+    {
+      "number": "3",
+      "xMm": -13.46,
+      "yMm": -1.5
+    },
+    {
+      "number": "4",
+      "xMm": -13.46,
+      "yMm": 1.5
+    },
+    {
+      "number": "5",
+      "xMm": -13.46,
+      "yMm": 4.5
+    },
+    {
+      "number": "6",
+      "xMm": -13.46,
+      "yMm": 7.5
+    },
+    {
+      "number": "7",
+      "xMm": 13.46,
+      "yMm": 7.5
+    },
+    {
+      "number": "8",
+      "xMm": 13.46,
+      "yMm": 4.5
+    },
+    {
+      "number": "9",
+      "xMm": 13.46,
+      "yMm": 1.5
+    },
+    {
+      "number": "10",
+      "xMm": 13.46,
+      "yMm": -1.5
+    },
+    {
+      "number": "11",
+      "xMm": 13.46,
+      "yMm": -4.5
+    },
+    {
+      "number": "12",
+      "xMm": 13.46,
+      "yMm": -7.5
+    }
+  ],
+  "limitations": [
+    "Pin 1 is at the upper left in the manufacturer top view.",
+    "Connect terminals together on the PCB in each group: 1, 2; 3, 4; 10, 11, 12; 7, 8, 9.",
+    "Parts manufactured before February 2012 may be marked differently.",
+    "Review isolation, solder mask, paste and courtyard before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
