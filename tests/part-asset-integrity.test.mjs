@@ -98,7 +98,7 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 701);
+  assert.equal(records.length, 734);
   assert.deepEqual(result, { valid: true, errors: [] });
 });
 
@@ -140,5 +140,29 @@ test("Coilcraft PoE variants preserve pin 1 and the required PCB winding ties", 
     assert.equal(footprint.limitations.find((line) => line.startsWith("Connect terminals")),
       ties ? `Connect terminals together on the PCB in each group: ${ties}.` : undefined);
     assert.equal(record.simulationModel.status, "not-modelled");
+  }
+});
+
+test("Coilcraft PoE package variants preserve omitted lands and winding starts", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  const poEParts = records.filter((part) => part.evidenceNote === "library/evidence/coilcraft.poe-power-transformers.md");
+  assert.equal(poEParts.length, 66);
+  assert.ok(poEParts.every((part) => part.symbolAsset && part.footprintAsset));
+  for (const [id, pinCount, firstPadY, starts] of [
+    ["poe30p-33ld", 8, 3.75, [3, 2, 6, 5]],
+    ["poe70p-33ld", 8, 3.75, [3, 2, 6, 5]],
+    ["poe13p-33ld", 10, 5, [3, 2, 8, 7]],
+    ["poe60f-33ld", 10, -6.25, [1, 2, 3, 5, 6]],
+    ["poe60d-33ld", 12, -6.25, [5, 4, 6, 11, 10]]
+  ]) {
+    const part = poEParts.find((record) => record.id === `coilcraft.${id}`);
+    const footprint = await load(`../${part.footprintEvidence.assetPath}`);
+    assert.equal(footprint.pads.length, pinCount);
+    assert.equal(footprint.pads[0].yMm, firstPadY);
+    assert.ok(starts.every((pin) => part.symbolPinMap[pin].endsWith(" start")));
+    if (id.startsWith("poe60f")) {
+      assert.ok(footprint.pads.every(({ number }) => number !== "4" && number !== "9"));
+    }
   }
 });
