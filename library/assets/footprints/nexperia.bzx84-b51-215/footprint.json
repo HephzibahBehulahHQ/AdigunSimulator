@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "nexperia.bzx84-b51-215",
+  "package": "Nexperia SOT23 (TO-236AB)",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 3,
+    "lengthMaxMm": 1.4,
+    "heightMaxMm": 1.1,
+    "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 0.6,
+    "heightMm": 0.7,
+    "pitchMm": 1.9,
+    "rowCenterSpacingMm": 2
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -0.95,
+      "yMm": 1
+    },
+    {
+      "number": "2",
+      "xMm": 0.95,
+      "yMm": 1
+    },
+    {
+      "number": "3",
+      "xMm": 0,
+      "yMm": -1
+    }
+  ],
+  "limitations": [
+    "Land pattern is rotated to match the top-view pinning from Table 2. Pin 2 has a physical land and must remain electrically unconnected.",
+    "Verify solder mask, paste and board clearances for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

@@ -298623,6 +298623,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a12-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a12-215/footprint.json",
+        "sha256": "9fd1fdb5e259f9be5012a845f26fb3235c8ed9129efdaa9313e0faab6ddd60bc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298668,6 +298685,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a13-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a13-215/footprint.json",
+        "sha256": "9ee6449cf0a76676b001971b414e9008e800fedcb0de62cbcc01b4b69799187d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298713,6 +298747,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a15-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a15-215/footprint.json",
+        "sha256": "b93620e276f92dcf733f0e4d209d60d9e7a551a4ac2b8152a38c1665c6206f1a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298758,6 +298809,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a16-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a16-215/footprint.json",
+        "sha256": "f381483804e18815fccdce0aa01e96484f9c9b5837800123f025d67065f1c40d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298803,6 +298871,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a18-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a18-215/footprint.json",
+        "sha256": "1bab69ac0e7ab11292f7a576791a23e69157565cedafe154547fae6dd86fd974",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298848,6 +298933,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a20-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a20-215/footprint.json",
+        "sha256": "7d140b655de5eb559e45caae6e1592446809fa01a5b76c85ac68c12ef528ade2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298893,6 +298995,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a22-235/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a22-235/footprint.json",
+        "sha256": "e2eec0670be6255f5e7498fe0afa06cacaaf085e30b68ba4c82f1e0f49bc3cc1",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298938,6 +299057,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a24-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a24-215/footprint.json",
+        "sha256": "feadb253ad72857dfa7ae406fab66810ba0c0ed642814478e6f6ff3fe039c5c0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -298983,6 +299119,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a27-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a27-215/footprint.json",
+        "sha256": "4705b0749905a12c29324fa93d4553af6e57f8e1e2f39126b5c96059ed8d3013",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299028,6 +299181,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a2v4-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a2v4-215/footprint.json",
+        "sha256": "d0c29d5f0cb2bbfb42b3cb94b5f836bc84297a366a4f01e45c2c528090e67121",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299073,6 +299243,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a2v7-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a2v7-215/footprint.json",
+        "sha256": "4a376fe9881032d517f104a2c7f620e54be8f81bbe45876d85e25ac903bf1a9a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299118,6 +299305,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a30-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a30-215/footprint.json",
+        "sha256": "942cf59f0908d547c17f582e381d2c63737f02567ce33481648b9dedd067d224",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299163,6 +299367,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a33-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a33-215/footprint.json",
+        "sha256": "92d25d176b782a2889a1fd99a9801b6afd58ac54f650d14dfc71189f0bfcebed",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299208,6 +299429,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a36-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a36-215/footprint.json",
+        "sha256": "829ac86bf7cf9319672cd4c73981c3ea1d6d2ff24de0b6478626058f2d2baf62",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299253,6 +299491,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a39-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a39-215/footprint.json",
+        "sha256": "bb2f5c2b52456079cfc0310243c12136f907f7c8fae22bbeeea002a83dca77a3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299298,6 +299553,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a3v0-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a3v0-215/footprint.json",
+        "sha256": "d0ce2c97ec944709dc0630bb8abdced2d89fa7b6652c3b63798aba52a990074c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299343,6 +299615,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a3v3-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a3v3-215/footprint.json",
+        "sha256": "7038f48b0f6384c2c0c7a21ff2b5fd3dfac896e299bdb772efda4aaf41280f88",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299388,6 +299677,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a3v6-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a3v6-215/footprint.json",
+        "sha256": "0606c4ed0a7facd9874f820b0f7b14e72a6cd194c6d37f25967b4ed57dc2e0f6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299433,6 +299739,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a3v9-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a3v9-215/footprint.json",
+        "sha256": "8652c96770dfc936af97503451eea3ed17a1a03f8c32bc50aa891a4d88b8c6f0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299478,6 +299801,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a43-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a43-215/footprint.json",
+        "sha256": "a9730c2ce5f90ec8f1f3b7f61753d1781b90abfb0415db804d3236936447d997",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299523,6 +299863,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a4v3-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a4v3-215/footprint.json",
+        "sha256": "59f976df6c7016c57d9fdbc164ee49fb2171a385302c8b0a9003370362b87f9a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299568,6 +299925,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a4v7-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a4v7-215/footprint.json",
+        "sha256": "455b3c1b41542191d3bfacb2cdf2c5a93ba89904fe13d0f3e78e3e2b87b0f209",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299613,6 +299987,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a51-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a51-215/footprint.json",
+        "sha256": "8ce608fca999093b53d81595833677c724c72d18045e62954a2a56eb13687058",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299658,6 +300049,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a5v1-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a5v1-215/footprint.json",
+        "sha256": "921ddc124089f882f0badda410170d7a8760f8da5a946b3b9ad992785ef915e0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299703,6 +300111,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a5v6-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a5v6-215/footprint.json",
+        "sha256": "4a21695fc591b4d54c02d2d80a843019794249f3da1199f3b7ed095ef547bc5b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299748,6 +300173,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a6v2-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a6v2-215/footprint.json",
+        "sha256": "ad752385446648b56440d05cf23df37488e7c9ba24302873b43efeb1c4dd7b1a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299793,6 +300235,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a6v8-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a6v8-215/footprint.json",
+        "sha256": "a078db1521b580fff29659b2093d9aded325a52cbc4a05bd4ba9060c480b0662",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299838,6 +300297,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a75-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a75-215/footprint.json",
+        "sha256": "89adc7f8d71e52e0e465aa31ed89a00da4a0c97b1ae0c885d46b29689c700f5f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299883,6 +300359,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a7v5-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a7v5-215/footprint.json",
+        "sha256": "fcb1ac6eab2ad9286638a9a82a0d307192bb26680bf91a72d61bef3a51536011",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299928,6 +300421,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a8v2-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a8v2-215/footprint.json",
+        "sha256": "7361e0861c5f517b6ac64fdb495e8c4e402a780ffb9a19b889df96e59c25e87e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -299973,6 +300483,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-a9v1-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-a9v1-215/footprint.json",
+        "sha256": "ca361a3787b9f93c61faf3c52147e02c88a139b6f717f41fefd4009d3dbb34f5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300018,6 +300545,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b10-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b10-215/footprint.json",
+        "sha256": "ec2afd29392cfa8e0f70527def4bac0758ce07d86da4feebdffd990f13d71d37",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300063,6 +300607,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b11-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b11-215/footprint.json",
+        "sha256": "894eb0bbeb6391343e61a3d0fdda5422bf6eaf58a1ea6f3257e5ec0cb10238bf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300108,6 +300669,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b12-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b12-215/footprint.json",
+        "sha256": "2568dbc0153928cd264d93d30a79a988f2d7717b90c570ef2181b88e5fc00e97",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300153,6 +300731,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b13-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b13-215/footprint.json",
+        "sha256": "e3a7274840c49a67fa1bcabe970f095926ea5d1808c4fcd69671c7f182ad58f2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300198,6 +300793,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b15-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b15-215/footprint.json",
+        "sha256": "7f159ab3ce02920693dc3d1ccc672d54f8e0d5b05660eaa64b605c5f9e07ed08",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300243,6 +300855,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b16-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b16-215/footprint.json",
+        "sha256": "e67dd47ccc2cab34f3a7745498891df724bd225180b395bee4adbee52133c99e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300288,6 +300917,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b18-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b18-215/footprint.json",
+        "sha256": "0bdfd765236c4d076151d3c16d294d7b272e3ba698f8ed9e55cea82e1103e620",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300333,6 +300979,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b20-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b20-215/footprint.json",
+        "sha256": "14f774799b123f3fbe27db5eef59eb2416e9d15e5d90a5f42906de484eb3cd4b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300378,6 +301041,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b22-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b22-215/footprint.json",
+        "sha256": "2a911bdb325defa05c1cb23aa0dc00d80d9d9d9e6db2baa446c9a7db8dc2fbc7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300423,6 +301103,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b24-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b24-215/footprint.json",
+        "sha256": "5d38931e135430c7f38ed75f98019b95de0bd0dcdd9290804af157b67a29eba6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300468,6 +301165,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b27-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b27-215/footprint.json",
+        "sha256": "0817a1f6723614b5c0f1ae205fbb76fb7c02ea6c8e2bd83b9c0fed228666ad2e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300513,6 +301227,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b2v4-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b2v4-215/footprint.json",
+        "sha256": "d1404479397b92f7f5ff403fa6d5f78c9ae88036750f45dae295fde2075b2839",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300558,6 +301289,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b33-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b33-215/footprint.json",
+        "sha256": "edb05522d3442bfdf9b9c350a67c3d50168479807e4f256fe7607a80b704625f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300603,6 +301351,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b36-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b36-215/footprint.json",
+        "sha256": "773e1151b0fcac1d34cef4bd8c560c9e1cf1bed3665ba8280877c5e3edbd1b2c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300648,6 +301413,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b39-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b39-215/footprint.json",
+        "sha256": "f548fa44f38cf6a4eba3ed0c62cae98b5b5f6d36eb5a7dff851ba04c4c127ec7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300693,6 +301475,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b3v0-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b3v0-215/footprint.json",
+        "sha256": "924adbd639daa412198cc92c8a8f2694eff55791c58dc12deffab635726bbce6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300738,6 +301537,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b3v3-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b3v3-215/footprint.json",
+        "sha256": "6d52d2cbd5f4747947833a10f4a5ac169941725dcf95ea7eb5173cf4db692a97",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300783,6 +301599,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b3v6-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b3v6-215/footprint.json",
+        "sha256": "8d3d64562ba9d2bb26e3e8cdc5ba87408be297eb686dfa080e4d650c4630fc9c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300828,6 +301661,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b3v9-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b3v9-215/footprint.json",
+        "sha256": "ea7e2031a3763840bb2256c4394e31bc1ad3aeb24e4ea220b21edb7f3e541aff",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300873,6 +301723,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b43-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b43-215/footprint.json",
+        "sha256": "ac11504f3467261c1833f04b0b239c81e4581caee026b2010a038adfcbfb2276",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300918,6 +301785,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b47-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b47-215/footprint.json",
+        "sha256": "c7ee7d55b33af9c0fd221b76a8656ef0f58715d256cc5a6f7f96a168d7fbc7a0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -300963,6 +301847,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b4v3-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b4v3-215/footprint.json",
+        "sha256": "6d67de95274acc9617a3c928303e52a2cabca1932459e6efecc8e7aa273b68bd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301008,6 +301909,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b4v7-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b4v7-215/footprint.json",
+        "sha256": "7601531abf4ac011a4f26a8c879cc86898d3b4bad0461d36a208b93895ba4010",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301053,6 +301971,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b51-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b51-215/footprint.json",
+        "sha256": "5d55270dce7e0218349e7269d3de90537e5f1458ae1f9a39b987e591b3a697c3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301098,6 +302033,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b56-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b56-215/footprint.json",
+        "sha256": "50f1f43f03ec3a70ef80ed8cdab251056e52f2f6fdcc72facb60b0325caf6cc0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301143,6 +302095,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b5v1-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b5v1-215/footprint.json",
+        "sha256": "42c9febe19b7e2d061222b5d38c45aaf96cf928217afe0c5e963a3496a17a2e3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301188,6 +302157,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b5v6-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b5v6-215/footprint.json",
+        "sha256": "c56d5b4cfe3a634de68c35394f1c380000ebe02fa6d1bbf543b68e217704fd5f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301233,6 +302219,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b62-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b62-215/footprint.json",
+        "sha256": "5d8b1273f7793c2e8dc869c40cbcf2c5c5afb46dda7a38b7688ed87be22f4e51",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301278,6 +302281,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b68-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b68-215/footprint.json",
+        "sha256": "d27e148851d5a9178a8123385ed100a28ec21214392443ee1e020c82398e8a1c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301323,6 +302343,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b6v2-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b6v2-215/footprint.json",
+        "sha256": "2fb34e386e8b70dfe1f044a0836224cc81727b927e6479b3bba02b96e58c0fb4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301368,6 +302405,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b6v8-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b6v8-215/footprint.json",
+        "sha256": "5dae98cac6634af850b1f9415b1166dfe9e73b57903567597617c7bc3effb596",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301413,6 +302467,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b75-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b75-215/footprint.json",
+        "sha256": "b5326951d8b389428850b17a21cd87f3911ce3c49ebf78c03d6308bc5ca4f329",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301458,6 +302529,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b7v5-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b7v5-215/footprint.json",
+        "sha256": "905355e41048f826a478b751b6e2edec2be1b9ef1142ca3914bdffb0ce1128d5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301503,6 +302591,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b8v2-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b8v2-215/footprint.json",
+        "sha256": "c6ca05759a122b4f801ad785c60e7cc40d3678a51beaf67341f9c92b3831a3d5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301548,6 +302653,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-b9v1-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-b9v1-215/footprint.json",
+        "sha256": "87058c1b7c954e5973ed43f9846b620bc18cd517c70e125bd9b3d4edcead9b4d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301593,6 +302715,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c10-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c10-215/footprint.json",
+        "sha256": "d4a66b98db4def8808db7d207e8bb2191a14548f1b01de5270a6e89b3ecf8bf8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301638,6 +302777,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c11-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c11-215/footprint.json",
+        "sha256": "616f9484dff4a135b3ebcbfe998b61a86ee481c236510ad9922a3a1c58be051f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301683,6 +302839,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c12-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c12-215/footprint.json",
+        "sha256": "4dfa84f012bad49446e0b0b54b5c7ec2d727be0b0986bd4d39a67bd58e39bb4c",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301728,6 +302901,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c15-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c15-215/footprint.json",
+        "sha256": "e2e0315b689a504762a0307b5a87dca21792c50a8a14d62e34646473b6e75b98",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301773,6 +302963,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c16-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c16-215/footprint.json",
+        "sha256": "564656e13287190aebbeee838c151d8562ba0ec920c489cfc8ed3c80f6a67bb0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301818,6 +303025,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c18-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c18-215/footprint.json",
+        "sha256": "98df518b189da7171044ea6f8f5b448786e6a9c1eb5c0cd62211e8b701d20356",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301863,6 +303087,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c20-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c20-215/footprint.json",
+        "sha256": "1a99130210d2ee16e31acb6c118865eed0de84f7f017e30120595ab8a418eeca",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301908,6 +303149,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c24-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c24-215/footprint.json",
+        "sha256": "6198c8aa1fd244ecbc114cbabe8f7003832fd8e7c778b2026129d039b6aa0686",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301953,6 +303211,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c27-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c27-215/footprint.json",
+        "sha256": "c8fe9ca7b888b87a82fb36adfe2976c014733bbf2bd7e596b7f94a3ecccc196b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -301998,6 +303273,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c2v4-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c2v4-215/footprint.json",
+        "sha256": "1a80c27b258e82ba90f4a383df7728034a622f68bb9514d4bb35abfdb543982f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302043,6 +303335,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c2v7-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c2v7-215/footprint.json",
+        "sha256": "152c590adbe42c49adf047940ef6881bfacf1cec2633d6025eb0ab1b35c8c7c7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302088,6 +303397,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c30-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c30-215/footprint.json",
+        "sha256": "6b3fc0e53c24a6fda99e04b63b1523d40e4b1dd8ccbbf46d95935b30029cf16f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302133,6 +303459,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c33-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c33-215/footprint.json",
+        "sha256": "efae0fd556d40af18e4a80abe8cf8c532fc4372fb0de0d961d74e180b4deee67",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302178,6 +303521,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c36-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c36-215/footprint.json",
+        "sha256": "be3e754ada483240f3609fca70b9d5d52036b42d460fbc01e40e3636b70a5176",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302223,6 +303583,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c39-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c39-215/footprint.json",
+        "sha256": "7c72229d7754ef8628d295b4eb422124ab617ebb889e1360a36e1457f919189d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302268,6 +303645,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c3v0-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c3v0-215/footprint.json",
+        "sha256": "04cd70d5678d6a45a2a0e2ecb146194cd6cdab59f5bdf36dbbd11079bc9f9684",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302313,6 +303707,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c3v3-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c3v3-215/footprint.json",
+        "sha256": "60a2b4d6cb2f9523b51f9b8f0382c40fdb8011f67b5d9d3aee2155519978fd72",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302358,6 +303769,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c43-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c43-215/footprint.json",
+        "sha256": "2c14b53f58be4a0b7e02ec7ffcd871702f74fcb330f23b5a8bd47724a554697f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302403,6 +303831,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c4v3-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c4v3-215/footprint.json",
+        "sha256": "c6c7d2745e7050117d56aa3bd31465e0dd3d50f6e47911d69e21c68b2a9c6982",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302448,6 +303893,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c4v7-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c4v7-215/footprint.json",
+        "sha256": "a7af0282988f9eedd8220c0295e2620607ea397c8db3794d729a9bc08fea7440",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302493,6 +303955,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c51-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c51-215/footprint.json",
+        "sha256": "83583feecae10ecda06f2a46e14e8c29ec9e9b20d425ac40cc9731497e7c9e36",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302538,6 +304017,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c5v6-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c5v6-215/footprint.json",
+        "sha256": "464ed19d1828359ab263268cf7054885675bbf93386053c759a3c32443b09454",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302583,6 +304079,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c62-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c62-215/footprint.json",
+        "sha256": "b450bcac84aeff973e94a962c61106623271133f6b005dc95708e9d764c343cb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302628,6 +304141,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c68-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c68-215/footprint.json",
+        "sha256": "5675e5669fa6544f837df07cb6fee5027f77cee0b529ce493d8931b7910fba52",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302673,6 +304203,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c6v2-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c6v2-215/footprint.json",
+        "sha256": "dd7a3af34b905b0348712647b0f94da17cf35007529febba47f6d9419d8ed76b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302718,6 +304265,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c75-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c75-215/footprint.json",
+        "sha256": "d905491ca1ce362205e7b6aad16623ad6a4ad560c196743d8ce853a1ed0ea778",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302763,6 +304327,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c7v5-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c7v5-215/footprint.json",
+        "sha256": "67839d5b7e0898732e3f58fa4fef8efc435ddd588f4514a4663ca9fb5311c1bb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302808,6 +304389,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c8v2-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c8v2-215/footprint.json",
+        "sha256": "88bd257d530546acc8a30f7d5d61722f939f881c0d7c6622e2a02eb5656ef251",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -302853,6 +304451,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that maps pin 1 to anode and pin 3 to cathode. Leave pin 2 unconnected."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bzx84-c9v1-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/data-sheet/BZX84_SER.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bzx84-c9v1-215/footprint.json",
+        "sha256": "8b7ad185aede416f53b99bfdeff5fe1827cd7750519f7891875560e0eb1547e5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     }
   ],
