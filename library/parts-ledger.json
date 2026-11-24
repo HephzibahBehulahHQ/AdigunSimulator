@@ -341652,6 +341652,186 @@
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
       }
+    },
+    {
+      "id": "nexperia.bcp51-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP51,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP51 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/series/BCP51-BCX51-BC51PA.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp51-10-135",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP51-10,135",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP51 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/series/BCP51-BCX51-BC51PA.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp51-16-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP51-16,115",
+      "category": "Transistors",
+      "type": "PNP medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP51 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/series/BCP51-BCX51-BC51PA.html",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp55-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP55,115",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP55 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp55-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp55-10-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP55-10,115",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP55 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp55-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp55-16-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP55-16,115",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP55 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp55-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp56-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP56,115",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP56 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp56-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp56-10-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP56-10,115",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP56 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp56-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bcp56-16-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BCP56-16,115",
+      "category": "Transistors",
+      "type": "NPN medium-power bipolar transistor",
+      "package": "SOT223",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BCP56 product specifications and ordering table",
+        "url": "https://www.nexperia.com/products/bipolar-transistors/general-purpose-and-low-vcesat-bipolar-transistors/single-bipolar-transistors/single-bipolar-transistors-100-v/serie/bcp56-series",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"

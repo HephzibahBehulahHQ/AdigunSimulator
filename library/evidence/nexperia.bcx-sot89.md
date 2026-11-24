@@ -26,3 +26,5 @@ The manufacturer tables list these 12 SOT89 order codes as active. Each selected
 - [Nexperia BCX53 series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf)
 - [Nexperia BCX56-Q series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf)
 - [Nexperia BCX51-Q series datasheet](https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf)
+
+Figure 2 of the [Nexperia SOT89 package drawing](https://assets.nexperia.com/documents/package-information/SOT89.pdf) shows the stepped collector solder land. Native PCB pads currently use a single rectangle per SMD terminal. A native mapping requires composite copper geometry carried through rendering, clearance checks and Gerber export.
