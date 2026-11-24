@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 46" role="img" aria-label="Inductor with winding start 1 and end 2">
+  <title>Inductor, Coilcraft XGL7030-103MEC</title>
+  <path d="M 5 28 H 22" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Winding start" data-electrical-type="passive" />
+  <path d="M 78 28 H 95" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Winding end" data-electrical-type="passive" />
+  <path d="M 22 28 a 7 7 0 0 1 14 0 a 7 7 0 0 1 14 0 a 7 7 0 0 1 14 0 a 7 7 0 0 1 14 0" stroke="currentColor" fill="none" />
+  <circle cx="18" cy="20" r="1.5" fill="currentColor" />
+  <text x="8" y="15" fill="currentColor" font-size="10" data-pin-label-for="1">1</text>
+  <text x="86" y="15" fill="currentColor" font-size="10" data-pin-label-for="2">2</text>
+</svg>

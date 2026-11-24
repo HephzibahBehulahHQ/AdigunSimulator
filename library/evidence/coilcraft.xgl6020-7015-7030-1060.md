@@ -10,3 +10,7 @@ The manufacturer series tables list the selected MEC order codes and their nomin
 | [XGL1060](https://www.coilcraft.com/en-us/products/power/shielded-inductors/molded-inductor/xgl/xgl1060/) | 11 | 1–10 µH |
 
 Lifecycle evidence, native mapping, model validation and independent review remain pending.
+
+## PCB mapping
+
+All 46 records have checksummed symbols and footprints derived from their linked series drawings. XGL6020 uses 1.43 × 5.50 mm lands at 4.04 mm pitch, XGL7015 and XGL7030 use 1.78 × 6.50 mm at 4.72 mm pitch, and XGL1060 uses 2.38 × 8.50 mm at 6.65 mm pitch. Local pad 1 identifies the winding start. Native RL fixtures exercise the 1 µH code from each series. These fixtures check PCB DRC, Gerber, BOM, ideal scope data and the breakout diagnostic. Physical breakout placement and manufacturer-specific models remain pending.
