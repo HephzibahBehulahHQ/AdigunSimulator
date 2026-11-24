@@ -750531,11 +750531,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe21pr-33ed/symbol.svg",
+        "sha256": "4077272f1bdf71e02ae80a7e686a309dd7bf55b51a770874db53c818e092cefd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe21pr-33ed/footprint.json",
+        "sha256": "eb1d120181eb15cbfa4f3182baabdb4a08176c53f9e00e68ae28d24743c79a48",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750544,7 +750619,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750552,18 +750628,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750571,21 +750641,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750597,11 +750661,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe22pr-50ed/symbol.svg",
+        "sha256": "72da80bed4dd405fe32b9b82f3c03006b901d4210ffabbb3b2fc087134cf48d3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe22pr-50ed/footprint.json",
+        "sha256": "89f78c162ad81f7c61dd800b0ccc889fe60c169bf515605a292d308863835e84",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750610,7 +750749,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750618,18 +750758,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750637,21 +750771,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750663,11 +750791,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe23pr-33ed/symbol.svg",
+        "sha256": "22beaea9ee46fb4ac113610c7fb5a6a11676e3bd61db911a7b63767ff0cbf71e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe23pr-33ed/footprint.json",
+        "sha256": "4366889de5bf8ef2369b4a9bcd843475ca1417c66987e043f79689e8ffda66a6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750676,7 +750879,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750684,18 +750888,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750703,21 +750901,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750729,11 +750921,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe24pr-12ed/symbol.svg",
+        "sha256": "1847d968c13ddeee7218e27fab9171b5cd5e9890f68fdc41f3e6798e6b9c05a4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe24pr-12ed/footprint.json",
+        "sha256": "1caa4cd97f035c3e8ef373893f106bfdc407dbda44fb78fdc5e1a4cd2bc784b9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750742,7 +751009,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750750,18 +751018,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750769,21 +751031,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750795,11 +751051,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe30pr-50ed/symbol.svg",
+        "sha256": "2334704389aa7525b24140bf8ea03ddfcd84637cb28da6f94af1608a1758bdb3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe30pr-50ed/footprint.json",
+        "sha256": "e3047897c0bd62e56ba4865ee3ef2ff3703912b365d965f98d6014a135855e24",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750808,7 +751139,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750816,18 +751148,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750835,21 +751161,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750861,11 +751181,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe36pr-12ed/symbol.svg",
+        "sha256": "59bb86711dce54cc4d90aeb3a8d34da23b4876927efdc20f2fac63ba02290e4f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe36pr-12ed/footprint.json",
+        "sha256": "fec1a1fffe4a1e1e4b81d4d78a3d5bcaf86fde4ef5bec607b8d4c689b0c3eefd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750874,7 +751269,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750882,18 +751278,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750901,21 +751291,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750927,11 +751311,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe33pr-33ed/symbol.svg",
+        "sha256": "fa648b7ba3d38e39cda333e5a13cdea7c95e1ac8d578b3add684c37cc1741fff",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe33pr-33ed/footprint.json",
+        "sha256": "9a683ef727efa64a2a58c9fd35bab5a98b1517ab61faf30db2fef588a7d20e24",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -750940,7 +751399,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -750948,18 +751408,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -750967,21 +751421,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -750993,11 +751441,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe35pr-50ed/symbol.svg",
+        "sha256": "f6d987d8747cadb29f525af48a214f39224c6f8ac135b81bb48030355f14532f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe35pr-50ed/footprint.json",
+        "sha256": "1ea8fbb2ef15af9020872992df41e48c61d5cea18c1f7c3c1d3e24b65ca0b4fb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -751006,7 +751529,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -751014,18 +751538,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -751033,21 +751551,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -751059,11 +751571,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe38pr-12ed/symbol.svg",
+        "sha256": "9f30c8c0521ae5b5157583303c029f46e192971beff3617b5503036d1b3eb4b9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe38pr-12ed/footprint.json",
+        "sha256": "a8b24efa155da846f17c8bdc42dd62e8ea12d6c364782814541d397402660eea",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -751072,7 +751659,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -751080,18 +751668,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -751099,21 +751681,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -751125,11 +751701,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe53pr-33ed/symbol.svg",
+        "sha256": "916d217ed33d0fcebd3415dba2f9f14c32e2e4987bc3feb1c69bd37168a0ae90",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe53pr-33ed/footprint.json",
+        "sha256": "88b71807d6266fd79574c59ac949df640e3546bdf949ee0157851586b93f535d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -751138,7 +751789,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -751146,18 +751798,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -751165,21 +751811,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -751191,11 +751831,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe70pr-50ed/symbol.svg",
+        "sha256": "857f977f2305b20e84713a2edb28f2012f65f06ace116d4cd03a16a304cdfe91",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe70pr-50ed/footprint.json",
+        "sha256": "2e88f13152072210735580ff86aa59b5a979519e91b17c7740d47191b0186493",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -751204,7 +751919,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -751212,18 +751928,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -751231,21 +751941,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -751257,11 +751961,86 @@
       "package": "POExxPR surface mount",
       "category": "Passive components",
       "function": "Power transformer",
-      "pinMap": [],
-      "symbolAsset": null,
-      "footprintAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Primary start",
+          "electricalType": "passive",
+          "pad": "1"
+        },
+        {
+          "pin": "2",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "2"
+        },
+        {
+          "pin": "3",
+          "name": "Primary end",
+          "electricalType": "passive",
+          "pad": "3"
+        },
+        {
+          "pin": "4",
+          "name": "Auxiliary start",
+          "electricalType": "passive",
+          "pad": "4"
+        },
+        {
+          "pin": "5",
+          "name": "Auxiliary end",
+          "electricalType": "passive",
+          "pad": "5"
+        },
+        {
+          "pin": "6",
+          "name": "Secondary 1 end",
+          "electricalType": "passive",
+          "pad": "6"
+        },
+        {
+          "pin": "7",
+          "name": "Secondary 2 end",
+          "electricalType": "passive",
+          "pad": "7"
+        },
+        {
+          "pin": "8",
+          "name": "No winding connection shown",
+          "electricalType": "passive",
+          "pad": "8"
+        },
+        {
+          "pin": "9",
+          "name": "Secondary 1 start",
+          "electricalType": "passive",
+          "pad": "9"
+        },
+        {
+          "pin": "10",
+          "name": "Secondary 2 start",
+          "electricalType": "passive",
+          "pad": "10"
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe72pr-12ed/symbol.svg",
+        "sha256": "dbfc8fbe61aa4084966c4ea0763382911adf47cffd73f014ecf3c85b43a40f1e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe72pr-12ed/footprint.json",
+        "sha256": "2d45b201dbd1f20f96bae72753ae9c5241df1a038d84012845be71024ceb35ac",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented POExxPR breakout and verify the required isolation before wiring."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -751270,7 +752049,8 @@
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
       },
       "sources": [
-        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/"
+        "https://www.coilcraft.com/en-us/products/transformers/power-transformers/power-over-ethernet/poexxpr/",
+        "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
       ],
       "readiness": {
         "verification": "candidate",
@@ -751278,18 +752058,12 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -751297,21 +752071,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     }

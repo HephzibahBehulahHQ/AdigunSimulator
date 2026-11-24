@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.poe21pr-33ed",
+  "package": "Coilcraft POExxPR",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMm": 13,
+    "lengthMaxMm": 14.5,
+    "heightMaxMm": 14,
+    "leadSpanMaxMm": 17.7,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/3088521d-e701-4817-86a8-5495b6b2d8ed/poexxprd.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 1.55,
+    "heightMm": 1.27,
+    "rowCenterSpacingMm": 16.54,
+    "pitchMm": 2.5
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -8.27,
+      "yMm": 5
+    },
+    {
+      "number": "2",
+      "xMm": -8.27,
+      "yMm": 2.5
+    },
+    {
+      "number": "3",
+      "xMm": -8.27,
+      "yMm": 0
+    },
+    {
+      "number": "4",
+      "xMm": -8.27,
+      "yMm": -2.5
+    },
+    {
+      "number": "5",
+      "xMm": -8.27,
+      "yMm": -5
+    },
+    {
+      "number": "6",
+      "xMm": 8.27,
+      "yMm": -5
+    },
+    {
+      "number": "7",
+      "xMm": 8.27,
+      "yMm": -2.5
+    },
+    {
+      "number": "8",
+      "xMm": 8.27,
+      "yMm": 0
+    },
+    {
+      "number": "9",
+      "xMm": 8.27,
+      "yMm": 2.5
+    },
+    {
+      "number": "10",
+      "xMm": 8.27,
+      "yMm": 5
+    }
+  ],
+  "limitations": [
+    "Pin 1 is at the lower left in the manufacturer top view.",
+    "Pins 2 and 8 have lands but no winding connection is shown.",
+    "Review board isolation, solder mask, paste and courtyard before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}

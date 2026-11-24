@@ -98,6 +98,27 @@ test("all ledger-mapped visible symbol labels match their source SVG assets", as
   const ledger = JSON.parse(await readFile(new URL("../library/parts-ledger.json", import.meta.url), "utf8"));
   const records = ledger.records.filter((record) => record.symbolPinLabels);
   const result = await validatePartAssetIntegrity({ records }, (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-  assert.equal(records.length, 656);
+  assert.equal(records.length, 668);
   assert.deepEqual(result, { valid: true, errors: [] });
+});
+
+test("POExxPR footprints preserve top-view numbering and lands for unused terminals", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const { records } = await load("../library/parts-ledger.json");
+  const transformers = records.filter((record) => record.evidenceNote === "library/evidence/coilcraft.poexxpr.md");
+  assert.equal(transformers.length, 12);
+  for (const record of transformers) {
+    const footprint = await load(`../${record.footprintEvidence.assetPath}`);
+    assert.deepEqual(footprint.padPattern, {
+      shape: "rectangle", widthMm: 1.55, heightMm: 1.27, rowCenterSpacingMm: 16.54, pitchMm: 2.5
+    });
+    assert.deepEqual(footprint.pads.map(({ xMm, yMm }) => [xMm, yMm]), [
+      [-8.27, 5], [-8.27, 2.5], [-8.27, 0], [-8.27, -2.5], [-8.27, -5],
+      [8.27, -5], [8.27, -2.5], [8.27, 0], [8.27, 2.5], [8.27, 5]
+    ]);
+    assert.deepEqual([1, 4, 9, 10].map((pin) => record.symbolPinMap[pin]),
+      ["Primary start", "Auxiliary start", "Secondary 1 start", "Secondary 2 start"]);
+    assert.equal(record.breadboard.compatible, false);
+    assert.equal(record.simulationModel.status, "not-modelled");
+  }
 });
