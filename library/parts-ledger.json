@@ -255360,6 +255360,622 @@
         "compatible": false,
         "adapter": "Use a documented breakout that maps both XGL1060 terminals to breadboard holes."
       }
+    },
+    {
+      "id": "coilcraft.xgl1010-271med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-271MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.27,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-521med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-521MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.52,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-801med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-801MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 0.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-122med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-122MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-152med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-152MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-222med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-222MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-332med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-332MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-472med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-472MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-562med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-562MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 5.6,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-682med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-682MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-822med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-822MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 8.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-103med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-103MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 10,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-153med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-153MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 15,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-223med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-223MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 22,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-333med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-333MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-473med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-473MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 47,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1010-563med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1010-563MED",
+      "package": "XGL1010 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 56,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1010/",
+        "title": "Coilcraft XGL1010 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-152med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-152MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 1.5,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-222med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-222MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 2.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-332med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-332MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 3.3,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-472med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-472MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 4.7,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-682med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-682MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 6.8,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-822med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-822MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 8.2,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-103med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-103MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 10,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-153med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-153MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 15,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-223med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-223MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 22,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-333med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-333MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 33,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
+    },
+    {
+      "id": "coilcraft.xgl1313-473med",
+      "manufacturer": "Coilcraft",
+      "manufacturerPartNumber": "XGL1313-473MED",
+      "package": "XGL1313 surface mount",
+      "category": "Passive components",
+      "type": "Shielded power inductor",
+      "lifecycle": "unknown",
+      "verificationStatus": "candidate",
+      "nominalInductanceMicrohenries": 47,
+      "tolerancePercent": 20,
+      "datasheet": {
+        "url": "https://www.coilcraft.com/en-us/products/power/high-voltage-inductors/xgl/xgl1313/",
+        "title": "Coilcraft XGL1313 manufacturer series specifications",
+        "accessedAt": "2026-11-24"
+      },
+      "evidenceNote": "library/evidence/coilcraft.xgl1010-1313.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Native model mapping has not been validated for this order code."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
