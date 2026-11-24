@@ -285571,6 +285571,68 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "Secondary 2 start",
+        "6": "Secondary 1 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe30p-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/2f0de57b-0151-4e19-83bf-19c15929b196/poe30pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe30p-33ld/footprint.json",
+        "sha256": "dc12b7cb0c5f035e4a361271b48ed1563453de1e0795dcb9e1354495ffd28c59",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe30p-33ld/symbol.svg",
+        "sha256": "c4fdfa6ea783a2a673c87d7b5df752e53f2a5c138489203528450b9fcf3e5818",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE30P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285591,6 +285653,68 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "Secondary 2 start",
+        "6": "Secondary 1 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe30p-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/2f0de57b-0151-4e19-83bf-19c15929b196/poe30pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe30p-50ld/footprint.json",
+        "sha256": "bfe286a173a55dccd75d5cbec306e553d651f6626a077605eaecb8ced485b75a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe30p-50ld/symbol.svg",
+        "sha256": "0494c4e15ec515c2667609a73b992ccdf9162a8919a57b7113d20fbeeb8baebf",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE30P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285611,6 +285735,68 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "Secondary 2 start",
+        "6": "Secondary 1 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe30p-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/2f0de57b-0151-4e19-83bf-19c15929b196/poe30pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe30p-12ld/footprint.json",
+        "sha256": "6805eda01273d484cf089b61bc927a90af8c9cda825015e3033f229b1746deea",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe30p-12ld/symbol.svg",
+        "sha256": "362ac73ebfa5fdcab61ba3835ef9a90de99b1d4d471250b352cee18e68136c66",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE30P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285631,6 +285817,68 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "Secondary 2 start",
+        "6": "Secondary 1 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe70p-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/8fb62d78-3520-45e7-af09-55182f91d4ff/poe70pd-%281%29.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe70p-33ld/footprint.json",
+        "sha256": "c451f8699225d106490cd19e49944a0bb174c3937315972676e23625719c9d67",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe70p-33ld/symbol.svg",
+        "sha256": "9ccb5fe1b26582c45921a1839b4c64d5dfd8ef1f28df9f9a1d7aed1c56e5bd22",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE70P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285651,6 +285899,68 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "Secondary 2 start",
+        "6": "Secondary 1 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe70p-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/8fb62d78-3520-45e7-af09-55182f91d4ff/poe70pd-%281%29.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe70p-50ld/footprint.json",
+        "sha256": "10ebd7d9282c470da39c2e504ee18cbf74609753cb51e613563fd05dbdeda824",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe70p-50ld/symbol.svg",
+        "sha256": "d44ea058ff5448883cddf9a625303c54b4cbdfc7ca49182cd74838484b99bf71",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE70P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285671,6 +285981,68 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "Secondary 2 start",
+        "6": "Secondary 1 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe70p-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/8fb62d78-3520-45e7-af09-55182f91d4ff/poe70pd-%281%29.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe70p-12ld/footprint.json",
+        "sha256": "ceb559bf908003ab62d202ce83f8e0fec7f704ee401b8ce2de2ec1bb1c36019a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe70p-12ld/symbol.svg",
+        "sha256": "07d88f6b4edb90f8d52c43efe34f7c381ad65a211749a8ac31ed45cdfbdaf0c8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE70P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285691,6 +286063,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "Secondary 2 start",
+        "8": "Secondary 1 start",
+        "9": "Secondary 2 end",
+        "10": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13p-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/fd66460f-6978-4419-bbd6-76856c28fd6a/poe13pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13p-33ld/footprint.json",
+        "sha256": "c1af086eee6049a5e808e5daaa0db0ee4560777c4b80426f6be50d88b683b336",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13p-33ld/symbol.svg",
+        "sha256": "6c4da56ef7fe94673d6977d3592175c9855a2d4095c0f8fc0cb718f57582d85d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285711,6 +286153,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "Secondary 2 start",
+        "8": "Secondary 1 start",
+        "9": "Secondary 2 end",
+        "10": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13p-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/fd66460f-6978-4419-bbd6-76856c28fd6a/poe13pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13p-50ld/footprint.json",
+        "sha256": "5fd48cd96df11f9785fc9dcd1a4c2c65a78e05725c2bd2e55a8b3895235e209d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13p-50ld/symbol.svg",
+        "sha256": "5fb3917d93d5ccd56b648fbc76a2c566690d6d52cec12fb5114540bec5af78b7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285731,6 +286243,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-18ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-18ld/footprint.json",
+        "sha256": "973f79d553c7fa7f8530b1f4a27d06073e93bb5100fddac97a4137a39cac8c90",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-18ld/symbol.svg",
+        "sha256": "7cc51b1ea81070de8010cabc582d1e2f5037f98ed2ed16a7a512f4793ec9bacd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285751,6 +286333,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-25ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-25ld/footprint.json",
+        "sha256": "51d16da8239151ea9f31cdc1387a8a93a1341478ece2abdff40443e146602dba",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-25ld/symbol.svg",
+        "sha256": "f3a8d346184ee31cb79d6870b8f262e89e9f5cc3fb95ecd7f76a238f492891bd",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285771,6 +286423,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-33ld/footprint.json",
+        "sha256": "4d0b2cd689e06379e1a5efb377746dde646875c799644dd4c37f8973a5f0cdeb",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-33ld/symbol.svg",
+        "sha256": "fe095b065c9a26b9ceff78af430b259e3be367d70503b6f671baa28bd4fab679",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285791,6 +286513,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-50ld/footprint.json",
+        "sha256": "87618b74a68123d934564f0c1f5ba25d70653793769d38a194145a01ad7a2acc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-50ld/symbol.svg",
+        "sha256": "f744aa78500372c11b82c420a25cdec324959e214248b93fcca6d1384ea82acc",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285811,6 +286603,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-12ld/footprint.json",
+        "sha256": "384999ca357b87dd483df1906b624372e15c787bb42f8d52823e028f14461d50",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-12ld/symbol.svg",
+        "sha256": "e3f6895e97d122c53d8c4442bf2ecb987be31f35441263b9358dd4742c5b4630",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285831,6 +286693,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60f-18ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60f-18ld/footprint.json",
+        "sha256": "dd1220b667a852f9e1680e752699d42ba73fc1653bce1493ad4016e6da4949a2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60f-18ld/symbol.svg",
+        "sha256": "6aa27e2d1ed2100ff9baececc630ed94cf02e841bbb9faaeac59d509c4c219ab",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285851,6 +286783,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60f-25ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60f-25ld/footprint.json",
+        "sha256": "f4ead7c344b15da4d39359f12a19f32780e77731ffe3a24f4b3f27123c83cc30",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60f-25ld/symbol.svg",
+        "sha256": "62c527ba4e5db2e1ddc6128f6d40ad6b0ad8bd1d05a07f21d1c1a20af4b2ecae",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285871,6 +286873,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60f-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60f-33ld/footprint.json",
+        "sha256": "0cf9ea59dde389a9af040ef45c73217d5fa0632e7db9c008ce7c09f901160dc7",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60f-33ld/symbol.svg",
+        "sha256": "9225954c3ee1811c4205d33774bdf33ccc1f662db7ce09d7b8f3fb2e0b68a326",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285891,6 +286963,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60d-18ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60d-18ld/footprint.json",
+        "sha256": "169689c430707239c5e377c7e313cc49c167a110056538fc65001c923f5569da",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60d-18ld/symbol.svg",
+        "sha256": "01466144c37f0ea3a2f53c3cd794082ba5c2d6c04aeb372babb725ef5fca2af5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60D breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285911,6 +287061,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60d-25ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60d-25ld/footprint.json",
+        "sha256": "16f695442a925bdd81c98d8d31fc3a725e6b05759a7b6303fb6592f7b9282107",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60d-25ld/symbol.svg",
+        "sha256": "abd5e2f6ef2c04f82510c2ce2d1668f1e5c5c5dd41224cf2bd995af1fcb41364",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60D breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285931,6 +287159,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60d-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60d-33ld/footprint.json",
+        "sha256": "c940bac995c1239323902914c166fa07216928b01ef88bc5c288810313ecd58d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60d-33ld/symbol.svg",
+        "sha256": "ea22e895552a10331e2dc72be23f8684c05d012442a4e4705a3c430d4dd070b9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60D breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285951,6 +287257,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60d-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60d-50ld/footprint.json",
+        "sha256": "489c6caebfa39e91e26f36be4b6f4a1a364afe23ee9a13cd1d9967ea29f0ec80",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60d-50ld/symbol.svg",
+        "sha256": "42d382e4ccee8b45bd57eba201a845c2db43d1f7b77323b9a7fe0c1cef0088f5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60D breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285971,6 +287355,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60d-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60d-12ld/footprint.json",
+        "sha256": "e02a92c5a6f879fdd87a0209467260b16d1202cbece5aa98f7b4a7c629e7bf09",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60d-12ld/symbol.svg",
+        "sha256": "e916101d5729a378179ab4e6f4ed2a19be8fcd9b2c8f69b5271b7f5a665016fa",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60D breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -285991,6 +287453,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60c-18ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60c-18ld/footprint.json",
+        "sha256": "509490c3790eb83646e2d590c1c63763f3d45d554aeeaaf8a1a413db159d921f",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60c-18ld/symbol.svg",
+        "sha256": "2dfad29d5b11a8e59024d42e8a33b31b5b5e6888366a0ae024c5bc97b433d1b4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60C breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286011,6 +287551,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60c-25ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60c-25ld/footprint.json",
+        "sha256": "6c69a68e4d410c8919c3c4e2210b2d29257f83465f877d0ceb26ae24f4c6b83d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60c-25ld/symbol.svg",
+        "sha256": "ba77245f8eda034fc0f58eb6affed0142d1eb62e8545a8f82450b4b659364354",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60C breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286031,6 +287649,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60c-33ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60c-33ld/footprint.json",
+        "sha256": "0159898feee1d1d9cf6d9b066f91732f857bb06fa562aad5605d2b09ca316e54",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60c-33ld/symbol.svg",
+        "sha256": "1119256da3c4776a37936e1db59924a8c326afcd8468f1e6cd41596e4120d8a8",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60C breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286051,6 +287747,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60c-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60c-50ld/footprint.json",
+        "sha256": "a33b7e1faa6c8adc00f308680a677bf5f64610e3d5264bedac5df3f2ef035f96",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60c-50ld/symbol.svg",
+        "sha256": "737328025bfacf205b6254e265f0443427b969acff0849d7443a2c57d8786ba5",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60C breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286071,6 +287845,84 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Primary 2 end",
+        "3": "Primary 1 end",
+        "4": "Primary 2 start",
+        "5": "Primary 1 start",
+        "6": "Bias start",
+        "7": "No winding connection shown",
+        "8": "Secondary 2 end",
+        "9": "Secondary 1 end",
+        "10": "Secondary 2 start",
+        "11": "Secondary 1 start",
+        "12": "No winding connection shown"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60c-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/6c2e656d-591c-4ba5-b79a-8761a4b80d94/poe_mind.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60c-12ld/footprint.json",
+        "sha256": "9fd4aa973b5177cd3b7377c3e4344c64246f84912846a25bfa96f9bf75ae38af",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60c-12ld/symbol.svg",
+        "sha256": "ed8df3e0a513d1ee6523cc24e6f3b07b54df45d7c9ceeaab824a4916ecf12d71",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60C breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286933,6 +288785,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "Secondary 2 start",
+        "8": "Secondary 1 start",
+        "9": "Secondary 2 end",
+        "10": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13p-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/fd66460f-6978-4419-bbd6-76856c28fd6a/poe13pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13p-12ld/footprint.json",
+        "sha256": "766dd6818735d4a516d8bbd4d52ee80fca68a8d3d98d05d9a9afb67ceac4a478",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13p-12ld/symbol.svg",
+        "sha256": "adf32e88e7a5d19ba7b1466666f3fde8c3204ada062f3d96882b0aa6063e3951",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286953,6 +288875,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "Secondary 2 start",
+        "8": "Secondary 1 start",
+        "9": "Secondary 2 end",
+        "10": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13p-19ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/fd66460f-6978-4419-bbd6-76856c28fd6a/poe13pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13p-19ld/footprint.json",
+        "sha256": "840c5cefef663f9373878eafce67c814689bff0f8ed7342511c6dd385666f278",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13p-19ld/symbol.svg",
+        "sha256": "d3bfefdb7746f92dea659b0961c8858d2653eaa6c62edeef651f5a26af89162b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286973,6 +288965,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Bias end",
+        "2": "Bias start",
+        "3": "Primary start",
+        "4": "Primary end",
+        "5": "No winding connection shown",
+        "6": "No winding connection shown",
+        "7": "Secondary 2 start",
+        "8": "Secondary 1 start",
+        "9": "Secondary 2 end",
+        "10": "Secondary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "4": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "9": "passive",
+        "10": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13p-24ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/fd66460f-6978-4419-bbd6-76856c28fd6a/poe13pd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13p-24ld/footprint.json",
+        "sha256": "b12103979c2683a1a3f88d98b170982bb4a27c4d93d28d4487ed30ccfd4bf6ee",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13p-24ld/symbol.svg",
+        "sha256": "1a6e127f8ff11d4cec782580545622af93d52fc9176fd7f909204ef0c28d43b0",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13P breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -286993,6 +289055,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60f-50ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60f-50ld/footprint.json",
+        "sha256": "987e993e7d7368ae20e8e1b4bbe73e7df82ba1ddf3755ff392552ec1c2571b2e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60f-50ld/symbol.svg",
+        "sha256": "775bba9a0be12b6c41f01be6bd8e0b0ad74dbd94e5542c0afbec9061ec7d2936",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -287013,6 +289145,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe60f-12ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe60f-12ld/footprint.json",
+        "sha256": "a182295b6881e8b66687a0976f23918dff914b2405acaa5fd6e8f754afbb9b5b",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe60f-12ld/symbol.svg",
+        "sha256": "61eba0ca08f2042cece76d992c7e6226eeb520f10e29ffe050bf46134514070d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE60F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -287033,6 +289235,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-19ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-19ld/footprint.json",
+        "sha256": "e5e4f13ee78b021b8bee5790a887e5abb26b49b04c3d4a95cd1cad25f322f762",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-19ld/symbol.svg",
+        "sha256": "1533b84058a63af92c97d0b3fe36ec2cb5547fe722327849722767283cb10520",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     },
     {
@@ -287053,6 +289325,76 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "Winding topology and transformer behavior have not been validated in the native solver."
+      },
+      "symbolPinMap": {
+        "1": "Primary 1 start",
+        "2": "Primary 2 start",
+        "3": "Bias start",
+        "5": "Secondary 1 start",
+        "6": "Secondary 2 start",
+        "7": "Secondary 2 end",
+        "8": "Secondary 1 end",
+        "10": "Bias end",
+        "11": "Primary 2 end",
+        "12": "Primary 1 end"
+      },
+      "symbolPinLabels": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "pinElectricalTypes": {
+        "1": "passive",
+        "2": "passive",
+        "3": "passive",
+        "5": "passive",
+        "6": "passive",
+        "7": "passive",
+        "8": "passive",
+        "10": "passive",
+        "11": "passive",
+        "12": "passive"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "10": "10",
+        "11": "11",
+        "12": "12"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/coilcraft.poe13f-24ld/footprint.json",
+        "designStatus": "manufacturer-recommended",
+        "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/coilcraft.poe13f-24ld/footprint.json",
+        "sha256": "7bae3fd2f1e90bcfffa281a18d888c03eacad0f13967dcb99baac63ef8d4eb7d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/coilcraft.poe13f-24ld/symbol.svg",
+        "sha256": "a074103a95395b93823339de069e380a334c78f3303143400e9395a678fc1f51",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "breadboard": {
+        "compatible": false,
+        "adapter": "Use a documented POE13F breakout and verify the required isolation before wiring."
       }
     }
   ],

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "coilcraft.poe60f-12ld",
+  "package": "Coilcraft POE60F",
+  "view": "top",
+  "units": "mm",
+  "packageOutline": {
+    "widthMaxMm": 21.97,
+    "lengthMaxMm": 17.2,
+    "heightMaxMm": 8.51,
+    "sourceUrl": "https://www.coilcraft.com/getattachment/db1c26e9-e7a8-4f19-9abb-ad91cf9b33d9/poe_transd.gif"
+  },
+  "padPattern": {
+    "shape": "rectangle",
+    "widthMm": 3.43,
+    "heightMm": 1.79,
+    "rowCenterSpacingMm": 20.31,
+    "pitchMm": 2.5
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -10.155,
+      "yMm": -6.25
+    },
+    {
+      "number": "2",
+      "xMm": -10.155,
+      "yMm": -3.75
+    },
+    {
+      "number": "3",
+      "xMm": -10.155,
+      "yMm": -1.25
+    },
+    {
+      "number": "5",
+      "xMm": -10.155,
+      "yMm": 3.75
+    },
+    {
+      "number": "6",
+      "xMm": -10.155,
+      "yMm": 6.25
+    },
+    {
+      "number": "7",
+      "xMm": 10.155,
+      "yMm": 6.25
+    },
+    {
+      "number": "8",
+      "xMm": 10.155,
+      "yMm": 3.75
+    },
+    {
+      "number": "10",
+      "xMm": 10.155,
+      "yMm": -1.25
+    },
+    {
+      "number": "11",
+      "xMm": 10.155,
+      "yMm": -3.75
+    },
+    {
+      "number": "12",
+      "xMm": 10.155,
+      "yMm": -6.25
+    }
+  ],
+  "limitations": [
+    "Pin 1 is at the upper left in the manufacturer top view.",
+    "Connect terminals together on the PCB in each group: 1, 2; 11, 12; 5, 6; 7, 8.",
+    "Positions 4 and 9 have no lands in the manufacturer drawing.",
+    "Parts manufactured before November 2011 may be marked differently.",
+    "Review isolation, solder mask, paste and courtyard before fabrication."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
