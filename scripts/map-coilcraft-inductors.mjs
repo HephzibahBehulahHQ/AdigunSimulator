@@ -31,6 +31,10 @@ async function writeAsset(folder, filename, contents, metadata) {
 }
 
 const packageDrawings = {
+  XFL4012: "https://www.coilcraft.com/getattachment/576e5a0a-d63b-4cfb-8c87-cd364de1d340/xfl4012d.gif?lang=en-US",
+  XFL4015: "https://www.coilcraft.com/getattachment/9db62613-5a92-45c1-a520-b8675ddfbb1a/xfl4015d.gif?lang=en-US",
+  XFL4020: "https://www.coilcraft.com/getattachment/05bd99a2-1ad9-400e-9537-8219a4e4059d/xfl4020d.gif?lang=en-US",
+  XFL4030: "https://www.coilcraft.com/getattachment/cd6770fe-7f5f-4a2e-8f76-68d709490110/xfl4030d.gif?lang=en-US",
   XAL1030: "https://www.coilcraft.com/getattachment/0f2aa15d-eb2d-4633-a5f9-c8734257bc6a/xal1030d.gif?lang=en-US",
   XAL1060: "https://www.coilcraft.com/getattachment/532141ce-94d9-4682-ac27-1f8ad1bb2276/xal1060d.gif?lang=en-US",
   XAL1510: "https://www.coilcraft.com/getattachment/b6318cc1-0397-4668-8944-ce75f730ffcc/xal1510d.gif?lang=en-US",
@@ -68,6 +72,10 @@ const packageDrawings = {
 const xgl5030TallCodes = new Set(["550", "181", "351", "401", "521", "601", "651", "821"]);
 // Body width, length, planar tolerance, maximum height, pad width, pad height and center spacing in mm.
 const packageDimensions = {
+  XFL4012: [4, 4, 0.3, 1.2, 0.98, 3.4, 2.37],
+  XFL4015: [4, 4, 0.3, 1.6, 0.98, 3.4, 2.37],
+  XFL4020: [4, 4, 0.3, 2.1, 0.98, 3.4, 2.37],
+  XFL4030: [4, 4, 0.3, 3.1, 0.98, 3.4, 2.37],
   XAL1030: [10, 11.3, 0.5, 3.1, 2.38, 9, 6.65],
   XAL1060: [10, 11.3, 0.5, 6, 2.38, 9, 6.65],
   XAL1510: [15.2, 16.2, 0.2, 10, 3.18, 13.2, 10.6],
@@ -113,7 +121,7 @@ const xal7030NarrowCodes = new Set(["472", "562", "682", "822", "103"]);
 const thirteenInchReelPackages = new Set(["XAL8080", "XAL1510", "XGL1010", "XGL1313", "XGL1712"]);
 
 for (const record of ledger.records) {
-  const match = /^(X[AGE]L\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
+  const match = /^(X[AGEF]L\d{4})-(\d{3})ME([CD])$/.exec(record.manufacturerPartNumber);
   if (record.manufacturer !== "Coilcraft" || !match || record.footprintAsset) continue;
   const [, packageCode, valueCode, reel] = match;
   if (reel !== (thirteenInchReelPackages.has(packageCode) ? "D" : "C")) continue;
@@ -148,6 +156,9 @@ for (const record of ledger.records) {
     }
   }
   const symbol = baseSymbol.replace(template.manufacturerPartNumber, record.manufacturerPartNumber);
+  if (packageCode === "XFL4030") {
+    footprint.limitations.push("Parts manufactured before 2011 may lack the winding-start stripe.");
+  }
   Object.assign(record, {
     symbolPinMap: template.symbolPinMap,
     symbolPinLabels: template.symbolPinLabels,
