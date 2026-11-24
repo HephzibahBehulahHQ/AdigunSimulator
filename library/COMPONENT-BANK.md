@@ -8,9 +8,9 @@ The sourcing target is 11,400 distinct orderable manufacturer entries across the
 
 Continue in source-backed batches. Attach exact pin and package evidence, retain the existing verification gates, and validate native placement and analysis before reporting an entry ready for those uses.
 
-## Sourcing coverage after the Coilcraft wideband RF transformer batch
+## Sourcing coverage after the Nexperia BZX84 batch
 
-The ledger contains 11,266 manufacturer records. It has 11,264 candidates, two in review and zero independently verified parts. 857 records have symbol assets and 847 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 11,361 manufacturer records. It has 11,359 candidates, two in review and zero independently verified parts. 857 records have symbol assets and 847 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |
@@ -18,7 +18,7 @@ The ledger contains 11,266 manufacturer records. It has 11,264 candidates, two i
 | Capacitors | 1,200 | 9,072 |
 | Inductors and magnetic filters | 600 | 632 |
 | Transformers | 200 | 201 |
-| Diodes | 600 | 1 |
+| Diodes | 600 | 96 |
 | Bipolar transistors | 600 | 1 |
 | Field-effect transistors | 800 | 1 |
 | Other power switching devices | 300 | 0 |
@@ -34,6 +34,6 @@ The ledger contains 11,266 manufacturer records. It has 11,264 candidates, two i
 | Connectors and interconnects | 500 | 4 |
 | Switches and electromechanical devices | 400 | 0 |
 | Protection and related devices | 350 | 0 |
-| Total | 11,400 | 11,266 |
+| Total | 11,400 | 11,361 |
 
-The family targets cover 3,225 current records when each family is capped at its target. The other families need 8,175 additional records to meet their individual targets. Continue with transformer asset mapping and source the next underfilled family. Prioritize official selection tables that identify exact order codes and include land patterns and electrical limits.
+The family targets cover 3,320 current records when each family is capped at its target. The other families need 8,080 additional records to meet their individual targets. Continue diode sourcing and native asset mapping. Prioritize official selection tables that identify exact order codes and include land patterns and electrical limits.
