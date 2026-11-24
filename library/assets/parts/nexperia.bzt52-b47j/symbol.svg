@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 54" role="img" aria-label="Zener diode with anode and cathode">
+  <title>Nexperia BZT52-B47J</title>
+  <path d="M 8 29 H 43" stroke="currentColor" fill="none" data-pin="2" data-pin-name="Anode" data-electrical-type="passive" />
+  <path d="M 72 29 H 110" stroke="currentColor" fill="none" data-pin="1" data-pin-name="Cathode" data-electrical-type="passive" />
+  <path d="M 43 15 L 72 29 L 43 43 Z M 66 13 L 72 16 V 42 L 78 45" stroke="currentColor" fill="none" />
+  <text x="8" y="22" font-size="9" fill="currentColor" data-pin-label-for="2">A</text>
+  <text x="110" y="22" text-anchor="end" font-size="9" fill="currentColor" data-pin-label-for="1">K</text>
+</svg>
