@@ -2,6 +2,17 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { MANUFACTURER_PART_RECORDS, getManufacturerPartEvidenceSummary, searchManufacturerParts } from "../js/part-catalogue.mjs";
 
+test("manufacturer evidence shows BCP pad identities and the breadboard adapter requirement", () => {
+  const [record] = searchManufacturerParts("BCP51-10,135");
+  const summary = getManufacturerPartEvidenceSummary(record);
+  assert.deepEqual(summary.pinMap.map(({ pin, name, pad }) => [pin, name, pad]), [
+    ["1", "Base", "1"], ["2", "Collector", "2"], ["3", "Emitter", "3"], ["4", "Collector tab", "4"]
+  ]);
+  assert.match(summary.breadboardAdapter, /SOT223 breakout.*collector \(2 and 4\)/);
+  assert.equal(summary.verified, false);
+  assert.equal(summary.simulationStatus, "not-modelled");
+});
+
 test("manufacturer evidence search returns exact records without promoting candidates", () => {
   const matches = searchManufacturerParts("bss138bk");
   assert.equal(matches.length, 1);

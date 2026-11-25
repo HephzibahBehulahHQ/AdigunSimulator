@@ -27,7 +27,8 @@ export function getManufacturerPartEvidenceSummary(record) {
   const pinMap = Object.entries(record.symbolPinMap ?? {}).map(([pin, name]) => ({
     pin,
     name,
-    electricalType: record.pinElectricalTypes?.[pin] ?? null
+    electricalType: record.pinElectricalTypes?.[pin] ?? null,
+    pad: record.footprintPadMap?.[pin] ?? null
   }));
   return Object.freeze({
     partId: record.id,
@@ -44,6 +45,7 @@ export function getManufacturerPartEvidenceSummary(record) {
     pinMap: Object.freeze(pinMap.map(Object.freeze)),
     ratings: Object.freeze((record.ratings ?? []).map((rating) => Object.freeze({ ...rating }))),
     footprintEvidencePath: record.footprintEvidence?.assetPath ?? null,
-    footprintEvidenceStatus: record.footprintEvidence?.designStatus ?? record.footprintAsset?.designStatus ?? "not-recorded"
+    footprintEvidenceStatus: record.footprintEvidence?.designStatus ?? record.footprintAsset?.designStatus ?? "not-recorded",
+    breadboardAdapter: record.breadboard?.compatible === false ? record.breadboard.adapter ?? null : null
   });
 }
