@@ -341698,7 +341698,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -341764,7 +341764,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -341830,7 +341830,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -341896,7 +341896,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -341962,7 +341962,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -342028,7 +342028,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -342094,7 +342094,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -342160,7 +342160,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
@@ -342226,7 +342226,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
+        "adapter": "Use a Proto Advantage PA0174C SOT223-4 to DIP-4 adapter. Preserve base (1), collector (2 and 4), and emitter (3). Confirm top-side orientation before wiring."
       },
       "footprintPadMap": {
         "1": "1",
