@@ -38,8 +38,8 @@ function componentViewIssue(project, component, view) {
     const pinsMapped = part.pins.every(pin => mappedPads.filter(pad => pad.pin === pin).length === 1);
     return physicalPart?.footprint && physicalPart?.manufacturerPartNumber && physicalPart?.sourceUrl && pinsMapped
       ? null
-      : capabilityIssue && part.mappingDiagnostics?.pcb
-        ? capabilityIssue
+      : part.mappingDiagnostics?.pcb
+        ? { instanceId: component.instanceId, reference: component.reference, view, reason: part.mappingDiagnostics.pcb }
         : { instanceId: component.instanceId, reference: component.reference, view, reason: `${component.reference} has no complete source-backed PCB footprint and pad map.` };
   }
   return capabilityIssue ?? null;

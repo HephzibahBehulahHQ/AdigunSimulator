@@ -28,3 +28,5 @@ Figure 2 (sot223_fr) specifies 1.3 × 1.3 mm copper pads for pins 1–3 and a 3.
 A native PCB test fixture checks all nine footprints in the board preview and fabrication export. Both collector pads share a routed net, and removing the route blocks export. The fixture constructs the board directly. Catalogue placement and breadboard adapter validation remain pending.
 
 These nine records can be added from Manufacturer evidence using Add to project. The native schematic uses all four numbered terminals. Separate nets assigned to the internally connected collector terminals fail validation. Breadboard and PCB show instance-specific mapping diagnostics until physical placements are available. Simulation remains unsupported.
+
+Adding one of these parts now places its four copper lands on a clear PCB position when the board permits. PCB pad identities and declared schematic nets are retained. The placement check leaves the schematic instance visible and reports a diagnostic when automatic placement is unavailable. Copper routing remains explicit, and fabrication validation blocks incomplete routes. Breadboard adapter and simulation validation remain pending.

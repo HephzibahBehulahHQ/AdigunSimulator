@@ -248,11 +248,12 @@ test("KEMET C0603C candidates span the selected Table 1A ranges", () => {
 });
 
 test("all BCP records place their exact native schematic instance and show physical mapping gaps", async () => {
-  const { createEmptyProject, findLibraryPart, parseProject, serializeProject, validateProject } = await import("../js/core.mjs");
+  const { connectPins, createEmptyProject, disconnectPin, findLibraryPart, parseProject, removeComponent, serializeProject, validateProject } = await import("../js/core.mjs");
   const { firstFreeComponentPlacement, commitComponentPlacement } = await import("../js/component-placement.mjs");
   const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
   const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
   const { projectComponentsForView } = await import("../js/view-projection.mjs");
+  const { exportPcbFabrication } = await import("../js/pcb-export.mjs");
   const rows = MANUFACTURER_PART_RECORDS.filter((row) => row.evidenceNote === "library/evidence/nexperia.bcp-sot223.md");
   assert.equal(rows.length, 9);
   for (const row of rows) {
@@ -271,12 +272,38 @@ test("all BCP records place their exact native schematic instance and show physi
     const [x, y] = component.position.schematic;
     assert.deepEqual(schematicPinPoint(component, part.pins, "4"), { x: x + 108, y: y + 36, side: "right" });
     assert.equal(projectComponentsForView(project, "schematic").components[0].instanceId, instanceId);
-    for (const [view, diagnostic] of [["breadboard", /SOT223 breakout/], ["pcb", /Native board placement/]]) {
-      const projection = projectComponentsForView(project, view);
-      assert.equal(projection.components.length, 0);
-      assert.equal(projection.reconciliationItems[0].instanceId, instanceId);
-      assert.match(projection.reconciliationItems[0].reason, diagnostic);
-    }
+    const breadboard = projectComponentsForView(project, "breadboard");
+    assert.equal(breadboard.components.length, 0);
+    assert.equal(breadboard.reconciliationItems[0].instanceId, instanceId);
+    assert.match(breadboard.reconciliationItems[0].reason, /SOT223 breakout/);
+    assert.equal(projectComponentsForView(project, "pcb").components[0].instanceId, instanceId);
+    const { parts, pads } = project.pcbFabrication;
+    assert.equal(parts[0].manufacturerPartNumber, row.manufacturerPartNumber);
+    assert.deepEqual(pads.map(({ number, pin, netId }) => [number, pin, netId]), [
+      ["1", "1", "NC"], ["2", "2", "NC"], ["3", "3", "NC"], ["4", "4", "NC"]
+    ]);
+    const collectors = [instanceId + ":2", instanceId + ":4"];
+    const wired = connectPins(project, ...collectors);
+    const copper = wired.pcbFabrication.pads;
+    assert.equal(copper[1].netId, wired.nets[0].id);
+    assert.equal(copper[3].netId, wired.nets[0].id);
+    assert.equal(exportPcbFabrication(wired).status, "blocked");
+    wired.pcbFabrication.routes.push({
+      netId: wired.nets[0].id, layer: "F.Cu", widthMm: 0.25,
+      pointsMm: [copper[1], copper[3]].map(({ xMm, yMm }) => [xMm, yMm])
+    });
+    assert.match(exportPcbFabrication(wired).files["board-F_Cu.gbr"], /R,3\.6X1\.3/);
+    assert.equal(disconnectPin(wired, collectors[0]).pcbFabrication.pads[3].netId, "NC");
+    const removed = removeComponent(wired, instanceId);
+    assert.deepEqual(removed.pcbFabrication.parts, []);
+    assert.deepEqual(removed.pcbFabrication.pads, []);
+    const blocked = commitComponentPlacement({
+      ...before, pcbFabrication: {
+        board: { widthMm: 8, heightMm: 8, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2 },
+        pads: [], parts: [], routes: []
+      }
+    }, draft);
+    assert.match(projectComponentsForView(blocked.project, "pcb").reconciliationItems[0].reason, /no clear position/);
 
     project.nets = [{ id: "C1", endpoints: [instanceId + ":2"] }, { id: "C2", endpoints: [instanceId + ":4"] }];
     assert.ok(validateProject(project).errors.some(({ rule }) => rule === "BCP_COLLECTOR_NET"));

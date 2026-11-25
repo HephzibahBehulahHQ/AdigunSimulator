@@ -10,10 +10,10 @@ const definitions = new Map(packages.map(([orderCode, polarity]) => {
     id, polarity, category: "Active", type: "Nexperia " + orderCode, prefix: "Q", defaultValue: orderCode,
     pins: Object.freeze(Object.keys(bcpPins)), simulation: null,
     status: "Manufacturer candidate; native schematic",
-    views: Object.freeze({ schematic: true, breadboard: false, pcb: false }),
+    views: Object.freeze({ schematic: true, breadboard: false, pcb: true }),
     mappingDiagnostics: Object.freeze({
       breadboard: "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3).",
-      pcb: "The SOT223 copper land asset is available. Native board placement and collector-net mapping are required."
+      pcb: "The SOT223 copper land asset is available. There is no clear position for the native footprint on this board. Free board space and add the part again."
     })
   })];
 }));

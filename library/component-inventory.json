@@ -835140,7 +835140,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835234,7 +835234,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835328,7 +835328,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835422,7 +835422,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835516,7 +835516,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835610,7 +835610,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835704,7 +835704,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835798,7 +835798,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835892,7 +835892,7 @@
           "adapter": "Use a documented SOT223 breakout that preserves base (1), collector (2 and 4), and emitter (3)."
         },
         "schematic": true,
-        "pcb": false
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
