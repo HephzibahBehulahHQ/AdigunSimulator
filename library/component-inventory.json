@@ -835100,25 +835100,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835127,7 +835127,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp51-115/footprint.json",
+        "sha256": "a6f4345cb779b2e7c623de779638eeb196ba4f41a1c1bbf82455b2f6b8cb71b4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835141,7 +835147,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835149,12 +835156,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835165,18 +835169,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835193,25 +835194,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835220,7 +835221,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp51-10-135/footprint.json",
+        "sha256": "9962d419f567e1660d92c1cea89e9bd06d36efe9ec227d3b5f59475d93427e15",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835234,7 +835241,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835242,12 +835250,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835258,18 +835263,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835286,25 +835288,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835313,7 +835315,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp51-16-115/footprint.json",
+        "sha256": "106fc60f545be0322ec583524df5978ca918d40a346aea0fe8b0db6f3c86263d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835327,7 +835335,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835335,12 +835344,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835351,18 +835357,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835379,25 +835382,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835406,7 +835409,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp55-115/footprint.json",
+        "sha256": "ba0e93deda6a45cb203b0a7ad8cb59a62076a893daf18797797999a8c4c582f3",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835420,7 +835429,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835428,12 +835438,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835444,18 +835451,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835472,25 +835476,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835499,7 +835503,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp55-10-115/footprint.json",
+        "sha256": "93acfee56a939cd01c072f8e35157cd651f5633a7ffff56bd969a88d31294fba",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835513,7 +835523,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835521,12 +835532,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835537,18 +835545,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835565,25 +835570,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835592,7 +835597,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp55-16-115/footprint.json",
+        "sha256": "f38084484011aed2ab7e61a262f4160590e747e99f158696c1440f8937689569",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835606,7 +835617,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835614,12 +835626,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835630,18 +835639,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835658,25 +835664,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835685,7 +835691,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp56-115/footprint.json",
+        "sha256": "da769f3f3f0815077e5a00e6a96c1234d45bf611d8a5b45feac54780d15adada",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835699,7 +835711,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835707,12 +835720,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835723,18 +835733,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835751,25 +835758,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835778,7 +835785,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp56-10-115/footprint.json",
+        "sha256": "588b9c14530427baa9acfc4061573a1b3708135a875460ff4566ebc807569833",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835792,7 +835805,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835800,12 +835814,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835816,18 +835827,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -835844,25 +835852,25 @@
           "pin": "1",
           "name": "Base",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Collector",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Emitter",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Collector tab",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         }
       ],
       "symbolAsset": {
@@ -835871,7 +835879,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bcp56-16-115/footprint.json",
+        "sha256": "e602067b635fddeb11fd0ad8e6fe5ada6819ece8299b5edfefbaf94d31fc9796",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835885,7 +835899,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835893,12 +835908,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835909,18 +835921,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     }
