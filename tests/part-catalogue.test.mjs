@@ -8,7 +8,7 @@ test("manufacturer evidence shows BCP pad identities and the breadboard adapter 
   assert.deepEqual(summary.pinMap.map(({ pin, name, pad }) => [pin, name, pad]), [
     ["1", "Base", "1"], ["2", "Collector", "2"], ["3", "Emitter", "3"], ["4", "Collector tab", "4"]
   ]);
-  assert.match(summary.breadboardAdapter, /SOT223 breakout.*collector \(2 and 4\)/);
+  assert.match(summary.breadboardAdapter, /PA0174C SOT223-4 to DIP-4.*collector \(2 and 4\)/);
   assert.equal(summary.verified, false);
   assert.equal(summary.simulationStatus, "not-modelled");
 });
@@ -275,7 +275,7 @@ test("all BCP records place their exact native schematic instance and show physi
     const breadboard = projectComponentsForView(project, "breadboard");
     assert.equal(breadboard.components.length, 0);
     assert.equal(breadboard.reconciliationItems[0].instanceId, instanceId);
-    assert.match(breadboard.reconciliationItems[0].reason, /SOT223 breakout/);
+    assert.match(breadboard.reconciliationItems[0].reason, /PA0174C SOT223-4 to DIP-4/);
     assert.equal(projectComponentsForView(project, "pcb").components[0].instanceId, instanceId);
     const { parts, pads } = project.pcbFabrication;
     assert.equal(parts[0].manufacturerPartNumber, row.manufacturerPartNumber);
