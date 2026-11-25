@@ -1,3 +1,4 @@
+import { syncBcpPadNets } from "./bcp-pcb-placement.mjs";
 import { connectPins, findLibraryPart } from "./core.mjs";
 import { netEdges, removeNetEdge, reconcileSchematicJunctions } from "./net-edges.mjs";
 import { junctionBridgeKeys, sameJunctionPoint } from "./schematic-junction-graph.mjs";
@@ -23,11 +24,11 @@ export function finishSchematicWire(project,draft,to){
   if(draft.netHint&&!next.nets.some(n=>n.id===draft.netHint))net.id=draft.netHint;
   net.connections??=netEdges(net);
   if(!net.connections.some(([a,b])=>wirePairKey(a,b)===wirePairKey(draft.from,to)))net.connections.push([draft.from,to]);
-  return storeSchematicWire(next,{id:draft.id,from:draft.from,to,waypoints:draft.waypoints});
+  return storeSchematicWire(syncBcpPadNets(next),{id:draft.id,from:draft.from,to,waypoints:draft.waypoints});
 }
 export function removeSchematicWire(project,selection){
   if(selection.wireId){const w=project.schematicWires?.find(w=>w.id===selection.wireId);if(w?.to===null)return discardDanglingWire(project,w.id);}
-  return removeNetEdge(project,selection.netId,selection.first,selection.second);
+  return syncBcpPadNets(removeNetEdge(project,selection.netId,selection.first,selection.second));
 }
 export function discardDanglingWire(project,id){const wires=(project.schematicWires??[]).filter(w=>w.id!==id),junctions=(project.schematicJunctions??[]).map(j=>({...j,wires:j.wires.filter(w=>w!==id)})).filter(j=>j.wires.length>1);return updated(reconcileSchematicJunctions({...project,schematicWires:wires},junctions),wires);}
 export function resumeSchematicWire(wire){if(wire.to!==null)throw new Error("Only an open endpoint can resume.");return {id:wire.id,from:wire.from,netHint:wire.netHint,waypoints:[...wire.waypoints.map(p=>[...p]),[...wire.end]]};}

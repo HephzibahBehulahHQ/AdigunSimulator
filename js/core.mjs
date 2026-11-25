@@ -1,3 +1,4 @@
+import { placeBcpFootprint, syncBcpPadNets } from "./bcp-pcb-placement.mjs";
 import { findBcpPart } from "./bcp-native-parts.mjs";
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { analyseLm2577Boost } from "./lm2577-boost-analysis.mjs";
@@ -470,7 +471,8 @@ export function addComponent(project, libraryId) {
     value: libraryId.startsWith('plc.') ? part.defaultValue.replace(/tag \w+/, 'tag '+nextReference(project,libraryId)) : part.defaultValue,
     position: positions
   };
-  return { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
+  const next = { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
+  return findBcpPart(libraryId) ? placeBcpFootprint(next, item) : next;
 }
 
 function nextFreePosition(project, view) {
@@ -531,7 +533,7 @@ export function connectPins(project, firstEndpoint, secondEndpoint) {
     next.nets.push({ id: `N${index}`, endpoints: [firstEndpoint, secondEndpoint] });
   }
   next.metadata.updatedAt = new Date().toISOString();
-  return next;
+  return syncBcpPadNets(next);
 }
 
 export function disconnectPin(project, pinEndpoint) {
@@ -541,17 +543,22 @@ export function disconnectPin(project, pinEndpoint) {
   if (net.connections) {
     next.nets = next.nets.flatMap(item => item === net ? splitNetEdges(net, net.connections.filter(edge => !edge.includes(pinEndpoint)), new Set(next.nets.map(item => item.id))) : [item]);
     next.metadata.updatedAt = new Date().toISOString();
-    return pruneSchematicWires(next);
+    return pruneSchematicWires(syncBcpPadNets(next));
   }
   net.endpoints = net.endpoints.filter((item) => item !== pinEndpoint);
   if (net.endpoints.length < 2) next.nets = next.nets.filter((item) => item !== net);
   next.metadata.updatedAt = new Date().toISOString();
-  return pruneSchematicWires(next);
+  return pruneSchematicWires(syncBcpPadNets(next));
 }
 
 export function removeComponent(project, instanceId) {
   if (!project.components.some((item) => item.instanceId === instanceId)) throw new Error(`Component not found: ${instanceId}`);
   const next = clone(project);
+  const component = next.components.find((item) => item.instanceId === instanceId);
+  if (findBcpPart(component.libraryId) && next.pcbFabrication?.parts?.some(part => part.instanceId === instanceId)) {
+    next.pcbFabrication.parts = next.pcbFabrication.parts.filter(part => part.instanceId !== instanceId);
+    next.pcbFabrication.pads = next.pcbFabrication.pads.filter(pad => pad.instanceId !== instanceId);
+  }
   next.components = next.components.filter((item) => item.instanceId !== instanceId);
   if (next.breadboard?.pinHoles) {
     const removedHoles = new Set(Object.entries(next.breadboard.pinHoles).filter(([endpoint]) => endpoint.startsWith(`${instanceId}:`)).map(([, hole]) => hole));
@@ -566,7 +573,7 @@ export function removeComponent(project, instanceId) {
     return endpoints.length >= 2 ? [{ ...net, endpoints }] : [];
   });
   next.metadata.updatedAt = new Date().toISOString();
-  return pruneSchematicWires(next);
+  return pruneSchematicWires(syncBcpPadNets(next));
 }
 
 export function validateProject(project) {
