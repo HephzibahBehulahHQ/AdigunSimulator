@@ -26,3 +26,5 @@ The manufacturer lists these nine SOT223 order codes as active. Each type contri
 Figure 2 (sot223_fr) specifies 1.3 × 1.3 mm copper pads for pins 1–3 and a 3.6 × 1.3 mm copper pad for the collector tab. The lower row has 2.3 mm pitch, and the rows are 6.1 mm apart center to center. The split in the tab stencil is a paste feature. [NXP rendering of the same drawing](https://www.nxp.com/docs/en/package-information/SOT223.pdf).
 
 A native PCB test fixture checks all nine footprints in the board preview and fabrication export. Both collector pads share a routed net, and removing the route blocks export. The fixture constructs the board directly. Catalogue placement and breadboard adapter validation remain pending.
+
+These nine records can be added from Manufacturer evidence using Add to project. The native schematic uses all four numbered terminals. Separate nets assigned to the internally connected collector terminals fail validation. Breadboard and PCB show instance-specific mapping diagnostics until physical placements are available. Simulation remains unsupported.

@@ -1,9 +1,12 @@
+import { findBcpPart, renderBcpSchematic } from "./bcp-native-parts.mjs";
 import { schematicPinPoint, schematicSymbolSize } from "./schematic-pin-layout.mjs";
 import { renderPrimitiveSymbol } from "./schematic-primitive-svg.mjs";
 import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
 const escape = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" })[c]);
 export function renderSchematicSymbol(part, component) {
   if (!part || !Array.isArray(part.pins) || !part.pins.length) return null;
+  const bcp = findBcpPart(part.id);
+  if (bcp) return renderBcpSchematic(bcp);
   const id=part.id, primitive=renderPrimitiveSymbol(part,component), size=primitive ? SCHEMATIC_PRIMITIVES[id] : schematicSymbolSize(id); let body="";
   if(primitive) body=primitive;
   else if(id==="active.stm32-timer-ideal") {

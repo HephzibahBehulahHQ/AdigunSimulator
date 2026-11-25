@@ -1,3 +1,4 @@
+import { findBcpPart } from "./bcp-native-parts.mjs";
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { analyseLm2577Boost } from "./lm2577-boost-analysis.mjs";
 import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
@@ -436,14 +437,14 @@ export function cryptoSafeId() {
 }
 
 export function findLibraryPart(id) {
-  return STARTER_LIBRARY.find((part) => part.id === id) ?? null;
+  return findBcpPart(id) ?? STARTER_LIBRARY.find((part) => part.id === id) ?? null;
 }
 
 export function getViewReconciliationIssues(project, view) {
   return (project?.components ?? []).flatMap((component) => {
     const part = findLibraryPart(component.libraryId);
     if (!part) return [{ instanceId: component.instanceId, reference: component.reference, view, reason: "The part is not available in the current library lock." }];
-    if (!part.views?.[view]) return [{ instanceId: component.instanceId, reference: component.reference, view, reason: `${part.type} has no verified ${view} mapping in this starter library.` }];
+    if (!part.views?.[view]) return [{ instanceId: component.instanceId, reference: component.reference, view, reason: part.mappingDiagnostics?.[view] ?? `${part.type} has no verified ${view} mapping in this starter library.` }];
     return [];
   });
 }
@@ -655,6 +656,13 @@ export function validateProject(project) {
     if (!item || typeof item !== "object") continue;
     const part = findLibraryPart(item.libraryId);
     if (!part) continue;
+    if (findBcpPart(item.libraryId)) {
+      const collector = endpointOwners.get(endpoint(item, "2"));
+      const collectorTab = endpointOwners.get(endpoint(item, "4"));
+      if (collector && collectorTab && collector !== collectorTab) {
+        errors.push({ rule: "BCP_COLLECTOR_NET", message: `${item.reference} collector terminals 2 and 4 are internally connected but assigned to different nets.`, fix: `Assign both collector terminals of ${item.reference} to the same intended net.` });
+      }
+    }
     for (const pin of part.pins) {
       if (!endpointOwners.has(endpoint(item, pin))) warnings.push({ rule: "UNCONNECTED_PIN", message: `${item.reference} pin ${pin} is not connected to a project net.`, fix: `Connect ${item.reference} pin ${pin} to the intended net with a schematic wire, then validate and run again.` });
     }

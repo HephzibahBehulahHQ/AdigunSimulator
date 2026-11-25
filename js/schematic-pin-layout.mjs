@@ -1,3 +1,4 @@
+import { bcpSchematicPin, bcpSchematicSize, findBcpPart } from "./bcp-native-parts.mjs";
 import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
 const customPinSides = {
   "active.cd4026be-decade": [
@@ -56,6 +57,7 @@ const customPinSides = {
 // Visual anchors for the editor's named electrical terminals.
 // Pin order here defines schematic placement only; it does not assert physical package pin numbers.
 export function schematicSymbolSize(libraryId) {
+  if (findBcpPart(libraryId)) return bcpSchematicSize;
   if(libraryId?.startsWith('plc.')&&SCHEMATIC_PRIMITIVES[libraryId]){const {width,height}=SCHEMATIC_PRIMITIVES[libraryId];return {width,height};}
   return libraryId === "active.stm32-timer-ideal" ? { width: 124, height: 130 } : { width: 56, height: 58 };
 }
@@ -84,6 +86,10 @@ function basePinPoint(component, pins, pin) {
   if (index < 0) return null;
   const [x = 120, y = 120] = component.position?.schematic ?? [];
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  if (findBcpPart(component.libraryId)) {
+    const point = bcpSchematicPin(pin);
+    return point ? { x: x + point[0], y: y + point[1], side: point[2] } : null;
+  }
   const sides = customPinSides[component.libraryId];
   if (sides) {
     const left = sides[0].includes(pin);

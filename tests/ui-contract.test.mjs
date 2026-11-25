@@ -178,12 +178,12 @@ test("live Adigun BOT observes the current canvas and requires an explicit previ
   assert.match(help, /does not call an external AI service/i);
 });
 
-test("manufacturer evidence browser exposes unverified records without enabling project insertion", async () => {
+test("manufacturer evidence browser exposes unverified records and gates insertion on a native library definition", async () => {
   const [html, app] = await Promise.all([readFile(indexFile, "utf8"), readFile(appFile, "utf8")]);
   assert.match(html, /data-library-mode="evidence"/);
   assert.match(html, /data-i18n="manufacturerEvidenceMode"/);
   assert.match(app, /searchManufacturerParts\(query\)/);
-  assert.match(app, /\$\("#add-component"\)\.hidden = true/);
+  assert.match(app, /\$\("#add-component"\)\.hidden = !findLibraryPart\(record\?\.id\)/);
   assert.match(app, /summary\.evidenceBlockerCodes\.join\("\, "\)/);
 });
 
