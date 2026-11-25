@@ -246,3 +246,39 @@ test("KEMET C0603C candidates span the selected Table 1A ranges", () => {
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C0603C109B8GACTU"));
   assert.ok(parts.some(part => part.manufacturerPartNumber === "C0603C102MAGACTU"));
 });
+
+test("all BCP records place their exact native schematic instance and show physical mapping gaps", async () => {
+  const { createEmptyProject, findLibraryPart, parseProject, serializeProject, validateProject } = await import("../js/core.mjs");
+  const { firstFreeComponentPlacement, commitComponentPlacement } = await import("../js/component-placement.mjs");
+  const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
+  const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
+  const { projectComponentsForView } = await import("../js/view-projection.mjs");
+  const rows = MANUFACTURER_PART_RECORDS.filter((row) => row.evidenceNote === "library/evidence/nexperia.bcp-sot223.md");
+  assert.equal(rows.length, 9);
+  for (const row of rows) {
+    const before = createEmptyProject();
+    const draft = firstFreeComponentPlacement(before, row.id);
+    const { project, instanceId } = commitComponentPlacement(before, draft);
+    const component = parseProject(serializeProject(project)).components[0];
+    assert.equal(component.instanceId, instanceId);
+    assert.equal(component.libraryId, row.id);
+    assert.equal(component.value, row.manufacturerPartNumber);
+    assert.equal(validateProject(project).valid, true);
+    const part = findLibraryPart(row.id);
+    assert.deepEqual(part.pins, Object.keys(row.symbolPinMap));
+    assert.equal(part.simulation, null);
+    assert.match(renderSchematicSymbol(part), /C \(4\)/);
+    const [x, y] = component.position.schematic;
+    assert.deepEqual(schematicPinPoint(component, part.pins, "4"), { x: x + 108, y: y + 36, side: "right" });
+    assert.equal(projectComponentsForView(project, "schematic").components[0].instanceId, instanceId);
+    for (const [view, diagnostic] of [["breadboard", /SOT223 breakout/], ["pcb", /Native board placement/]]) {
+      const projection = projectComponentsForView(project, view);
+      assert.equal(projection.components.length, 0);
+      assert.equal(projection.reconciliationItems[0].instanceId, instanceId);
+      assert.match(projection.reconciliationItems[0].reason, diagnostic);
+    }
+
+    project.nets = [{ id: "C1", endpoints: [instanceId + ":2"] }, { id: "C2", endpoints: [instanceId + ":4"] }];
+    assert.ok(validateProject(project).errors.some(({ rule }) => rule === "BCP_COLLECTOR_NET"));
+  }
+});

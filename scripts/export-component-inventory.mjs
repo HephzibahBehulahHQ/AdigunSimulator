@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import taxonomy from "../library/component-types.json" with { type: "json" };
 import { STARTER_LIBRARY } from "../js/core.mjs";
+import { findBcpPart } from "../js/bcp-native-parts.mjs";
 import { LADDER_MODELS } from "../js/ladder-components.mjs";
 import { MANUFACTURER_PART_RECORDS, getManufacturerPartEvidenceSummary } from "../js/part-catalogue.mjs";
 
@@ -20,6 +21,7 @@ const primitiveRows = STARTER_LIBRARY.map(part => ({
 
 const manufacturerRows = MANUFACTURER_PART_RECORDS.map(part => {
   const evidence = getManufacturerPartEvidenceSummary(part);
+  const nativeViews = findBcpPart(part.id)?.views;
   return {
     kind: "manufacturer-record",
     id: part.id,
@@ -28,10 +30,10 @@ const manufacturerRows = MANUFACTURER_PART_RECORDS.map(part => {
     package: part.package ?? part.packageEvidence?.package ?? null,
     category: part.category,
     function: part.type,
-    pinMap: evidence.pinMap.map(pin => ({ ...pin, pad: part.footprintPadMap?.[pin.pin] ?? null })),
+    pinMap: evidence.pinMap,
     symbolAsset: part.symbolAsset ?? null,
     footprintAsset: part.footprintAsset ?? null,
-    viewSupport: { breadboard: part.breadboard ?? null, schematic: part.views?.schematic ?? null, pcb: part.views?.pcb ?? null },
+    viewSupport: { breadboard: part.breadboard ?? null, schematic: nativeViews?.schematic ?? part.views?.schematic ?? null, pcb: nativeViews?.pcb ?? part.views?.pcb ?? null },
     simulationModel: part.simulationModel ?? null,
     sources: [...new Set([part.datasheet.url, ...((part.manufacturerSources ?? []).map(source => source.url)),
       part.packageEvidence?.sourceUrl, part.footprintEvidence?.sourceUrl].filter(Boolean))],

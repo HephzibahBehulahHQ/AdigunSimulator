@@ -569,7 +569,8 @@ function renderLibrary() {
     } else {
       $("#selected-part-detail").textContent = t("noManufacturerMatches");
     }
-    $("#add-component").hidden = true;
+    $("#add-component").hidden = !findLibraryPart(record?.id);
+    $("#add-component").disabled = $("#add-component").hidden;
     return;
   }
   $("#component-list").setAttribute("aria-label", t("starterLibraryMode"));
@@ -2479,7 +2480,7 @@ $("#global-search").addEventListener("input", (event) => {
 // Warm the small example index before a numeric query is entered so its
 // datalist suggestion is available on the user's first keystroke.
 $("#global-search").addEventListener("focus", () => { void loadGlobalExampleIndex(); }, { once: true });
-$("#add-component").addEventListener("click", () => placeLibraryComponent(state.selectedLibraryId));
+$("#add-component").addEventListener("click", () => placeLibraryComponent(state.libraryMode === "evidence" ? state.selectedEvidencePartId : state.selectedLibraryId));
 $("#component-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const component = selectedComponent();
