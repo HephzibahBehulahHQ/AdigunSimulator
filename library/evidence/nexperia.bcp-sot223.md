@@ -24,3 +24,5 @@ The manufacturer lists these nine SOT223 order codes as active. Each type contri
 - [Nexperia SOT223 package drawing and reflow land pattern](https://assets.nexperia.com/documents/package-information/SOT223.pdf)
 
 Figure 2 (sot223_fr) specifies 1.3 × 1.3 mm copper pads for pins 1–3 and a 3.6 × 1.3 mm copper pad for the collector tab. The lower row has 2.3 mm pitch, and the rows are 6.1 mm apart center to center. The split in the tab stencil is a paste feature. [NXP rendering of the same drawing](https://www.nxp.com/docs/en/package-information/SOT223.pdf).
+
+A native PCB test fixture checks all nine footprints in the board preview and fabrication export. Both collector pads share a routed net, and removing the route blocks export. The fixture constructs the board directly. Catalogue placement and breadboard adapter validation remain pending.

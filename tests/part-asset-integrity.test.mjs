@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { exportPcbFabrication } from "../js/pcb-export.mjs";
+import { renderPcbPreviewSvg } from "../js/pcb-preview.mjs";
 import { validatePartAssetIntegrity } from "../scripts/part-asset-integrity.mjs";
 
 const bytes = "<svg><g data-pin=\"1\" data-electrical-type=\"input\"><path/><text data-pin-label-for=\"1\">IN</text><text class=\"pin-number\">1</text></g></svg>\n";
@@ -285,5 +287,60 @@ test("BZX38450 and BZX884 preserve package-specific copper shapes", async () => 
       { number: "1", xMm: -halfSpacing, yMm: 0 },
       { number: "2", xMm: halfSpacing, yMm: 0 }
     ]);
+  }
+});
+
+test("BCP SOT223 copper assets preserve both routed collector pads in the native PCB format", async () => {
+  const load = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const ledger = await load("../library/parts-ledger.json");
+  const records = ledger.records.filter((record) => record.evidenceNote === "library/evidence/nexperia.bcp-sot223.md");
+  assert.equal(records.length, 9);
+
+  for (const record of records) {
+    const footprint = await load(`../${record.footprintEvidence.assetPath}`);
+    assert.deepEqual(record.symbolPinMap, { 1: "Base", 2: "Collector", 3: "Emitter", 4: "Collector tab" });
+    assert.deepEqual(footprint.pads.map(({ number, xMm, yMm, widthMm, heightMm }) =>
+      [number, xMm, yMm, widthMm, heightMm]), [
+      ["1", -2.3, 3.05, 1.3, 1.3],
+      ["2", 0, 3.05, 1.3, 1.3],
+      ["3", 2.3, 3.05, 1.3, 1.3],
+      ["4", 0, -3.05, 3.6, 1.3]
+    ]);
+
+    const collectorPins = ["2", "4"];
+    const pads = Object.entries(record.footprintPadMap).map(([pin, number]) => {
+      const land = footprint.pads.find((pad) => pad.number === number);
+      return {
+        ...land, pin, xMm: 10 + land.xMm, yMm: 10 + land.yMm,
+        instanceId: "q1", reference: "Q1", technology: "smd",
+        netId: collectorPins.includes(pin) ? "COLLECTOR" : "NC"
+      };
+    });
+    const project = {
+      components: [{ instanceId: "q1", reference: "Q1", libraryId: record.id, value: record.manufacturerPartNumber }],
+      nets: [{ id: "COLLECTOR", endpoints: collectorPins.map((pin) => `q1:${pin}`) }],
+      pcbFabrication: {
+        board: { widthMm: 20, heightMm: 20, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2 },
+        parts: [{ instanceId: "q1", reference: "Q1", footprint: "SOT223", technology: "smd" }],
+        pads,
+        routes: [{
+          netId: "COLLECTOR", layer: "F.Cu", widthMm: 0.25,
+          pointsMm: pads.filter((pad) => pad.netId === "COLLECTOR").map(({ xMm, yMm }) => [xMm, yMm])
+        }]
+      }
+    };
+    const preview = renderPcbPreviewSvg(project);
+    assert.match(preview, /data-pcb-pad="q1:2" data-pcb-net="COLLECTOR"/);
+    assert.match(preview, /data-pcb-pad="q1:4" data-pcb-net="COLLECTOR"/);
+
+    const exported = exportPcbFabrication(project);
+    assert.equal(exported.status, "passed", exported.drc.errors.join("\n"));
+    assert.match(exported.files["board-F_Cu.gbr"], /R,3\.6X1\.3/);
+    assert.match(exported.files["board-F_Cu.gbr"], /R,1\.3X1\.3/);
+
+    project.pcbFabrication.routes.length = 0;
+    const disconnected = exportPcbFabrication(project);
+    assert.equal(disconnected.status, "blocked");
+    assert.match(disconnected.drc.errors.join("\n"), /Net COLLECTOR has physical pads but no copper route/);
   }
 });
