@@ -1,3 +1,4 @@
+import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, boardGeometryErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { auditPcbCopper, netPairClearance, disconnectedPcbNets } from "./pcb-copper.mjs";
@@ -57,7 +58,7 @@ export function validatePcbFabrication(project) {
     else if (!knownNets.get(pad.netId)?.has(electricalEndpoint)) errors.push(`Pad ${pad.reference ?? key} is not attached to declared net ${pad.netId}.`);
     if (![pad.xMm,pad.yMm].every(Number.isFinite) || pad.xMm < 0 || pad.yMm < 0 || pad.xMm > board.widthMm || pad.yMm > board.heightMm) errors.push(`Pad ${pad.reference ?? key} is outside the board outline.`);
     if (pad.technology === "through-hole" && (!Number.isFinite(pad.drillMm) || pad.drillMm <= 0 || pad.drillMm >= pad.diameterMm)) errors.push(`Through-hole pad ${pad.reference ?? key} needs a valid drill diameter.`);
-    if (pad.technology === "smd" && (![pad.widthMm,pad.heightMm].every(Number.isFinite) || pad.widthMm <= 0 || pad.heightMm <= 0)) errors.push(`SMD pad ${pad.reference ?? key} needs positive width and height.`);
+    if (pad.technology === "smd" && !validSmdPad(pad)) errors.push(`SMD pad ${pad.reference ?? key} needs valid copper dimensions.`);
   }
   for (const component of project.components ?? []) {
     const isPhysical = partIds.has(component.instanceId);
@@ -78,7 +79,7 @@ export function validatePcbFabrication(project) {
   for (let i=0;i<pads.length;i++) for (let j=i+1;j<pads.length;j++) {
     const a=pads[i],b=pads[j];
     if (a.netId===b.netId && a.netId!=="NC") continue;
-    const spacing=padGap(a,b);
+    const spacing=Math.min(...padCopperSections(a).flatMap(first => padCopperSections(b).map(second => padGap(first,second))));
     const required = netPairClearance(pcb, a.netId, b.netId);
     if (spacing + 1e-9 < required) errors.push(`Copper pads ${a.reference}.${a.number} and ${b.reference}.${b.number} violate ${round(required)} mm clearance.`);
   }
@@ -115,7 +116,7 @@ export function validatePcbFabrication(project) {
   }
   for(const keepout of pcb.keepouts??[]){
     if(![keepout.xMm,keepout.yMm,keepout.widthMm,keepout.heightMm].every(Number.isFinite)||keepout.widthMm<=0||keepout.heightMm<=0){errors.push(`Keep-out ${keepout.id??"unnamed"} has invalid dimensions.`);continue;}
-    for(const pad of pads){
+    for(const pad of pads.flatMap(padCopperSections)){
       const radius=pad.technology==="through-hole"?pad.diameterMm/2:0;
       const left=pad.technology==="smd"?pad.widthMm/2:radius,top=pad.technology==="smd"?pad.heightMm/2:radius;
       if(pad.xMm+left>=keepout.xMm&&pad.xMm-left<=keepout.xMm+keepout.widthMm&&pad.yMm+top>=keepout.yMm&&pad.yMm-top<=keepout.yMm+keepout.heightMm)errors.push(`Pad ${pad.reference}.${pad.number} overlaps keep-out ${keepout.id??"unnamed"}.`);
@@ -136,7 +137,7 @@ export function validatePcbFabrication(project) {
 function gerberFile(pcb, { outline=false, layer="F.Cu" }={}) {
   const apertures = new Map();
   const apertureCode = (key, definition) => { if (!apertures.has(key)) apertures.set(key,{code:10+apertures.size,definition}); return apertures.get(key).code; };
-  const padDraws = outline ? [] : pcbCopperPads(pcb).filter((pad) => layer === "F.Cu" || pad.technology === "through-hole").map((pad) => {
+  const padDraws = outline ? [] : pcbCopperPads(pcb).filter((pad) => layer === "F.Cu" || pad.technology === "through-hole").flatMap(padCopperSections).map((pad) => {
     const key=pad.technology==="through-hole" ? `C:${round(pad.diameterMm)}` : `R:${round(pad.widthMm)}x${round(pad.heightMm)}`;
     const definition=pad.technology==="through-hole" ? `C,${round(pad.diameterMm)}` : `R,${round(pad.widthMm)}X${round(pad.heightMm)}`;
     return { pad, code:apertureCode(key,definition) };

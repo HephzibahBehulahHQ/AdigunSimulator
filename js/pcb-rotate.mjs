@@ -1,3 +1,4 @@
+import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 const round = (value) => Number(value.toFixed(9));
 
 /** Clockwise quarter-turns in the PCB's x-right/y-down coordinates, about its pad centroid. */
@@ -16,7 +17,7 @@ export function rotatePcbFootprint(project, instanceId, degrees) {
   if (pcb.routes.some((route) => !Array.isArray(route.pointsMm) || route.pointsMm.some((point) => !Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)))) return { status: "blocked", code: "INVALID_ROUTE_GEOMETRY" };
   if (![board.widthMm, board.heightMm].every((v) => Number.isFinite(v) && v > 0) || pads.some((pad) =>
     ![pad.xMm, pad.yMm].every(Number.isFinite) || !["smd", "through-hole"].includes(pad.technology) ||
-    !(pad.technology === "smd" ? [pad.widthMm, pad.heightMm] : [pad.diameterMm, pad.drillMm]).every((v) => Number.isFinite(v) && v > 0) ||
+    (pad.technology === "smd" ? !validSmdPad(pad) : ![pad.diameterMm, pad.drillMm].every((v) => Number.isFinite(v) && v > 0)) ||
     (pad.technology === "through-hole" && pad.drillMm >= pad.diameterMm))) return { status: "blocked", code: "INVALID_FOOTPRINT_GEOMETRY" };
   const center = [pads.reduce((sum, pad) => sum + pad.xMm, 0) / pads.length, pads.reduce((sum, pad) => sum + pad.yMm, 0) / pads.length];
   const transform = ([x, y]) => {
@@ -26,9 +27,20 @@ export function rotatePcbFootprint(project, instanceId, degrees) {
   };
   const rotated = pads.map((pad) => {
     const [xMm, yMm] = transform([pad.xMm, pad.yMm]);
+    if (pad.copperRects !== undefined) {
+      const copperRects = pad.copperRects.map(rect => {
+        let { dxMm, dyMm, widthMm, heightMm } = rect;
+        for (let i = 0; i < turns; i++) {
+          [dxMm, dyMm] = [-dyMm, dxMm];
+          [widthMm, heightMm] = [heightMm, widthMm];
+        }
+        return { dxMm, dyMm, widthMm, heightMm };
+      });
+      return { ...pad, xMm, yMm, copperRects };
+    }
     return { ...pad, xMm, yMm, ...(pad.technology === "smd" && turns % 2 ? { widthMm: pad.heightMm, heightMm: pad.widthMm } : {}) };
   });
-  if (rotated.some((pad) => {
+  if (rotated.flatMap(padCopperSections).some((pad) => {
     const rx = (pad.technology === "smd" ? pad.widthMm : pad.diameterMm) / 2;
     const ry = (pad.technology === "smd" ? pad.heightMm : pad.diameterMm) / 2;
     return pad.xMm - rx < 0 || pad.yMm - ry < 0 || pad.xMm + rx > board.widthMm || pad.yMm + ry > board.heightMm;

@@ -1,3 +1,4 @@
+import { padCopperSections } from "./pcb-pad-geometry.mjs";
 const csv=v=>'"'+String(v??"").replaceAll('"','""')+'"';
 const dist=(p,a,b)=>{const dx=b[0]-a[0],dy=b[1]-a[1],d=dx*dx+dy*dy,t=d?Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/d)):0;return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy);};
 export function refillCopperZone(project){
@@ -10,7 +11,7 @@ export function refillCopperZone(project){
   if(rect.xMm<0||rect.yMm<0||rect.xMm+rect.widthMm>board.widthMm||rect.yMm+rect.heightMm>board.heightMm)return fail("Copper zone bounds must stay inside the board.");
   const same=parts.filter(p=>p.netId===zone.netId&&p.xMm>=rect.xMm&&p.xMm<=rect.xMm+rect.widthMm&&p.yMm>=rect.yMm&&p.yMm<=rect.yMm+rect.heightMm);
   if(!same.length)return fail("Copper zone has no in-bounds pad on its assigned net.");
-  const foreignPads=parts.filter(p=>p.netId!==zone.netId),foreignRoutes=routes.filter(r=>r.netId!==zone.netId&&r.layer===zone.layer);
+  const foreignPads=parts.filter(p=>p.netId!==zone.netId).flatMap(padCopperSections),foreignRoutes=routes.filter(r=>r.netId!==zone.netId&&r.layer===zone.layer);
   const nx=Math.ceil(rect.widthMm/pitch),ny=Math.ceil(rect.heightMm/pitch);let filled=0;
   for(let ix=0;ix<nx;ix++)for(let iy=0;iy<ny;iy++){
     const x=rect.xMm+(ix+.5)*pitch,y=rect.yMm+(iy+.5)*pitch;

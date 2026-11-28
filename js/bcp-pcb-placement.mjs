@@ -1,3 +1,4 @@
+import { padCopperSections } from "./pcb-pad-geometry.mjs";
 import land from "../library/assets/footprints/nexperia.bcp51-115/footprint.json" with { type: "json" };
 import { boardGeometryErrors } from "./pcb-board.mjs";
 import { auditPcbCopper } from "./pcb-copper.mjs";
@@ -15,7 +16,7 @@ export function placeBcpFootprint(project, component) {
     sourceUrl: "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
   };
   const clearance = board.minimumClearanceMm;
-  const occupied = [...current.pads, ...(current.vias ?? [])];
+  const occupied = [...current.pads, ...(current.vias ?? [])].flatMap(padCopperSections);
   for (let y = 5; y <= board.heightMm - 5 && y <= 205; y += 10) {
     for (let x = 5; x <= board.widthMm - 5 && x <= 205; x += 10) {
       const pads = land.pads.map(({ number, xMm, yMm, widthMm, heightMm }) => ({

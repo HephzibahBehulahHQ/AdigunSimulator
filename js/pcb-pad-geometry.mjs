@@ -15,3 +15,15 @@ export function validCompositePad(pad) {
   }
   return joined.size === rects.length;
 }
+
+export function validSmdPad(pad) {
+  return pad.copperRects === undefined ? finitePositive(pad.widthMm) && finitePositive(pad.heightMm) : validCompositePad(pad);
+}
+
+export function padCopperSections(pad) {
+  if (pad.copperRects === undefined) return [pad];
+  if (!validCompositePad(pad)) return [];
+  return pad.copperRects.map(({ dxMm, dyMm, widthMm, heightMm }) => ({
+    ...pad, copperRects: undefined, xMm: pad.xMm + dxMm, yMm: pad.yMm + dyMm, widthMm, heightMm
+  }));
+}

@@ -1,3 +1,4 @@
+import { validSmdPad } from "./pcb-pad-geometry.mjs";
 import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { boardOutlineContainsSegment } from "./pcb-outline.mjs";
@@ -37,12 +38,6 @@ function segmentHitsRect(a, b, rect, padding) {
   return true;
 }
 
-function padRadius(pad) {
-  return pad.technology === "through-hole"
-    ? Number(pad.diameterMm) / 2
-    : Math.hypot(Number(pad.widthMm), Number(pad.heightMm)) / 2;
-}
-
 export function createPcbRoute(project, { startPad, endPad, waypoints = [], layer = "F.Cu", widthMm } = {}) {
   const pcb = project?.pcbFabrication;
   const board = pcb?.board;
@@ -67,7 +62,7 @@ export function createPcbRoute(project, { startPad, endPad, waypoints = [], laye
   const minimumWidth = minimumPcbTraceWidth(pcb, from.netId, 0.25);
   const traceWidth = widthMm === undefined ? minimumWidth : Number(widthMm);
   if (!Number.isFinite(minimumWidth) || minimumWidth <= 0 || !Number.isFinite(traceWidth) || traceWidth + epsilon < minimumWidth) return { status: "blocked", code: "TRACE_WIDTH_BELOW_MINIMUM" };
-  if (pcb.pads.some((pad) => !Number.isFinite(pad.xMm) || !Number.isFinite(pad.yMm) || !Number.isFinite(padRadius(pad)) || padRadius(pad) <= 0)) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
+  if (pcb.pads.some((pad) => !Number.isFinite(pad.xMm) || !Number.isFinite(pad.yMm) || (pad.technology === "through-hole" ? !Number.isFinite(pad.diameterMm) || pad.diameterMm <= 0 : !validSmdPad(pad)))) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
   if (pcb.routes.some((route) => !Number.isFinite(route.widthMm) || route.widthMm <= 0 || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || route.pointsMm.some((point) => !Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)))) return { status: "blocked", code: "INVALID_EXISTING_GEOMETRY" };
 
   const pointsMm = [
