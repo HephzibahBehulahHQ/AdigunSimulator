@@ -836390,8 +836390,9 @@
         "pcb": true
       },
       "simulationModel": {
-        "status": "not-modelled",
-        "reason": "No exact-device model has been validated for this component-bank record."
+        "status": "supported",
+        "id": "analytical-i2c-eeprom-write-read",
+        "scope": "Ideal single-byte write/read fixture"
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21713L.pdf",
@@ -836505,8 +836506,9 @@
         "pcb": true
       },
       "simulationModel": {
-        "status": "not-modelled",
-        "reason": "No exact-device model has been validated for this component-bank record."
+        "status": "supported",
+        "id": "analytical-i2c-eeprom-write-read",
+        "scope": "Ideal single-byte write/read fixture"
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21189S.pdf",
@@ -836620,8 +836622,9 @@
         "pcb": true
       },
       "simulationModel": {
-        "status": "not-modelled",
-        "reason": "No exact-device model has been validated for this component-bank record."
+        "status": "supported",
+        "id": "analytical-i2c-eeprom-write-read",
+        "scope": "Ideal single-byte write/read fixture"
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21203R.pdf",

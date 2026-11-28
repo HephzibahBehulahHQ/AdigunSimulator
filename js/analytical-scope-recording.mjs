@@ -90,6 +90,10 @@ function i2cRegisterRecording(project, result) {
   sample(ack,0);
   sample(ack,1);
  };
+ const wordAddress=()=>{
+  if(result.addressBytes===2)byte(register>>8,0);
+  byte(register,0);
+ };
  const stop=()=>{
   sample(0,0);
   sample(0,1);
@@ -99,7 +103,7 @@ function i2cRegisterRecording(project, result) {
  sample(0,1);
  byte(address<<1,acknowledged?0:1);
  if(readComplete){
-  byte(register,0);
+  wordAddress();
   if(eeprom){
    byte(result.writeByte,0);
    stop();
@@ -107,7 +111,7 @@ function i2cRegisterRecording(project, result) {
    sample(1,1);
    sample(0,1);
    byte(address<<1,0);
-   byte(register,0);
+   wordAddress();
   }
   sample(1,0);
   sample(1,1);
