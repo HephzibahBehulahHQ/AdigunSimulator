@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { findNativeSamtecHeader } from "../js/native-samtec-headers.mjs";
 import { MANUFACTURER_PART_RECORDS, getManufacturerPartEvidenceSummary, searchManufacturerParts } from "../js/part-catalogue.mjs";
 
 test("manufacturer evidence shows BCP pad identities and the breadboard adapter requirement", () => {
@@ -467,6 +468,39 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
       assert.notEqual(runProjectAnalysis(project).state, "complete");
       assert.match(breadboard.reconciliationItems[0].reason, /7\.62 mm BB400 center gap.*continuity for all eight pins/);
     }
+  }
+});
+
+test("Samtec catalogue headers map numbered schematic terminals to educational through-hole pads", async () => {
+  const { addComponent, connectPins, createEmptyProject, parseProject, serializeProject } = await import("../js/core.mjs");
+  const { projectComponentsForView } = await import("../js/view-projection.mjs");
+  const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
+  const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
+  const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
+  for (const count of [2, 3, 4]) {
+    const id = `samtec.tsw-10${count}-07-t-s`;
+    const row = MANUFACTURER_PART_RECORDS.find(record => record.id === id);
+    const part = findNativeSamtecHeader(id);
+    const project = parseProject(serializeProject(addComponent(createEmptyProject(), id)));
+    const [header] = project.components;
+    const { parts, pads } = project.pcbFabrication;
+    assert.equal(parts[0].sourceUrl, part.footprint.packageOutline.sourceUrl);
+    assert.equal(parts[0].designStatus, "educational-candidate");
+    assert.deepEqual(pads.map(({ pin, number }) => [pin, number]), Object.entries(row.footprintPadMap));
+    assert.ok(pads.every(pad => pad.drillMm === 1.02 && pad.drillMm > Math.SQRT2 * 0.635));
+    assert.deepEqual(pads.map(pad => Number((pad.xMm - pads[0].xMm).toFixed(2))), Array.from({ length: count }, (_, index) => index * 2.54));
+    for (const pin of part.pins) {
+      assert.ok(schematicPinPoint(header, part.pins, pin));
+      assert.ok(renderSchematicSymbol(part).includes(`data-symbol-pin="${pin}"`));
+    }
+    for (const view of ["schematic", "pcb"]) {
+      assert.equal(projectComponentsForView(project, view).components[0].instanceId, header.instanceId);
+    }
+    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /square-post seating depth/);
+    assert.equal(runProjectAnalysis(project).errors[0].code, "CONNECTOR_MODEL_UNAVAILABLE");
+    const wired = connectPins(project, header.instanceId + ":1", header.instanceId + ":2");
+    assert.equal(wired.pcbFabrication.pads[0].netId, wired.nets[0].id);
+    assert.equal(wired.pcbFabrication.pads[1].netId, wired.nets[0].id);
   }
 });
 

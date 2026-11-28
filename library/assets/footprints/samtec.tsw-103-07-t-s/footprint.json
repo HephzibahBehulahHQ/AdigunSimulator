@@ -17,7 +17,8 @@
   "padPattern": {
     "shape": "circle",
     "diameterMm": 1.8,
-    "drillMm": 0.8
+    "drillMm": 1.02,
+    "drillSourceUrl": "https://suddendocs.samtec.com/prints/tsw-xxx-xx-x-x-xx-xxx-footprint.pdf"
   },
   "pads": [
     {

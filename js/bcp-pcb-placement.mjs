@@ -18,7 +18,7 @@ export function placeNativeCatalogueFootprint(project, component, definition) {
   const part = {
     instanceId: component.instanceId, reference: component.reference, footprint: definition.package, technology,
     manufacturer: definition.manufacturer ?? "Nexperia", manufacturerPartNumber: definition.defaultValue,
-    sourceUrl: land.source?.url ?? `https://assets.nexperia.com/documents/package-information/${definition.package}.pdf`,
+    sourceUrl: land.source?.url ?? land.packageOutline?.sourceUrl ?? `https://assets.nexperia.com/documents/package-information/${definition.package}.pdf`,
     ...(plated ? { designStatus: "educational-candidate" } : {})
   };
   const clearance = board.minimumClearanceMm;
