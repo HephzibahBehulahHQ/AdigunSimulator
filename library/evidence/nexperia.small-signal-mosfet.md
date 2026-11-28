@@ -41,3 +41,5 @@ The two header centerlines are 7.62 mm apart and contacts are on 2.54 mm centers
 ### Model qualification
 
 The ledger now records on-resistance checkpoints from the characteristic tables, with gate voltage, drain current and junction temperature. Compare each BSS138BKS channel individually. The 2N7002 500 mA characterization points are datasheet test conditions, independent of the device’s continuous current rating. The product pages checked did not list executable models for these three parts. Their analysis status remains unsupported.
+
+Nexperia links browser-based electrothermal references for [2N7002](https://www.nexperia.com/interactive-datasheet?id=2N7002), [BSS138BKW](https://www.nexperia.com/interactive-datasheet?id=BSS138BKW), and [BSS138BKS](https://www.nexperia.com/interactive-datasheet?id=BSS138BKS). Use these as manufacturer comparison references. The downloadable Diodes Incorporated model is for its own 2N7002 and does not establish model provenance for the Nexperia order code. No code or model parameters were imported. [Diodes Incorporated product and model listing](https://www.diodes.com/part/view/2N7002)

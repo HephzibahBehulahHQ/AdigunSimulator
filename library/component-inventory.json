@@ -835963,11 +835963,12 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
+        "reason": "Nexperia provides a browser-based electrothermal reference. No executable model for this exact device has been qualified in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/2N7002.pdf",
         "https://www.nexperia.com/chemical-content/2N7002.html",
+        "https://www.nexperia.com/interactive-datasheet?id=2N7002",
         "https://assets.nexperia.com/documents/package-information/SOT23.pdf"
       ],
       "readiness": {
@@ -836050,11 +836051,12 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
+        "reason": "Nexperia provides a browser-based electrothermal reference. No executable model for this exact device has been qualified in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BSS138BKW.pdf",
         "https://www.nexperia.com/chemical-content/BSS138BKW.html",
+        "https://www.nexperia.com/interactive-datasheet?id=BSS138BKW",
         "https://assets.nexperia.com/documents/package-information/SOT323.pdf"
       ],
       "readiness": {
@@ -836155,11 +836157,12 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
+        "reason": "Nexperia provides a browser-based electrothermal reference. No executable model for this exact device has been qualified in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BSS138BKS.pdf",
         "https://www.nexperia.com/chemical-content/BSS138BKS.html",
+        "https://www.nexperia.com/interactive-datasheet?id=BSS138BKS",
         "https://assets.nexperia.com/documents/package-information/SOT363.pdf"
       ],
       "readiness": {
