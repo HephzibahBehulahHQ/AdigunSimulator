@@ -342755,6 +342755,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT23 breakout that preserves every numbered terminal."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.2n7002-215/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT23.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.2n7002-215/footprint.json",
+        "sha256": "1ca2fc165721a62e7c48d01167ea6d4289ba4abd1e5689e8bac83b575f0235d4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -342806,6 +342823,23 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT323 breakout that preserves every numbered terminal."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bss138bkw-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT323.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bss138bkw-115/footprint.json",
+        "sha256": "37f3dbb36f6c1a2c7eec57caf4abd830f18f5baaf9706409b17039b203573b9a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     },
     {
@@ -342866,6 +342900,26 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT363 breakout that preserves every numbered terminal."
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/nexperia.bss138bks-115/footprint.json",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT363.pdf",
+        "designStatus": "manufacturer-recommended"
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bss138bks-115/footprint.json",
+        "sha256": "e8e6faec69bc2fdd466d6c81fe5de40868a3b9c0a6d5679dde4fb09cf3613cc6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
       }
     }
   ],
