@@ -326,3 +326,22 @@ test("all BCP records place their exact native schematic instance and show physi
     assert.equal(runProjectAnalysis(project).errors[0].code, "BCP_COLLECTOR_NET");
   }
 });
+
+test("BCP qualification compares signed model measurements with the exact gain grade", async () => {
+  const { checkBcpModelMeasurements } = await import("../scripts/bcp-model-measurements.mjs");
+  const measurements = sign => ({
+    temperatureC: 25,
+    gain150: { collectorMa: sign * 150, baseMa: sign * 150 / 200, vceV: sign * 2 },
+    active500: { collectorMa: sign * 500, baseMa: sign * 10, vceV: sign * 2, vbeV: sign * 0.9 },
+    saturation500: { collectorMa: sign * 500, baseMa: sign * 50, vceV: sign * 0.4 }
+  });
+  const pnp = checkBcpModelMeasurements("nexperia.bcp51-16-115", measurements(-1));
+  assert.equal(pnp.passed, true);
+  const narrowGrade = checkBcpModelMeasurements("nexperia.bcp56-10-115", measurements(1));
+  assert.equal(narrowGrade.passed, false);
+  assert.deepEqual(narrowGrade.checks.map(check => check.passed), [false, true, true, true]);
+  assert.throws(() => checkBcpModelMeasurements("nexperia.bcp51-16-115", measurements(1)), /signed/);
+  const highSaturation = measurements(1);
+  highSaturation.saturation500.vceV = 0.6;
+  assert.equal(checkBcpModelMeasurements("nexperia.bcp55-16-115", highSaturation).checks[2].passed, false);
+});
