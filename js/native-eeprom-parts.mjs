@@ -13,7 +13,9 @@ const records = new Map(patterns.map(([footprint, orderCode]) => {
   return [id, Object.freeze({
     id, footprint, technology: "through-hole", package: footprint.package, manufacturer: "Microchip Technology",
     type: "Microchip " + orderCode, defaultValue: orderCode, prefix: "U", category: "Active",
-    pins, symbolSize: size, simulation: null,
+    pins, symbolSize: size,
+    simulation: orderCode === "24LC02B-I/P" ? "analytical-i2c-eeprom-write-read" : null,
+    eepromSignalPins: Object.freeze({ GND: "4", SDA: "5", SCL: "6", WP: "7", VCC: "8" }),
     nativeBreadboard: orderCode === "24LC02B-I/P",
     noConnectPins: Object.freeze(orderCode.startsWith("24LC02B") ? pins.slice(0, 3) : []),
     status: "Manufacturer candidate with an educational PCB land pattern",
