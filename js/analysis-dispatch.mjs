@@ -1,6 +1,7 @@
 import { runLadderSimulation } from './ladder-simulation.mjs';
 
-import { runSupportedAnalysis } from "./core.mjs";
+import { runSupportedAnalysis, validateProject } from "./core.mjs";
+import { findBcpPart } from "./bcp-native-parts.mjs";
 import { analyticalScopeRecording } from './analytical-scope-recording.mjs';
 import { analyticalDcScopeRecording } from './analytical-dc-scope.mjs';
 import { analyzeDcVoltmeter } from "./dc-voltmeter-analysis.mjs";
@@ -65,6 +66,25 @@ import { runLinearRlcTransient } from "./linear-rlc-transient.mjs";
 import { runNonlinearDcOperatingPoint } from "./nonlinear-dc-analysis.mjs";
 
 export function runProjectAnalysis(project) {
+  const unmodelled = (project?.components ?? []).filter(component => findBcpPart(component?.libraryId));
+  if (unmodelled.length > 0) {
+    const validation = validateProject(project);
+    const wiringErrors = validation.errors.map(({ rule, message, fix }) => ({ code: rule, message, fix }));
+    const modelErrors = unmodelled.map(component => ({
+      code: "BCP_MODEL_UNAVAILABLE",
+      message: `${component.reference} (${findBcpPart(component.libraryId).defaultValue}) has no validated device model.`,
+      fix: "Use a supported device and circuit topology in a separate simulation project, or qualify a model for this exact order code."
+    }));
+    return {
+      state: "blocked",
+      engine: "Component model availability check",
+      message: wiringErrors.length ? "Resolve the listed wiring errors before analysis. This circuit also needs a validated BCP device model." : "Analysis needs a validated model for each BCP transistor in this circuit.",
+      errors: [...wiringErrors, ...modelErrors],
+      warnings: validation.warnings,
+      result: null,
+      diagnostics: { analysisAttempted: false, actions: [...new Set([...wiringErrors, ...modelErrors].map(error => error.fix).filter(Boolean))] }
+    };
+  }
   const primary=runPrimaryAnalysis(project);
   if(primary.state!=='complete')return primary;
   // Workflow reports remain intact; a supported electrical analysis supplies the scope.
