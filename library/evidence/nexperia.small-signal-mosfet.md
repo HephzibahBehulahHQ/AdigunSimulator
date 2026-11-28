@@ -25,3 +25,15 @@ All three parts now place from the manufacturer catalogue in Schematic and PCB. 
 | SOT363 | [PA0087C](https://www.chipquik.com/datasheets/PA0087C.pdf) | DIP-6 | 0.46 mm machine pins |
 
 The drawings give 2.54 mm header pitch and 7.62 mm row spacing. All listed round pin diameters are within the BB400 published 0.4–0.7 mm insertion range. The available drawings do not establish a numbered land-to-header map for these adapters. Confirm each connection on an assembled adapter before assigning holes, including six distinct terminal paths for BSS138BKS. [PA0082 drawing](https://www.chipquik.com/datasheets/PA0082.pdf) · [Machine-pin specification](https://www.proto-advantage.com/store/product_info.php?products_id=1900033)
+
+### Open SOT23 breakout routing
+
+The [Adafruit 6-pin SOT23 breakout board source](https://github.com/adafruit/Adafruit-SMT-Breakout-PCBs/blob/master/6-pin%20SOT-23.brd) includes two underside SOT23-3 footprints. Use location Q1 for a single 2N7002. Its numbered lands route as follows.
+
+| 2N7002 terminal | Board land | Header contact |
+| --- | --- | --- |
+| Gate (1) | Q1.1 | JP1.2 |
+| Source (2) | Q1.2 | JP1.3 |
+| Drain (3) | Q1.3 | JP2.3 |
+
+The two header centerlines are 7.62 mm apart and contacts are on 2.54 mm centers. Use the board's underside placement markings to orient Q1. The board source establishes continuity through the bare PCB; native placement still requires an assembled orientation and compatible header fit. This board's SOT23-6 pattern uses 0.95 mm pitch, so it provides no pin-map evidence for the 0.65 mm SOT363 part.
