@@ -1230,7 +1230,7 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "2a2de2bf9b5b31677fb571465520790687d8e6b99f768b0e990ed80e09cf163e",
+      "sha256": "ba71d4851343c83290bd6a4c783026b103cabe1e2d2c06f0409448822a2b1eed",
       "components": 8,
       "analysis": "complete",
       "engine": "Ideal Uno-class ultrasonic time-of-flight estimate",
