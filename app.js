@@ -1,3 +1,4 @@
+import { mountStudioNavigation } from "./js/studio-navigation.mjs";
 import { parseExampleProject, canLoadExampleAnalysis } from './js/example-loading.mjs';
 import { isGlobalSearchShortcut, isGlobalExampleQuery, matchGlobalExample, globalExampleSuggestion, searchGlobalActions } from "./js/global-search.mjs";
 import { createExampleBrowser } from './js/example-bank-ui.mjs';
@@ -2834,4 +2835,4 @@ projectSession.install(window, { onLeave: (event) => {
   simulation?.cancel();
   if (!event.persisted) canvasResizeObserver.disconnect();
 } });
-
+mountStudioNavigation(loadExample);
