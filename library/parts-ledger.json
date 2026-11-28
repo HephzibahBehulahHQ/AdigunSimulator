@@ -343062,7 +343062,14 @@
       },
       "packageEvidence": {
         "package": "PDIP-8 (300 mil)",
-        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21709G.pdf"
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "drawing": "C04-018-P",
+        "leadCount": 8,
+        "leadPitchMm": 2.54,
+        "nominalPackageWidthMil": 300,
+        "leadWidthMaxMm": 0.5588,
+        "leadThicknessMaxMm": 0.381,
+        "designNote": "The mechanical drawing publishes package dimensions. PCB drill, annular ring and land-pattern dimensions require separate evidence."
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24lc02b-i-p/symbol.svg",
@@ -343128,7 +343135,14 @@
       },
       "packageEvidence": {
         "package": "PDIP-8 (300 mil)",
-        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21713L.pdf"
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "drawing": "C04-018-P",
+        "leadCount": 8,
+        "leadPitchMm": 2.54,
+        "nominalPackageWidthMil": 300,
+        "leadWidthMaxMm": 0.5588,
+        "leadThicknessMaxMm": 0.381,
+        "designNote": "The mechanical drawing publishes package dimensions. PCB drill, annular ring and land-pattern dimensions require separate evidence."
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24lc32a-i-p/symbol.svg",
@@ -343194,7 +343208,14 @@
       },
       "packageEvidence": {
         "package": "PDIP-8 (300 mil)",
-        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21189S.pdf"
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "drawing": "C04-018-P",
+        "leadCount": 8,
+        "leadPitchMm": 2.54,
+        "nominalPackageWidthMil": 300,
+        "leadWidthMaxMm": 0.5588,
+        "leadThicknessMaxMm": 0.381,
+        "designNote": "The mechanical drawing publishes package dimensions. PCB drill, annular ring and land-pattern dimensions require separate evidence."
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24lc64-i-p/symbol.svg",
@@ -343260,7 +343281,14 @@
       },
       "packageEvidence": {
         "package": "PDIP-8 (300 mil)",
-        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21203R.pdf"
+        "sourceUrl": "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "drawing": "C04-018-P",
+        "leadCount": 8,
+        "leadPitchMm": 2.54,
+        "nominalPackageWidthMil": 300,
+        "leadWidthMaxMm": 0.5588,
+        "leadThicknessMaxMm": 0.381,
+        "designNote": "The mechanical drawing publishes package dimensions. PCB drill, annular ring and land-pattern dimensions require separate evidence."
       },
       "symbolAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24fc256-i-p/symbol.svg",

@@ -836270,7 +836270,8 @@
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21709G.pdf",
-        "https://www.microchip.com/en-us/product/24LC02B"
+        "https://www.microchip.com/en-us/product/24LC02B",
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836383,7 +836384,8 @@
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21713L.pdf",
-        "https://www.microchip.com/en-us/product/24LC32A"
+        "https://www.microchip.com/en-us/product/24LC32A",
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836496,7 +836498,8 @@
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21189S.pdf",
-        "https://www.microchip.com/en-us/product/24LC64"
+        "https://www.microchip.com/en-us/product/24LC64",
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836609,7 +836612,8 @@
       },
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21203R.pdf",
-        "https://www.microchip.com/en-us/product/24FC256"
+        "https://www.microchip.com/en-us/product/24FC256",
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
       ],
       "readiness": {
         "verification": "candidate",
