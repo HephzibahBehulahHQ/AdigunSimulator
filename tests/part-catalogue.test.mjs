@@ -460,13 +460,13 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
       const miswired = connectPins(project, instance.instanceId + ":1", instance.instanceId + ":8");
       assert.ok(validateProject(miswired).errors.some(error => error.rule === "EEPROM_NC_CONNECTED"));
     } else {
-      assert.equal(runProjectAnalysis(project).errors[0].code, "EEPROM_MODEL_UNAVAILABLE");
+      assert.notEqual(runProjectAnalysis(project).state, "complete");
       assert.match(breadboard.reconciliationItems[0].reason, /7\.62 mm BB400 center gap.*continuity for all eight pins/);
     }
   }
 });
 
-test("24LC02B native numbered pins run the scoped EEPROM transaction and scope", async () => {
+test("Native numbered pins run one- and two-address-byte EEPROM transactions", async () => {
   const { readFile } = await import("node:fs/promises");
   const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
   const { findNativeEeprom } = await import("../js/native-eeprom-parts.mjs");
@@ -497,4 +497,34 @@ test("24LC02B native numbered pins run the scoped EEPROM transaction and scope",
 
   device.value = "Address 0x51; Memory 0x10=0x00";
   assert.match(runProjectAnalysis(project).message, /address 0x50/);
+
+  const ground = project.nets.find(net => net.endpoints.includes("eeprom:4"));
+  const supply = project.nets.find(net => net.endpoints.includes("eeprom:8"));
+  ground.endpoints.push("eeprom:1", "eeprom:2");
+  supply.endpoints.push("eeprom:3");
+  fixture.value = "Address 0x54; Register 0xabc; Data 0x5A; Baud 100000; Cycle write-read; ACK yes";
+  for (const id of ["microchip.24lc32a-i-p", "microchip.24lc64-i-p", "microchip.24fc256-i-p"]) {
+    device.libraryId = id;
+    device.value = "Address 0x50; Memory 0xabc=0x11";
+    const wide = runProjectAnalysis(project);
+    assert.equal(wide.state, "complete", wide.message);
+    assert.equal(wide.result.readByte, 0x5a);
+    assert.equal(wide.result.selectedAddress, 0x54);
+    assert.equal(wide.scopeRecording.samples.length, result.scopeRecording.samples.length + 36);
+    const { preferredNet, samples } = wide.scopeRecording;
+    const highAddressBits = Array.from({ length: 8 }, (_, bit) => samples[21 + bit * 2].nodeVoltages[preferredNet]);
+    assert.deepEqual(highAddressBits, [0, 0, 0, 0, 1, 0, 1, 0]);
+  }
+  ground.endpoints = ground.endpoints.filter(endpoint => endpoint !== "eeprom:7");
+  supply.endpoints.push("eeprom:7");
+  project.schematicWires = project.schematicWires.filter(wire => wire.to !== "eeprom:7" && wire.from !== "eeprom:7");
+  const protectedWrite = runProjectAnalysis(project);
+  assert.equal(protectedWrite.result?.writeAcknowledged, true);
+  assert.equal(protectedWrite.result?.writeProtected, true);
+  assert.equal(protectedWrite.result?.readByte, 0x11);
+  assert.equal(protectedWrite.result?.hostWriteWaitSeconds, undefined);
+  fixture.value = fixture.value.replace("0xabc", "0x8000");
+  assert.match(runProjectAnalysis(project).message, /0 to 32767/);
+  supply.endpoints = supply.endpoints.filter(endpoint => endpoint !== "eeprom:3");
+  assert.match(runProjectAnalysis(project).message, /Tie the EEPROM address pins/);
 });

@@ -3389,6 +3389,7 @@ function analyseI2cLevelShifter(project,{sources,fixture,shifter,report,resistor
 function analyseI2cEepromWriteRead(project,{source,fixture,eeprom,resistors,bypass,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);
   const exact = findNativeEeprom(eeprom.libraryId);
+  const strapped = exact?.addressBytes === 2;
   const n = (part, pin) => {
     const terminal = part === eeprom ? exact?.eepromSignalPins[pin] ?? pin : pin;
     return netByEndpoint.get(endpoint(part, String(terminal)));
@@ -3402,31 +3403,43 @@ function analyseI2cEepromWriteRead(project,{source,fixture,eeprom,resistors,bypa
   const mem=field(memoryFields,"Memory")?.match(/^(0x[0-9a-f]+|\d+)\s*=\s*(0x[0-9a-f]+|\d+)$/i);
   const memoryRegister=mem?parseHex(mem[1]):Number.NaN,initialByte=mem?parseHex(mem[2]):Number.NaN,baud=parseHex(field(fields,"Baud"));
   const ack=field(fields,"ACK")?.toLowerCase()==="yes",cycle=field(fields,"Cycle")?.toLowerCase();
-  if (exact && (eepromAddress !== 0x50 || !/^(yes|no)$/i.test(field(fields,"ACK") ?? "") || ![address, register, writeByte, memoryRegister, initialByte, baud].every(Number.isInteger))) {
-    return { state: "blocked", message: "Configure the 24LC02B at address 0x50 with integer address, register, data and clock values.", validation };
+  if (exact && ((!strapped && eepromAddress !== 0x50) || !/^(yes|no)$/i.test(field(fields,"ACK") ?? "") || ![address, register, writeByte, memoryRegister, initialByte, baud].every(Number.isInteger))) {
+    return { state: "blocked", message: strapped ? "Configure integer address, register, data and clock values and set ACK to yes or no." : "Configure the 24LC02B at address 0x50 with integer address, register, data and clock values.", validation };
   }
   const groundNet=n(ground,"0"),vccNet=n(eeprom,"VCC"),supplyVoltage=n(source,"+")===vccNet&&n(source,"-")===groundNet?voltageValue(source.value):Number.NaN;
+  const deviceName = exact?.defaultValue ?? "24LC02B";
+  const wp = n(eeprom,"WP");
   if (bypass) {
     if (!vccNet || !groundNet || !(supplyVoltage >= 2.5 && supplyVoltage <= 5.5) || !validSupplyBypass(bypass,n,vccNet,groundNet)) {
-      return {state:"blocked",message:"Power the 24LC02B from 2.5 V to 5.5 V and connect its bypass capacitor across the supply.",validation};
+      return {state:"blocked",message:`Power the ${deviceName} fixture from 2.5 V to 5.5 V and connect its bypass capacitor across the supply.`,validation};
     }
-    if (n(eeprom,"WP") !== groundNet) {
-      return {state:"blocked",message:"Connect the 24LC02B write-protect pin WP to ground before writing the sample.",validation};
+    if (wp !== groundNet && !(strapped && wp === vccNet)) {
+      return {state:"blocked",message:`Tie WP to ground for the ${deviceName} write fixture${strapped ? " or to VCC to test write protection" : ""}.`,validation};
     }
-    if (baud > 400000) return {state:"blocked",message:"Set the 24LC02B I²C clock to at most 400 kHz.",validation};
+    if (baud > 400000) return {state:"blocked",message:"Set the EEPROM fixture I²C clock to at most 400 kHz.",validation};
+  }
+  const addressPins = strapped ? ["1", "2", "3"].map(pin => n(eeprom, pin)) : [];
+  if (addressPins.some(net => net !== groundNet && net !== vccNet)) {
+    return { state: "blocked", message: "Tie the EEPROM address pins A0, A1 and A2 to VCC or ground.", validation };
+  }
+  const selectedAddress = addressPins.reduce((value, net, bit) => value + (net === vccNet ? 1 << bit : 0), 0x50);
+  const writeProtected = strapped && wp === vccNet;
+  const maxRegister = (exact?.capacityBytes ?? 256) - 1;
+  if (strapped && (register > maxRegister || memoryRegister > maxRegister)) {
+    return { state: "blocked", message: `Use a word address from 0 to ${maxRegister} for the ${deviceName} fixture.`, validation };
   }
   const fixtureGnd=n(fixture,"GND"),sdaNet=n(fixture,"SDA"),sclNet=n(fixture,"SCL"),pullupNets=resistors.map(r=>{const a=n(r,"1"),b=n(r,"2");return a===vccNet?b:b===vccNet?a:undefined;});
   if (exact && [sdaNet, sclNet].some(net => net === groundNet || net === vccNet)) {
     return { state: "blocked", message: "Separate SDA and SCL from the power rails and use a pull-up on each bus line.", validation };
   }
   const resistances=resistors.map(r=>resistanceValue(r.value)),busReady=pullupNets.includes(sdaNet)&&pullupNets.includes(sclNet)&&sdaNet!==sclNet;
-  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(eeprom,"GND")!==groundNet||fixtureGnd!==groundNet||!sdaNet||n(eeprom,"SDA")!==sdaNet||!sclNet||n(eeprom,"SCL")!==sclNet||!busReady||resistances.some(v=>!Number.isFinite(v)||v<=0)||![address,register,writeByte,eepromAddress,memoryRegister,initialByte,baud].every(Number.isFinite)||address<0||address>0x7f||eepromAddress<0||eepromAddress>0x7f||register<0||register>0xff||memoryRegister<0||memoryRegister>0xff||writeByte<0||writeByte>0xff||initialByte<0||initialByte>0xff||baud<10000||baud>1000000||cycle!=="write-read"||field(fields,"ACK")===undefined){
-    return {state:"blocked",message:"Wire shared SDA/SCL with one pull-up per line, power and ground the EEPROM, and configure matching 7-bit address, 8-bit register/data, 10 kHz–1 MHz clock, write-read cycle, and ACK fixture.",validation};
+  if(!Number.isFinite(supplyVoltage)||supplyVoltage<=0||n(eeprom,"GND")!==groundNet||fixtureGnd!==groundNet||!sdaNet||n(eeprom,"SDA")!==sdaNet||!sclNet||n(eeprom,"SCL")!==sclNet||!busReady||resistances.some(v=>!Number.isFinite(v)||v<=0)||![address,register,writeByte,eepromAddress,memoryRegister,initialByte,baud].every(Number.isFinite)||address<0||address>0x7f||eepromAddress<0||eepromAddress>0x7f||register<0||register>maxRegister||memoryRegister<0||memoryRegister>maxRegister||writeByte<0||writeByte>0xff||initialByte<0||initialByte>0xff||baud<10000||baud>1000000||cycle!=="write-read"||field(fields,"ACK")===undefined){
+    return {state:"blocked",message:"Wire shared SDA/SCL with one pull-up per line, power and ground the EEPROM, and configure matching 7-bit address, in-range word address and 8-bit data, 10 kHz–1 MHz clock, write-read cycle, and ACK fixture.",validation};
   }
-  const addressMatch=exact ? (address & 0x78) === 0x50 : address === eepromAddress;
-  const registerMatch=register===memoryRegister,deviceAck=ack&&addressMatch,writeAcknowledged=deviceAck&&registerMatch,storedByte=writeAcknowledged?writeByte:initialByte,readByte=deviceAck&&registerMatch?storedByte:null;
+  const addressMatch=strapped ? address === selectedAddress : exact ? (address & 0x78) === 0x50 : address === eepromAddress;
+  const registerMatch=register===memoryRegister,deviceAck=ack&&addressMatch,writeAcknowledged=deviceAck&&registerMatch,storedByte=writeAcknowledged&&!writeProtected?writeByte:initialByte,readByte=deviceAck&&registerMatch?storedByte:null;
   const pullupCurrentA=resistances.reduce((sum,r)=>sum+supplyVoltage/r,0);
-  return {state:"complete",engine:"Ideal I²C EEPROM write/read transaction model",message:readByte===null?"The EEPROM transaction was not acknowledged or the configured memory address was absent; no verified read-back is returned.":"Models an acknowledged byte write followed by immediate register read-back. Persistence is an ideal logical storage assumption; write-cycle delay, endurance, power-loss behavior, page boundaries, and physical EEPROM timing are not modeled.",result:{kind:"i2c-eeprom-write-read",address,register,baud,addressMatch,registerMatch,deviceAck,writeAcknowledged,readAcknowledged:readByte!==null,initialByte,writeByte,storedByte:writeAcknowledged?storedByte:initialByte,readByte,readHex:readByte===null?null:"0x"+readByte.toString(16).padStart(2,"0").toUpperCase(),dataPreserved:readByte!==null&&readByte===writeByte,persistenceModel:"ideal immediate register storage",...(bypass&&writeAcknowledged?{hostWriteWaitSeconds:.005}:{}),pullupCurrentA},validation};
+  return {state:"complete",engine:"Ideal I²C EEPROM write/read transaction model",message:readByte===null?"The EEPROM transaction was not acknowledged or the configured memory address was absent; no verified read-back is returned.":writeProtected?"The EEPROM acknowledged the write while WP was high. Read-back returns the original byte.":"Models an acknowledged byte write followed by immediate register read-back. Persistence is an ideal logical storage assumption; write-cycle delay, endurance, power-loss behavior, page boundaries, and physical EEPROM timing are not modeled.",result:{kind:"i2c-eeprom-write-read",address,register,baud,addressMatch,registerMatch,deviceAck,writeAcknowledged,readAcknowledged:readByte!==null,initialByte,writeByte,storedByte:writeAcknowledged?storedByte:initialByte,readByte,readHex:readByte===null?null:"0x"+readByte.toString(16).padStart(2,"0").toUpperCase(),dataPreserved:readByte!==null&&readByte===writeByte,persistenceModel:"ideal immediate register storage",...(strapped?{addressBytes:2,selectedAddress,writeProtected}:{}),...(bypass&&writeAcknowledged&&!writeProtected?{hostWriteWaitSeconds:.005}:{}),pullupCurrentA},validation};
 }
 function analyseI2cRegisterRead(project,{source,fixture,sensor,resistors,bypass,ground,validation}){
   const netByEndpoint=new Map();for(const net of project.nets)for(const item of net.endpoints)netByEndpoint.set(item,net.id);

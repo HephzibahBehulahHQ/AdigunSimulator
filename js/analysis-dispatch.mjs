@@ -92,7 +92,7 @@ export function runProjectAnalysis(project) {
   const primary=nativeParts.length ? runSupportedAnalysis(project) : runPrimaryAnalysis(project);
   if(primary.state!=='complete')return primary;
   if (nativeParts.length && primary.result?.kind !== "i2c-eeprom-write-read") {
-    return { state: "blocked", message: "Use the 24LC02B single-byte I²C test fixture, supply, bypass capacitor and two pull-ups.", result: null };
+    return { state: "blocked", message: "Use the single-byte I²C EEPROM test fixture, supply, bypass capacitor and two pull-ups.", result: null };
   }
   // Workflow reports remain intact; a supported electrical analysis supplies the scope.
   const electrical=['missing-footprint-resolution-report','schematic-pcb-netlist-pad-sync'].includes(primary.result?.kind) ? runSupportedAnalysis(project) : primary;

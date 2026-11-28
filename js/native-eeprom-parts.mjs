@@ -3,18 +3,20 @@ import eeprom32 from "../library/assets/footprints/microchip.24lc32a-i-p/footpri
 import eeprom64 from "../library/assets/footprints/microchip.24lc64-i-p/footprint.json" with { type: "json" };
 import eeprom256 from "../library/assets/footprints/microchip.24fc256-i-p/footprint.json" with { type: "json" };
 
-const patterns = [[eeprom2, "24LC02B-I/P"], [eeprom32, "24LC32A-I/P"], [eeprom64, "24LC64-I/P"], [eeprom256, "24FC256-I/P"]];
+const patterns = [[eeprom2, "24LC02B-I/P", 256], [eeprom32, "24LC32A-I/P", 4096], [eeprom64, "24LC64-I/P", 8192], [eeprom256, "24FC256-I/P", 32768]];
 const size = Object.freeze({ width: 132, height: 104 });
 const pins = Object.freeze(["1", "2", "3", "4", "5", "6", "7", "8"]);
 const signalNames = ["A0", "A1", "A2", "VSS", "SDA", "SCL", "WP", "VCC"];
 
-const records = new Map(patterns.map(([footprint, orderCode]) => {
+const records = new Map(patterns.map(([footprint, orderCode, capacityBytes]) => {
   const id = footprint.partId;
   return [id, Object.freeze({
     id, footprint, technology: "through-hole", package: footprint.package, manufacturer: "Microchip Technology",
     type: "Microchip " + orderCode, defaultValue: orderCode, prefix: "U", category: "Active",
     pins, symbolSize: size,
-    simulation: orderCode === "24LC02B-I/P" ? "analytical-i2c-eeprom-write-read" : null,
+    simulation: "analytical-i2c-eeprom-write-read",
+    capacityBytes,
+    addressBytes: capacityBytes === 256 ? 1 : 2,
     eepromSignalPins: Object.freeze({ GND: "4", SDA: "5", SCL: "6", WP: "7", VCC: "8" }),
     nativeBreadboard: orderCode === "24LC02B-I/P",
     noConnectPins: Object.freeze(orderCode.startsWith("24LC02B") ? pins.slice(0, 3) : []),
