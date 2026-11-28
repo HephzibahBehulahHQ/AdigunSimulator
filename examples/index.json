@@ -111,7 +111,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "50287dbaa22eab1b8de4d92ae989ce3f441b7c851ecfc4b850f6d72a8563c5ec",
+      "sha256": "e70056a3d1cf14e510aef02bd008bde9012e4f923672fa7b0f70afed7cffaa45",
       "components": 5,
       "analysis": "complete",
       "engine": "Linear DC resistive nodal analysis",

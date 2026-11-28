@@ -775,6 +775,13 @@ test('5 V Parallel Resistor Load exports its exact external supply, resistor pad
  assert.equal(runProjectAnalysis(project).result.kind,'resistive-network');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-branch-1"/);
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2','R3']);
+ for(const view of ['breadboard','schematic','pcb'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ const fabrication=exportPcbFabrication(project);
+ assert.equal(fabrication.status,'passed');
+ const drill=fabrication.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0008000000\n${tool}\nX0004000000Y0010540000\n`));
 });
 test('9 V Battery Discharge Monitor maps its TPS3710 across BB400 and routed fabrication views',async()=>{
  const entry=index.entries.find(item=>item.file==='006-battery-discharge-monitor.adigun.json');
