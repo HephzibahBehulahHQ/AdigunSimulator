@@ -147,6 +147,10 @@ test('latching SPDT LED maps the sourced slide switch across breadboard and PCB'
  const failed=runProjectAnalysis(disconnected);assert.equal(failed.state,'blocked');assert.match(failed.message,/COM through the series resistor and LED/);assert.equal(failed.scopeDcRecording,undefined);
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/EG1218/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="switch-1"/);assert.match(renderBreadboardAssemblySvg(project),/slide-switch/);
+ const drill=exported.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0005000000\n${tool}\nX0004000000Y0007540000\n`));
 });
 test('PWM LED dimmer carries a source-backed physical PCB map without changing its ideal analysis',async()=>{
  const entry=index.entries.find(item=>item.file==='005-pwm-led-dimmer.adigun.json');

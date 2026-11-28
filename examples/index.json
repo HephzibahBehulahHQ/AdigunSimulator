@@ -95,7 +95,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "ecd870697470ed1f82a45ecfb44de9a2c257d2a6d3cf3ea154edbaeca14fe86c",
+      "sha256": "131924575ee74f13e0a2666246f1094cb33c6714bc508d928bdfe849147fc4e9",
       "components": 5,
       "analysis": "complete",
       "engine": "Analytical ideal latching SPDT LED switch",
