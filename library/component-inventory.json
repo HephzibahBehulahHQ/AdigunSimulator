@@ -835963,7 +835963,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/2N7002.pdf",
@@ -835979,7 +835979,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835992,7 +835991,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -836052,7 +836050,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BSS138BKW.pdf",
@@ -836068,7 +836066,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -836081,7 +836078,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -836159,7 +836155,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BSS138BKS.pdf",
@@ -836175,7 +836171,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -836188,7 +836183,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"

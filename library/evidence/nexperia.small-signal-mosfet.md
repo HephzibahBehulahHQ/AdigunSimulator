@@ -37,3 +37,7 @@ The [Adafruit 6-pin SOT23 breakout board source](https://github.com/adafruit/Ada
 | Drain (3) | Q1.3 | JP2.3 |
 
 The two header centerlines are 7.62 mm apart and contacts are on 2.54 mm centers. Use the board's underside placement markings to orient Q1. The board source establishes continuity through the bare PCB; native placement still requires an assembled orientation and compatible header fit. This board's SOT23-6 pattern uses 0.95 mm pitch, so it provides no pin-map evidence for the 0.65 mm SOT363 part.
+
+### Model qualification
+
+The ledger now records on-resistance checkpoints from the characteristic tables, with gate voltage, drain current and junction temperature. Compare each BSS138BKS channel individually. The 2N7002 500 mA characterization points are datasheet test conditions, independent of the device’s continuous current rating. The product pages checked did not list executable models for these three parts. Their analysis status remains unsupported.
