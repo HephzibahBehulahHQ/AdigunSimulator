@@ -343029,6 +343029,46 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No exact-device model has been validated for this component-bank record."
+      },
+      "symbolPinMap": {
+        "1": "A0 (NC)",
+        "2": "A1 (NC)",
+        "3": "A2 (NC)",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "symbolPinLabels": {
+        "1": "A0 (NC)",
+        "2": "A1 (NC)",
+        "3": "A2 (NC)",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "no-connect",
+        "2": "no-connect",
+        "3": "no-connect",
+        "4": "power-in",
+        "5": "bidirectional",
+        "6": "input",
+        "7": "input",
+        "8": "power-in"
+      },
+      "packageEvidence": {
+        "package": "PDIP-8 (300 mil)",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21709G.pdf"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24lc02b-i-p/symbol.svg",
+        "sha256": "081204bee635b646059f419488025138018d1c3885224bc3176223efa47bb4b9",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -343055,6 +343095,46 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No exact-device model has been validated for this component-bank record."
+      },
+      "symbolPinMap": {
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "symbolPinLabels": {
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "power-in",
+        "5": "bidirectional",
+        "6": "input",
+        "7": "input",
+        "8": "power-in"
+      },
+      "packageEvidence": {
+        "package": "PDIP-8 (300 mil)",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21713L.pdf"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24lc32a-i-p/symbol.svg",
+        "sha256": "4ce1cd6aa45ed9431daad268c8fa7018fa4bc89a7c95206f9f7242f194992a2e",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -343081,6 +343161,46 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No exact-device model has been validated for this component-bank record."
+      },
+      "symbolPinMap": {
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "symbolPinLabels": {
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "power-in",
+        "5": "bidirectional",
+        "6": "input",
+        "7": "input",
+        "8": "power-in"
+      },
+      "packageEvidence": {
+        "package": "PDIP-8 (300 mil)",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21189S.pdf"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24lc64-i-p/symbol.svg",
+        "sha256": "38400bc246bed45da93e3015854e849a4399cdab2a541a679f85d96a937e232d",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -343107,6 +343227,46 @@
       "simulationModel": {
         "status": "not-modelled",
         "reason": "No exact-device model has been validated for this component-bank record."
+      },
+      "symbolPinMap": {
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "symbolPinLabels": {
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "VSS",
+        "5": "SDA",
+        "6": "SCL",
+        "7": "WP",
+        "8": "VCC"
+      },
+      "pinElectricalTypes": {
+        "1": "input",
+        "2": "input",
+        "3": "input",
+        "4": "power-in",
+        "5": "bidirectional",
+        "6": "input",
+        "7": "input",
+        "8": "power-in"
+      },
+      "packageEvidence": {
+        "package": "PDIP-8 (300 mil)",
+        "sourceUrl": "https://ww1.microchip.com/downloads/en/DeviceDoc/21203R.pdf"
+      },
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/microchip.24fc256-i-p/symbol.svg",
+        "sha256": "a97f4122e77f793b409f9821443865ec93f3c5deaa980736e7fe2b89a8fe9e41",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     }
   ],
