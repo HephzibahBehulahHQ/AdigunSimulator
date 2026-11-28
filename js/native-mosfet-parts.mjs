@@ -3,13 +3,13 @@ import sot323 from "../library/assets/footprints/nexperia.bss138bkw-115/footprin
 import sot363 from "../library/assets/footprints/nexperia.bss138bks-115/footprint.json" with { type: "json" };
 
 const packages = [
-  ["2N7002,215", "SOT23", sot23, [[1, 3, 2]]],
-  ["BSS138BKW,115", "SOT323", sot323, [[1, 3, 2]]],
-  ["BSS138BKS,115", "SOT363", sot363, [[2, 6, 1], [5, 3, 4]]]
+  ["2N7002,215", "SOT23", "PA0083C", sot23, [[1, 3, 2]]],
+  ["BSS138BKW,115", "SOT323", "PA0082", sot323, [[1, 3, 2]]],
+  ["BSS138BKS,115", "SOT363", "PA0087C", sot363, [[2, 6, 1], [5, 3, 4]]]
 ];
 const terminalPoints = [[12, 50, "left"], [105, 12, "right"], [105, 88, "right"]];
 
-const parts = new Map(packages.map(([orderCode, packageName, footprint, channels]) => {
+const parts = new Map(packages.map(([orderCode, packageName, adapter, footprint, channels]) => {
   const id = footprint.partId;
   const drawingHeight = channels.length === 2 ? 206 : 100;
   const height = channels.length === 2 ? 162 : 100;
@@ -25,7 +25,7 @@ const parts = new Map(packages.map(([orderCode, packageName, footprint, channels
     status: "Manufacturer candidate; native schematic",
     views: Object.freeze({ schematic: true, breadboard: false, pcb: true }),
     mappingDiagnostics: Object.freeze({
-      breadboard: `Use a documented ${packageName} breakout that preserves each numbered terminal.`,
+      breadboard: `Evaluate the Proto Advantage ${adapter} ${packageName} breakout. Confirm each device terminal at the DIP header before mapping breadboard holes.`,
       pcb: `Clear a location for the ${packageName} footprint on the board and add the part again.`
     })
   })];

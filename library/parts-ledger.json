@@ -342754,7 +342754,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT23 breakout that preserves every numbered terminal."
+        "adapter": "Evaluate the Proto Advantage PA0083C SOT23 breakout. Confirm each device terminal at the DIP header before mapping breadboard holes."
       },
       "footprintPadMap": {
         "1": "1",
@@ -342822,7 +342822,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT323 breakout that preserves every numbered terminal."
+        "adapter": "Evaluate the Proto Advantage PA0082 SOT323 breakout. Confirm each device terminal at the DIP header before mapping breadboard holes."
       },
       "footprintPadMap": {
         "1": "1",
@@ -342899,7 +342899,7 @@
       },
       "breadboard": {
         "compatible": false,
-        "adapter": "Use a documented SOT363 breakout that preserves every numbered terminal."
+        "adapter": "Evaluate the Proto Advantage PA0087C SOT363 breakout. Confirm each device terminal at the DIP header before mapping breadboard holes."
       },
       "footprintPadMap": {
         "1": "1",
