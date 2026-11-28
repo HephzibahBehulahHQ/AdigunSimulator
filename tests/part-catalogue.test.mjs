@@ -371,7 +371,7 @@ test("BCX catalogue placement shares exact instance identity between schematic a
     for (const view of ["schematic", "pcb"]) {
       assert.deepEqual(projectComponentsForView(project, view).components.map(part => part.instanceId), [first.instanceId, second.instanceId]);
     }
-    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /SOT89 breakout/);
+    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /PA0084 SOT89-to-DIP adapter/);
     assert.equal(runProjectAnalysis(project).errors[0].code, "BCX_MODEL_UNAVAILABLE");
 
     project = connectPins(project, first.instanceId + ":2", second.instanceId + ":2");

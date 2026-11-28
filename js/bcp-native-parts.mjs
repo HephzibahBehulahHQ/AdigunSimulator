@@ -34,7 +34,7 @@ const bcxDefinitions = new Map(bcxOrders.map(orderCode => {
     status: "Manufacturer candidate; native schematic",
     views: Object.freeze({ schematic: true, breadboard: false, pcb: true }),
     mappingDiagnostics: Object.freeze({
-      breadboard: "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3).",
+      breadboard: "Evaluate the Proto Advantage PA0084 SOT89-to-DIP adapter with 0.45 mm machine pins. Confirm the adapter pinout by continuity before assigning breadboard holes for emitter (1), collector (2), and base (3).",
       pcb: "Free a clear location for the SOT89 footprint on the board and add the part again."
     })
   })];
