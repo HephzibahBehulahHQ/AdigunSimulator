@@ -835920,11 +835920,38 @@
       "package": "SOT23",
       "category": "Transistors",
       "function": "N-channel enhancement MOSFET",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Gate",
+          "electricalType": "input",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Source",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Drain",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.2n7002-215/symbol.svg",
+        "sha256": "8e7669a5355558d4e7967999384eda33e70ea1ff9ef8214374b33d27b7ad2b97",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT23 breakout that preserves every numbered terminal."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -835933,7 +835960,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/product/2N7002",
+        "https://assets.nexperia.com/documents/data-sheet/2N7002.pdf",
         "https://www.nexperia.com/chemical-content/2N7002.html"
       ],
       "readiness": {
@@ -835947,13 +835974,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835966,11 +835990,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835987,11 +836008,38 @@
       "package": "SOT323",
       "category": "Transistors",
       "function": "N-channel enhancement MOSFET",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Gate",
+          "electricalType": "input",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Source",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Drain",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bss138bkw-115/symbol.svg",
+        "sha256": "9ce03e6dd0e280a99d287c6cdf402fe69d9d3c6cdd3ee3bdbe67167cb6dc09c2",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT323 breakout that preserves every numbered terminal."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -836000,7 +836048,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/product/BSS138BKW",
+        "https://assets.nexperia.com/documents/data-sheet/BSS138BKW.pdf",
         "https://www.nexperia.com/chemical-content/BSS138BKW.html"
       ],
       "readiness": {
@@ -836014,13 +836062,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -836033,11 +836078,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -836054,11 +836096,56 @@
       "package": "SOT363",
       "category": "Transistors",
       "function": "Dual N-channel enhancement MOSFET",
-      "pinMap": [],
-      "symbolAsset": null,
+      "pinMap": [
+        {
+          "pin": "1",
+          "name": "Source1",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "2",
+          "name": "Gate1",
+          "electricalType": "input",
+          "pad": null
+        },
+        {
+          "pin": "3",
+          "name": "Drain2",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "4",
+          "name": "Source2",
+          "electricalType": "passive",
+          "pad": null
+        },
+        {
+          "pin": "5",
+          "name": "Gate2",
+          "electricalType": "input",
+          "pad": null
+        },
+        {
+          "pin": "6",
+          "name": "Drain1",
+          "electricalType": "passive",
+          "pad": null
+        }
+      ],
+      "symbolAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/parts/nexperia.bss138bks-115/symbol.svg",
+        "sha256": "78af4fd5f2881e883ebefa16c11146f343b2d3854153831b6d8194f0d76c73e1",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
       "footprintAsset": null,
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "compatible": false,
+          "adapter": "Use a documented SOT363 breakout that preserves every numbered terminal."
+        },
         "schematic": null,
         "pcb": null
       },
@@ -836067,7 +836154,7 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://www.nexperia.com/product/BSS138BKS",
+        "https://assets.nexperia.com/documents/data-sheet/BSS138BKS.pdf",
         "https://www.nexperia.com/chemical-content/BSS138BKS.html"
       ],
       "readiness": {
@@ -836081,13 +836168,10 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -836100,11 +836184,8 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_ELECTRICAL_TYPES",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
-          "SYMBOL_ASSET_EVIDENCE",
-          "SYMBOL_PIN_MAP",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
