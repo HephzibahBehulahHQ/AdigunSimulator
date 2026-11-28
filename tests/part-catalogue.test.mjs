@@ -254,6 +254,7 @@ test("all BCP records place their exact native schematic instance and show physi
   const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
   const { projectComponentsForView } = await import("../js/view-projection.mjs");
   const { exportPcbFabrication } = await import("../js/pcb-export.mjs");
+  const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
   const { validateBreadboardTopology, breadboardConnectionGroup } = await import("../js/breadboard-topology.mjs");
   const rows = MANUFACTURER_PART_RECORDS.filter((row) => row.evidenceNote === "library/evidence/nexperia.bcp-sot223.md");
   assert.equal(rows.length, 9);
@@ -287,6 +288,14 @@ test("all BCP records place their exact native schematic instance and show physi
     ]);
     const collectors = [instanceId + ":2", instanceId + ":4"];
     const wired = connectPins(project, ...collectors);
+    const analysis = runProjectAnalysis(wired);
+    assert.equal(analysis.state, "blocked");
+    assert.equal(analysis.result, null);
+    assert.equal(analysis.scopeRecording, undefined);
+    assert.equal(analysis.scopeDcRecording, undefined);
+    assert.equal(analysis.diagnostics.analysisAttempted, false);
+    assert.equal(analysis.errors[0].code, "BCP_MODEL_UNAVAILABLE");
+    assert.ok(analysis.errors[0].message.includes(row.manufacturerPartNumber));
     const topology = validateBreadboardTopology(wired, { getPartPins: id => findLibraryPart(id)?.pins });
     assert.equal(topology.state, "complete");
     assert.equal(topology.nets[0].connected, true);
@@ -314,5 +323,6 @@ test("all BCP records place their exact native schematic instance and show physi
 
     project.nets = [{ id: "C1", endpoints: [instanceId + ":2"] }, { id: "C2", endpoints: [instanceId + ":4"] }];
     assert.ok(validateProject(project).errors.some(({ rule }) => rule === "BCP_COLLECTOR_NET"));
+    assert.equal(runProjectAnalysis(project).errors[0].code, "BCP_COLLECTOR_NET");
   }
 });
