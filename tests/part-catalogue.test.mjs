@@ -460,7 +460,7 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
       const miswired = connectPins(project, instance.instanceId + ":1", instance.instanceId + ":8");
       assert.ok(validateProject(miswired).errors.some(error => error.rule === "EEPROM_NC_CONNECTED"));
     } else {
-      assert.match(breadboard.reconciliationItems[0].reason, /PDIP/);
+      assert.match(breadboard.reconciliationItems[0].reason, /7\.62 mm BB400 center gap.*continuity for all eight pins/);
     }
   }
 });

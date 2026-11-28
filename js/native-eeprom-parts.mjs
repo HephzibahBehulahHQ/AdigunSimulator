@@ -21,7 +21,7 @@ const records = new Map(patterns.map(([footprint, orderCode]) => {
     mappingDiagnostics: Object.freeze({
       breadboard: orderCode === "24LC02B-I/P"
         ? "Use a clear four-column BB400 center-gap position for the eight numbered PDIP leads."
-        : "Verify the formed PDIP leads fit the BB400 center gap, then map all eight numbered holes.",
+        : "Confirm the formed leads seat across the 7.62 mm BB400 center gap and check contact continuity for all eight pins before assigning holes.",
       pcb: "Clear a location for the DIP-8 pattern on the board and add the part again."
     })
   })];
