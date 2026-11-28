@@ -1,3 +1,5 @@
+import { bcpAdapterPlacement } from "./breadboard-topology.mjs";
+import { findBcpPart } from "./bcp-native-parts.mjs";
 import { findLibraryPart, getViewReconciliationIssues, validateProject } from "./core.mjs";
 import { MANUFACTURER_PART_RECORDS } from "./part-catalogue.mjs";
 
@@ -18,6 +20,7 @@ function componentViewIssue(project, component, view) {
   if (!part?.pins?.length) return capabilityIssue ?? { instanceId: component.instanceId, reference: component.reference, view, reason: "The component has no verified pin mapping in the current library." };
   if (view === "breadboard") {
     if (declaredNonPhysical(project, view).has(component.instanceId)) return null;
+    if (findBcpPart(component.libraryId)) return bcpAdapterPlacement(component, project) ? null : capabilityIssue;
     const physicalPart = project?.pcbFabrication?.parts?.find(item => item.instanceId === component.instanceId);
     const adapter = physicalPart && breadboardRestrictions.get(`${physicalPart.manufacturer}:${physicalPart.manufacturerPartNumber}`);
     if (adapter) {

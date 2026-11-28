@@ -10,7 +10,7 @@ import { validateSchematicWires } from "./schematic-wire-data.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
-import { validateBreadboardTopology } from "./breadboard-topology.mjs";
+import { placeBcpBreadboardAdapter, validateBreadboardTopology } from "./breadboard-topology.mjs";
 import { validateBreadboardAssembly } from "./breadboard-assembly.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
@@ -472,7 +472,7 @@ export function addComponent(project, libraryId) {
     position: positions
   };
   const next = { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
-  return findBcpPart(libraryId) ? placeBcpFootprint(next, item) : next;
+  return findBcpPart(libraryId) ? placeBcpBreadboardAdapter(placeBcpFootprint(next, item), item) : next;
 }
 
 function nextFreePosition(project, view) {

@@ -14,7 +14,7 @@ import { createAccountClient, createAccountSession } from "./js/account-auth.mjs
 import { createAccountUi } from "./js/account-ui.mjs";
 import { createCloudProjectStore } from "./js/cloud-projects.mjs";
 import { createCloudProjectsUi } from "./js/cloud-projects-ui.mjs";
-import { BREADBOARD_MODEL, breadboardModelFor, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { bcpAdapterPlacement, BREADBOARD_MODEL, breadboardModelFor, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { renderBreadboardAssemblySvg } from "./js/breadboard-assembly.mjs";
 import { renderNucleoG031K8Breadboard } from "./js/nucleo-g031k8.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
@@ -827,6 +827,16 @@ function breadboardPackageSvg(project) {
   return project.components.filter(component => !assemblyIds.has(component.instanceId)).map((component) => {
     const nucleoBoard = renderNucleoG031K8Breadboard(project, component);
     if (nucleoBoard) return nucleoBoard;
+    const adapter = bcpAdapterPlacement(component, project);
+    if (adapter) {
+      const points = adapter.map(hole => breadboardHolePoint(hole));
+      const { x, y } = points[0];
+      return `<g class="breadboard-package" data-instance-id="${escape(component.instanceId)}" aria-label="${escape(component.reference)} PA0174C adapter">
+        <rect class="resistor-body" x="${x-18}" y="${y-5}" width="${points[1].x-x+36}" height="40" rx="3"/>
+        ${points.map((point, index) => `<circle class="symbol-fill" cx="${point.x}" cy="${point.y}" r="3"><title>Pin ${index+1} · ${adapter[index]}</title></circle>`).join("")}
+        <text class="symbol-text" x="${(x+points[1].x)/2}" y="${y+16}" text-anchor="middle" fill="white">${escape(component.reference)}</text>
+      </g>`;
+    }
     const placement = breadboardPackagePlacement(component, project);
     if (!placement) return "";
     const scale = (572 / 29) / 2.54;
