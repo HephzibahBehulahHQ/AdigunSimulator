@@ -836,9 +836,18 @@ test('Example 064 maps the LM35DZ, AVR and LCD connector in all three views',asy
  assert.deepEqual(parts.J2.pinMapping,{'1':'GND','2':'VCC','3':'LCD_DATA'});
  assert.equal(parts.U1.pinMapping['14'],'LCD_DATA');
  assert.equal(parts.U1.pinMapping['23'],'SENSOR_OUT');
+ const headers=project.pcbFabrication.pads.filter(pad=>['supply','lcd'].includes(pad.instanceId));
+ assert.equal(headers.length,5);
+ assert.ok(headers.every(pad=>pad.drillMm===1.02));
  const drc=validatePcbFabrication(project),pack=exportPcbFabrication(project);
  assert.equal(drc.status,'passed',drc.errors.join('; '));
  assert.equal(pack.status,'passed');
+ const drill=pack.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ for(const coordinate of ['X0005842000Y0024892000','X0005842000Y0027432000','X0056134000Y0025400000','X0056134000Y0027940000','X0056134000Y0030480000']){
+  assert.ok(drill.includes(`${tool}\n${coordinate}\n`),coordinate);
+ }
  assert.deepEqual(Object.keys(pack.files).sort(),['BOM.csv','board-B_Cu.gbr','board-Edge_Cuts.gbr','board-F_Cu.gbr','board-PTH.drl'].sort());
 });
 

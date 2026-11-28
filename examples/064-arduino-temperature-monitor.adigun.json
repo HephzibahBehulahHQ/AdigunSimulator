@@ -1458,7 +1458,7 @@
         "yMm": 24.892,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9,
+        "drillMm": 1.02,
         "bridgeEndpoint": "supply:+"
       },
       {
@@ -1471,7 +1471,7 @@
         "yMm": 27.432,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9,
+        "drillMm": 1.02,
         "bridgeEndpoint": "supply:-"
       },
       {
@@ -1997,7 +1997,7 @@
         "yMm": 25.4,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "lcd:GND"
       },
       {
@@ -2010,7 +2010,7 @@
         "yMm": 27.94,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "lcd:VCC"
       },
       {
@@ -2023,7 +2023,7 @@
         "yMm": 30.48,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "lcd:DATA"
       }
     ],
