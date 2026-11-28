@@ -1,3 +1,4 @@
+import { findNativeMosfet } from "./native-mosfet-parts.mjs";
 import { runLadderSimulation } from './ladder-simulation.mjs';
 
 import { runSupportedAnalysis, validateProject } from "./core.mjs";
@@ -66,13 +67,13 @@ import { runLinearRlcTransient } from "./linear-rlc-transient.mjs";
 import { runNonlinearDcOperatingPoint } from "./nonlinear-dc-analysis.mjs";
 
 export function runProjectAnalysis(project) {
-  const unmodelled = (project?.components ?? []).filter(component => findNativeBipolar(component?.libraryId));
+  const unmodelled = (project?.components ?? []).filter(component => findNativeBipolar(component?.libraryId) || findNativeMosfet(component?.libraryId));
   if (unmodelled.length > 0) {
     const validation = validateProject(project);
     const wiringErrors = validation.errors.map(({ rule, message, fix }) => ({ code: rule, message, fix }));
     const modelErrors = unmodelled.map(component => ({
-      code: findNativeBipolar(component.libraryId).package === "SOT89" ? "BCX_MODEL_UNAVAILABLE" : "BCP_MODEL_UNAVAILABLE",
-      message: `${component.reference} (${findNativeBipolar(component.libraryId).defaultValue}) has no validated device model.`,
+      code: findNativeMosfet(component.libraryId) ? "MOSFET_MODEL_UNAVAILABLE" : findNativeBipolar(component.libraryId).package === "SOT89" ? "BCX_MODEL_UNAVAILABLE" : "BCP_MODEL_UNAVAILABLE",
+      message: `${component.reference} (${(findNativeBipolar(component.libraryId) ?? findNativeMosfet(component.libraryId)).defaultValue}) has no validated device model.`,
       fix: "Use a supported device and circuit topology in a separate simulation project, or qualify a model for this exact order code."
     }));
     return {

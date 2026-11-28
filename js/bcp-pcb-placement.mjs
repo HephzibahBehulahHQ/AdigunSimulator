@@ -1,3 +1,4 @@
+import { findNativeMosfet } from "./native-mosfet-parts.mjs";
 import { padCopperSections } from "./pcb-pad-geometry.mjs";
 import { findNativeBipolar } from "./bcp-native-parts.mjs";
 import sot89 from "../library/assets/footprints/nexperia.bcx51-115/footprint.json" with { type: "json" };
@@ -7,8 +8,8 @@ import { auditPcbCopper } from "./pcb-copper.mjs";
 
 const defaultBoard = { widthMm: 40, heightMm: 24, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2 };
 
-export function placeNativeBipolarFootprint(project, component, definition) {
-  const land = definition.package === "SOT89" ? sot89 : sot223;
+export function placeNativeTransistorFootprint(project, component, definition) {
+  const land = definition.footprint ?? (definition.package === "SOT89" ? sot89 : sot223);
   const current = project.pcbFabrication ?? { board: { ...defaultBoard, copperLayers: ["F.Cu"] }, parts: [], pads: [], routes: [] };
   if (current.copperZones?.length || !Array.isArray(current.parts) || !Array.isArray(current.pads) || !Array.isArray(current.routes) ||
       !current.board || boardGeometryErrors(current).length || auditPcbCopper(current).length) return project;
@@ -44,10 +45,10 @@ export function placeNativeBipolarFootprint(project, component, definition) {
   return project;
 }
 
-export function syncNativeBipolarPadNets(project) {
+export function syncNativeTransistorPadNets(project) {
   const pcb = project.pcbFabrication;
   if (!pcb?.parts?.length) return project;
-  const instances = new Set(project.components.filter(component => findNativeBipolar(component.libraryId)).map(component => component.instanceId));
+  const instances = new Set(project.components.filter(component => findNativeBipolar(component.libraryId) || findNativeMosfet(component.libraryId)).map(component => component.instanceId));
   if (!instances.size) return project;
   const nets = new Map(project.nets.flatMap(net => net.endpoints.map(pin => [pin, net.id])));
   const pads = pcb.pads.map(pad => instances.has(pad.instanceId)

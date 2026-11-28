@@ -390,3 +390,34 @@ test("BCX catalogue placement shares exact instance identity between schematic a
     assert.match(output.files["board-F_Cu.gbr"], /R,2X2\.75/);
   }
 });
+
+test("MOSFET native placement preserves numbered schematic terminals and exact PCB lands", async () => {
+  const { addComponent, createEmptyProject, findLibraryPart, parseProject, serializeProject } = await import("../js/core.mjs");
+  const { projectComponentsForView } = await import("../js/view-projection.mjs");
+  const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
+  const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
+  const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
+  const parts = MANUFACTURER_PART_RECORDS.filter(row => row.evidenceNote === "library/evidence/nexperia.small-signal-mosfet.md");
+  assert.equal(parts.length, 3);
+  for (const row of parts) {
+    const project = parseProject(serializeProject(addComponent(createEmptyProject(), row.id)));
+    const [instance] = project.components;
+    const part = findLibraryPart(row.id);
+    const pads = project.pcbFabrication.pads;
+    assert.equal(project.pcbFabrication.parts[0].manufacturerPartNumber, row.manufacturerPartNumber);
+    assert.deepEqual(part.pins, Object.keys(row.symbolPinMap));
+    assert.deepEqual(pads.map(pad => [pad.instanceId, pad.pin, pad.number]), part.pins.map(pin => [instance.instanceId, pin, row.footprintPadMap[pin]]));
+    const anchors = part.pins.map(pin => schematicPinPoint(instance, part.pins, pin));
+    assert.ok(anchors.every(Boolean));
+    assert.equal(new Set(anchors.map(({x,y}) => x + ":" + y)).size, part.pins.length);
+    assert.equal(projectComponentsForView(project, "schematic").components[0].instanceId, instance.instanceId);
+    assert.equal(projectComponentsForView(project, "pcb").components[0].instanceId, instance.instanceId);
+    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /breakout/);
+    assert.equal(runProjectAnalysis(project).errors[0].code, "MOSFET_MODEL_UNAVAILABLE");
+    if (part.pins.length === 6) {
+      assert.deepEqual(row.symbolPinMap, {1:"Source1", 2:"Gate1", 3:"Drain2", 4:"Source2", 5:"Gate2", 6:"Drain1"});
+      assert.match(renderSchematicSymbol(part), /D1 \(6\)/);
+      assert.match(renderSchematicSymbol(part), /D2 \(3\)/);
+    }
+  }
+});
