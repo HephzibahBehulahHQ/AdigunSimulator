@@ -1,5 +1,6 @@
 import { findNativeCataloguePart } from "./native-catalogue-parts.mjs";
 import { findNativeEeprom } from "./native-eeprom-parts.mjs";
+import { findNativeSamtecHeader } from "./native-samtec-headers.mjs";
 import { findNativeMosfet } from "./native-mosfet-parts.mjs";
 import { runLadderSimulation } from './ladder-simulation.mjs';
 
@@ -75,7 +76,7 @@ export function runProjectAnalysis(project) {
     const validation = validateProject(project);
     const wiringErrors = validation.errors.map(({ rule, message, fix }) => ({ code: rule, message, fix }));
     const modelErrors = unmodelled.map(component => ({
-      code: findNativeEeprom(component.libraryId) ? "EEPROM_MODEL_UNAVAILABLE" : findNativeMosfet(component.libraryId) ? "MOSFET_MODEL_UNAVAILABLE" : findNativeBipolar(component.libraryId).package === "SOT89" ? "BCX_MODEL_UNAVAILABLE" : "BCP_MODEL_UNAVAILABLE",
+      code: findNativeSamtecHeader(component.libraryId) ? "CONNECTOR_MODEL_UNAVAILABLE" : findNativeEeprom(component.libraryId) ? "EEPROM_MODEL_UNAVAILABLE" : findNativeMosfet(component.libraryId) ? "MOSFET_MODEL_UNAVAILABLE" : findNativeBipolar(component.libraryId).package === "SOT89" ? "BCX_MODEL_UNAVAILABLE" : "BCP_MODEL_UNAVAILABLE",
       message: `${component.reference} (${findNativeCataloguePart(component.libraryId).defaultValue}) has no validated device model.`,
       fix: "Use a supported device and circuit topology in a separate simulation project, or qualify a model for this exact order code."
     }));

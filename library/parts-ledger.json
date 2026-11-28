@@ -3104,7 +3104,7 @@
         "sourceUrl": "https://www.samtec.com/products/tsw-102-07-t-s",
         "assetPath": "library/assets/footprints/samtec.tsw-102-07-t-s/footprint.json",
         "drawing": "Exact Samtec TSW product drawing and 2.54 mm pin pitch.",
-        "designNote": "Round pad and drill geometry follows the educational native example. Finished-hole fit review remains open."
+        "designNote": "Samtec recommends a nominal 1.02 mm hole. Copper diameter is an educational choice and finished-hole fit review remains open."
       },
       "symbolPinLabels": {
         "1": "Pin 1",
@@ -3118,7 +3118,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-102-07-t-s/footprint.json",
-        "sha256": "eaf01ab5f5df37b28fac27b8c7729c516e39fa9ba0115a9867cc0c0026f846de",
+        "sha256": "a9ee3d61d0fe4b964130f6e452fb798a1eadfe574c8d949fef91a3d0327f4e6f",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
@@ -3201,7 +3201,7 @@
         "sourceUrl": "https://www.samtec.com/products/tsw-103-07-t-s",
         "assetPath": "library/assets/footprints/samtec.tsw-103-07-t-s/footprint.json",
         "drawing": "Exact Samtec TSW product drawing and 2.54 mm pin pitch.",
-        "designNote": "Round pad and drill geometry follows the educational native example. Finished-hole fit review remains open."
+        "designNote": "Samtec recommends a nominal 1.02 mm hole. Copper diameter is an educational choice and finished-hole fit review remains open."
       },
       "symbolPinLabels": {
         "1": "Pin 1",
@@ -3216,7 +3216,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-103-07-t-s/footprint.json",
-        "sha256": "423c91bf4c3db6269165bd46e2a8ea33c5263b861be418d636e029b869cada52",
+        "sha256": "ba7a39b076ff26c8dfac617fb8e2d6b08a0ecf5c29e5dc98747df5cfd951db66",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
@@ -3302,7 +3302,7 @@
         "sourceUrl": "https://www.samtec.com/products/tsw-104-07-t-s",
         "assetPath": "library/assets/footprints/samtec.tsw-104-07-t-s/footprint.json",
         "drawing": "Exact Samtec TSW product drawing and 2.54 mm pin pitch.",
-        "designNote": "Round pad and drill geometry follows the educational native example. Finished-hole fit review remains open."
+        "designNote": "Samtec recommends a nominal 1.02 mm hole. Copper diameter is an educational choice and finished-hole fit review remains open."
       },
       "symbolPinLabels": {
         "1": "Pin 1",
@@ -3318,7 +3318,7 @@
       },
       "footprintAsset": {
         "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/samtec.tsw-104-07-t-s/footprint.json",
-        "sha256": "ebaa4584d7c8e56d5389971669bad8a1f73d01979d9ea56f212d09459a78a63b",
+        "sha256": "34a394c22e470b2fedae18d8b800ddd8099531be306a8fbea0eff4391ef2b69d",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "educational-candidate"
