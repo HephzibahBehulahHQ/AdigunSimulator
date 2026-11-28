@@ -70,6 +70,12 @@ test('DC Voltage Divider has sourced physical resistor values, mapped pads and c
  assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
  assert.equal(validatePcbFabrication(project).status,'passed');
  assert.equal(runProjectAnalysis(project).result.kind,'voltage-divider');
+ const fabrication=exportPcbFabrication(project);
+ assert.equal(fabrication.status,'passed');
+ const drill=fabrication.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0008000000\n${tool}\nX0004000000Y0010540000\n`));
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="resistor-bottom-1"/);
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','R2']);
 });
