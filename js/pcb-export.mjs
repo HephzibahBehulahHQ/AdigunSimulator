@@ -185,7 +185,7 @@ function bomFile(project, pcb) {
     ...(includeSource ? ["Manufacturer","MPN","Source URL"] : [])]];
   for(const part of [...pcb.parts].sort((a,b)=>a.reference.localeCompare(b.reference))){
     const component=project.components.find((item)=>item.instanceId===part.instanceId);
-    const status = hasSource(part) ? "Project records manufacturer identity; confirm before ordering" : "Generic footprint; verify selected real part";
+    const status = part.designStatus === "educational-candidate" ? "Educational land pattern; verify fit and fabrication rules" : hasSource(part) ? "Project records manufacturer identity; confirm before ordering" : "Generic footprint; verify selected real part";
     rows.push([part.reference,"1",component.value,part.footprint,part.technology,status,
       ...(includeSource ? sourceFields(part) : [])]);
   }

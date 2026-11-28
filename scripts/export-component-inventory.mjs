@@ -1,8 +1,8 @@
-import { findNativeMosfet } from "../js/native-mosfet-parts.mjs";
+import { findNativeCataloguePart } from "../js/native-catalogue-parts.mjs";
 import { writeFile } from "node:fs/promises";
 import taxonomy from "../library/component-types.json" with { type: "json" };
 import { STARTER_LIBRARY } from "../js/core.mjs";
-import { findBcpPart, findNativeBipolar } from "../js/bcp-native-parts.mjs";
+import { findBcpPart } from "../js/bcp-native-parts.mjs";
 import { LADDER_MODELS } from "../js/ladder-components.mjs";
 import { MANUFACTURER_PART_RECORDS, getManufacturerPartEvidenceSummary } from "../js/part-catalogue.mjs";
 
@@ -22,7 +22,7 @@ const primitiveRows = STARTER_LIBRARY.map(part => ({
 
 const manufacturerRows = MANUFACTURER_PART_RECORDS.map(part => {
   const evidence = getManufacturerPartEvidenceSummary(part);
-  const nativeViews = (findNativeBipolar(part.id) ?? findNativeMosfet(part.id))?.views;
+  const nativeViews = findNativeCataloguePart(part.id)?.views;
   return {
     kind: "manufacturer-record",
     id: part.id,

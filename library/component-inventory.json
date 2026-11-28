@@ -836267,8 +836267,8 @@
       },
       "viewSupport": {
         "breadboard": null,
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -836382,8 +836382,8 @@
       },
       "viewSupport": {
         "breadboard": null,
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -836497,8 +836497,8 @@
       },
       "viewSupport": {
         "breadboard": null,
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -836612,8 +836612,8 @@
       },
       "viewSupport": {
         "breadboard": null,
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",

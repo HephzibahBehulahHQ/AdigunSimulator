@@ -1,6 +1,6 @@
-import { findNativeMosfet } from "./native-mosfet-parts.mjs";
-import { placeNativeTransistorFootprint, syncNativeTransistorPadNets } from "./bcp-pcb-placement.mjs";
-import { findBcpPart, findNativeBipolar } from "./bcp-native-parts.mjs";
+import { findNativeCataloguePart } from "./native-catalogue-parts.mjs";
+import { placeNativeCatalogueFootprint, syncNativeCataloguePadNets } from "./bcp-pcb-placement.mjs";
+import { findBcpPart } from "./bcp-native-parts.mjs";
 import { reviewTestPointCoverage } from "./test-point-coverage.mjs";
 import { analyseLm2577Boost } from "./lm2577-boost-analysis.mjs";
 import { ADDITIONAL_LOGIC_PARTS } from "./logic-gates.mjs";
@@ -439,7 +439,7 @@ export function cryptoSafeId() {
 }
 
 export function findLibraryPart(id) {
-  return findNativeMosfet(id) ?? findNativeBipolar(id) ?? STARTER_LIBRARY.find((part) => part.id === id) ?? null;
+  return findNativeCataloguePart(id) ?? STARTER_LIBRARY.find((part) => part.id === id) ?? null;
 }
 
 export function getViewReconciliationIssues(project, view) {
@@ -473,7 +473,7 @@ export function addComponent(project, libraryId) {
     position: positions
   };
   const next = { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
-  const withBoard = (findNativeBipolar(libraryId) || findNativeMosfet(libraryId)) ? placeNativeTransistorFootprint(next, item, part) : next;
+  const withBoard = findNativeCataloguePart(libraryId) ? placeNativeCatalogueFootprint(next, item, part) : next;
   return findBcpPart(libraryId) ? placeBcpBreadboardAdapter(withBoard, item) : withBoard;
 }
 
@@ -535,7 +535,7 @@ export function connectPins(project, firstEndpoint, secondEndpoint) {
     next.nets.push({ id: `N${index}`, endpoints: [firstEndpoint, secondEndpoint] });
   }
   next.metadata.updatedAt = new Date().toISOString();
-  return syncNativeTransistorPadNets(next);
+  return syncNativeCataloguePadNets(next);
 }
 
 export function disconnectPin(project, pinEndpoint) {
@@ -545,19 +545,19 @@ export function disconnectPin(project, pinEndpoint) {
   if (net.connections) {
     next.nets = next.nets.flatMap(item => item === net ? splitNetEdges(net, net.connections.filter(edge => !edge.includes(pinEndpoint)), new Set(next.nets.map(item => item.id))) : [item]);
     next.metadata.updatedAt = new Date().toISOString();
-    return pruneSchematicWires(syncNativeTransistorPadNets(next));
+    return pruneSchematicWires(syncNativeCataloguePadNets(next));
   }
   net.endpoints = net.endpoints.filter((item) => item !== pinEndpoint);
   if (net.endpoints.length < 2) next.nets = next.nets.filter((item) => item !== net);
   next.metadata.updatedAt = new Date().toISOString();
-  return pruneSchematicWires(syncNativeTransistorPadNets(next));
+  return pruneSchematicWires(syncNativeCataloguePadNets(next));
 }
 
 export function removeComponent(project, instanceId) {
   if (!project.components.some((item) => item.instanceId === instanceId)) throw new Error(`Component not found: ${instanceId}`);
   const next = clone(project);
   const component = next.components.find((item) => item.instanceId === instanceId);
-  if ((findNativeBipolar(component.libraryId) || findNativeMosfet(component.libraryId)) && next.pcbFabrication?.parts?.some(part => part.instanceId === instanceId)) {
+  if (findNativeCataloguePart(component.libraryId) && next.pcbFabrication?.parts?.some(part => part.instanceId === instanceId)) {
     next.pcbFabrication.parts = next.pcbFabrication.parts.filter(part => part.instanceId !== instanceId);
     next.pcbFabrication.pads = next.pcbFabrication.pads.filter(pad => pad.instanceId !== instanceId);
   }
@@ -575,7 +575,7 @@ export function removeComponent(project, instanceId) {
     return endpoints.length >= 2 ? [{ ...net, endpoints }] : [];
   });
   next.metadata.updatedAt = new Date().toISOString();
-  return pruneSchematicWires(syncNativeTransistorPadNets(next));
+  return pruneSchematicWires(syncNativeCataloguePadNets(next));
 }
 
 export function validateProject(project) {
@@ -673,6 +673,10 @@ export function validateProject(project) {
       }
     }
     for (const pin of part.pins) {
+      if (part.noConnectPins?.includes(pin)) {
+        if (endpointOwners.has(endpoint(item, pin))) errors.push({ rule: "EEPROM_NC_CONNECTED", message: `${item.reference} pin ${pin} is a no-connect terminal.`, fix: `Disconnect pin ${pin} from its project net.` });
+        continue;
+      }
       if (!endpointOwners.has(endpoint(item, pin))) warnings.push({ rule: "UNCONNECTED_PIN", message: `${item.reference} pin ${pin} is not connected to a project net.`, fix: `Connect ${item.reference} pin ${pin} to the intended net with a schematic wire, then validate and run again.` });
     }
     if (item.libraryId === "power.dc-source") {
