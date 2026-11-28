@@ -126,6 +126,10 @@ test('5 V pushbutton LED reconciles its breadboard, PCB, scope, and fabrication 
  const failed=runProjectAnalysis(disconnected);assert.equal(failed.state,'blocked');assert.match(failed.message,/series resistor between SW_OUT and LED_A/);assert.match(failed.message,/connect SW_OUT to GND/);assert.equal(failed.scopeDcRecording,undefined);
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/B3F-1000/);assert.match(exported.files['board-F_Cu.gbr'],/X/);assert.match(exported.files['board-PTH.drl'],/T01/);
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="switch-1"/);
+ const drill=exported.files['board-PTH.drl'];
+ const drillTool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(drillTool);
+ assert.ok(drill.includes(`${drillTool}\nX0004000000Y0005000000\n${drillTool}\nX0004000000Y0007540000\n`));
  assert.match(renderBreadboardAssemblySvg(project),/external-pushbutton/);assert.match(renderBreadboardAssemblySvg(project),/axial-led/);
 });
 test('latching SPDT LED maps the sourced slide switch across breadboard and PCB',async()=>{

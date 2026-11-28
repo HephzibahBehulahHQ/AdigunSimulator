@@ -79,7 +79,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "ecab6b266f5dc0feb34f67642b93061153f32352c4a71034bb29aef121d890a6",
+      "sha256": "8fcd9b9357bdeffcd5d8fa1ad82a82503ff60d963fceef11b52b4dd3a316bbf7",
       "components": 6,
       "analysis": "complete",
       "engine": "Analytical ideal pushbutton LED circuit",
