@@ -69,7 +69,8 @@ import { runLinearRlcTransient } from "./linear-rlc-transient.mjs";
 import { runNonlinearDcOperatingPoint } from "./nonlinear-dc-analysis.mjs";
 
 export function runProjectAnalysis(project) {
-  const unmodelled = (project?.components ?? []).filter(component => findNativeCataloguePart(component?.libraryId));
+  const nativeParts = (project?.components ?? []).filter(component => findNativeCataloguePart(component?.libraryId));
+  const unmodelled = nativeParts.filter(component => !findNativeEeprom(component.libraryId)?.simulation);
   if (unmodelled.length > 0) {
     const validation = validateProject(project);
     const wiringErrors = validation.errors.map(({ rule, message, fix }) => ({ code: rule, message, fix }));
@@ -88,8 +89,11 @@ export function runProjectAnalysis(project) {
       diagnostics: { analysisAttempted: false, actions: [...new Set([...wiringErrors, ...modelErrors].map(error => error.fix).filter(Boolean))] }
     };
   }
-  const primary=runPrimaryAnalysis(project);
+  const primary=nativeParts.length ? runSupportedAnalysis(project) : runPrimaryAnalysis(project);
   if(primary.state!=='complete')return primary;
+  if (nativeParts.length && primary.result?.kind !== "i2c-eeprom-write-read") {
+    return { state: "blocked", message: "Use the 24LC02B single-byte I²C test fixture, supply, bypass capacitor and two pull-ups.", result: null };
+  }
   // Workflow reports remain intact; a supported electrical analysis supplies the scope.
   const electrical=['missing-footprint-resolution-report','schematic-pcb-netlist-pad-sync'].includes(primary.result?.kind) ? runSupportedAnalysis(project) : primary;
   const recording=analyticalScopeRecording(project,electrical);

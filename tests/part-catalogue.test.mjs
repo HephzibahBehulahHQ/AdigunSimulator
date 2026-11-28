@@ -448,8 +448,8 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
       assert.equal(projectComponentsForView(project, view).components[0].instanceId, instance.instanceId);
     }
     const breadboard = projectComponentsForView(project, "breadboard");
-    assert.equal(runProjectAnalysis(project).errors[0].code, "EEPROM_MODEL_UNAVAILABLE");
     if (row.manufacturerPartNumber.startsWith("24LC02B")) {
+      assert.notEqual(runProjectAnalysis(project).state, "complete");
       const holes = eepromBreadboardPlacement(instance, project);
       assert.deepEqual(holes, ["F2", "F3", "F4", "F5", "E5", "E4", "E3", "E2"]);
       assert.equal(new Set(holes.map(hole => breadboardConnectionGroup(hole))).size, 8);
@@ -460,7 +460,41 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
       const miswired = connectPins(project, instance.instanceId + ":1", instance.instanceId + ":8");
       assert.ok(validateProject(miswired).errors.some(error => error.rule === "EEPROM_NC_CONNECTED"));
     } else {
+      assert.equal(runProjectAnalysis(project).errors[0].code, "EEPROM_MODEL_UNAVAILABLE");
       assert.match(breadboard.reconciliationItems[0].reason, /7\.62 mm BB400 center gap.*continuity for all eight pins/);
     }
   }
+});
+
+test("24LC02B native numbered pins run the scoped EEPROM transaction and scope", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
+  const { findNativeEeprom } = await import("../js/native-eeprom-parts.mjs");
+  const project = JSON.parse(await readFile(new URL("../examples/060-eeprom-data-logger.adigun.json", import.meta.url)));
+  const device = project.components.find(component => component.instanceId === "eeprom");
+  device.libraryId = "microchip.24lc02b-i-p";
+  const pins = findNativeEeprom(device.libraryId).eepromSignalPins;
+  const mapEndpoint = endpoint => endpoint.startsWith("eeprom:") ? "eeprom:" + pins[endpoint.slice(7)] : endpoint;
+  for (const net of project.nets) {
+    net.endpoints = net.endpoints.map(mapEndpoint);
+  }
+  for (const wire of project.schematicWires) {
+    wire.from = mapEndpoint(wire.from);
+    wire.to = mapEndpoint(wire.to);
+  }
+  delete project.breadboard;
+  delete project.pcbFabrication;
+  const result = runProjectAnalysis(project);
+  assert.equal(result.state, "complete", JSON.stringify(result.validation?.errors) + " " + result.message);
+  assert.equal(result.result.readByte, 0x5a);
+  assert.ok(result.scopeRecording.samples.length > 0);
+  device.value = "24LC02B-I/P";
+  const fixture = project.components.find(component => component.instanceId === "transaction");
+  fixture.value = fixture.value.replace("0x50", "0x57");
+  assert.equal(runProjectAnalysis(project).result?.readByte, 0x5a);
+  fixture.value = fixture.value.replace("0x57", "0x58");
+  assert.equal(runProjectAnalysis(project).result?.deviceAck, false);
+
+  device.value = "Address 0x51; Memory 0x10=0x00";
+  assert.match(runProjectAnalysis(project).message, /address 0x50/);
 });
