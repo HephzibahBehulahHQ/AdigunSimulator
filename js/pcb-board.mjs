@@ -1,4 +1,4 @@
-import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
+import { hasRoundCopper, padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 import { boardOutlineContainsBox, boardOutlineContainsCircle, boardOutlineContainsSegment, boardOutlineDefinitionErrors } from "./pcb-outline.mjs";
 const EPS = 1e-9;
 const positive = (value) => Number.isFinite(value) && value > 0;
@@ -35,9 +35,9 @@ export function boardGeometryErrors(pcb) {
       continue;
     }
     for (const section of padCopperSections(pad)) {
-      const hx = section.technology === "through-hole" ? section.diameterMm / 2 : section.widthMm / 2;
-      const hy = pad.technology === "through-hole" ? hx : section.heightMm / 2;
-      const fits = pad.technology === "through-hole" ? boardOutlineContainsCircle(board, section.xMm, section.yMm, hx) : boardOutlineContainsBox(board, section.xMm, section.yMm, hx, hy);
+      const hx = hasRoundCopper(section) ? section.diameterMm / 2 : section.widthMm / 2;
+      const hy = hasRoundCopper(section) ? hx : section.heightMm / 2;
+      const fits = hasRoundCopper(section) ? boardOutlineContainsCircle(board, section.xMm, section.yMm, hx) : boardOutlineContainsBox(board, section.xMm, section.yMm, hx, hy);
       if (!fits) errors.push(`Copper pad ${pad.reference ?? pad.instanceId ?? "unknown"} leaves the board outline or has invalid dimensions.`);
     }
   }

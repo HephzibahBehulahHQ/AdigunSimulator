@@ -406,3 +406,34 @@ test("native PCB keeps the SOT89 collector as one terminal with exact copper in 
   pads[1].copperRects[0].dyMm -= 0.01;
   assert.equal(exportPcbFabrication(project).status, "blocked");
 });
+
+test("square plated copper renders and flashes on both layers with a round drill", async () => {
+  const { segmentPadGap } = await import("../js/pcb-copper.mjs");
+  const square = { instanceId: "u1", reference: "U1", pin: "1", number: "1", technology: "through-hole",
+    copperShape: "square", diameterMm: 1.6, drillMm: 0.8, xMm: 5, yMm: 5, netId: "N1" };
+  const round = { ...square, copperShape: "round", pin: "2", number: "2", xMm: 10 };
+  const project = {
+    components: [{ instanceId: "u1", reference: "U1", value: "PDIP-8 fixture" }],
+    nets: [{ id: "N1", endpoints: ["u1:1", "u1:2"] }],
+    pcbFabrication: {
+      board: { widthMm: 20, heightMm: 20, copperLayers: ["F.Cu", "B.Cu"], minimumClearanceMm: 0.2 },
+      parts: [{ instanceId: "u1", reference: "U1", footprint: "PDIP-8", technology: "through-hole" }],
+      pads: [square, round],
+      routes: [{ netId: "N1", layer: "B.Cu", widthMm: 0.25, pointsMm: [[5, 5], [10, 5]] }]
+    }
+  };
+  assert.equal(segmentPadGap([5.7, 5.7], [5.75, 5.75], square), 0);
+  assert.ok(segmentPadGap([5.7, 5.7], [5.75, 5.75], {...square, copperShape: "round"}) > 0);
+  const preview = renderPcbPreviewSvg(project);
+  assert.match(preview, /<rect class="pcb-pad-through-hole"/);
+  assert.match(preview, /<circle class="pcb-pad-drill"/);
+  const exported = exportPcbFabrication(project);
+  assert.equal(exported.status, "passed", exported.drc.errors.join("\n"));
+  for (const layer of ["F", "B"]) {
+    assert.match(exported.files["board-" + layer + "_Cu.gbr"], /R,1\.6X1\.6/);
+    assert.match(exported.files["board-" + layer + "_Cu.gbr"], /C,1\.6/);
+  }
+  assert.match(exported.files["board-PTH.drl"], /T01C0\.8/);
+  square.copperShape = "unsupported";
+  assert.equal(exportPcbFabrication(project).status, "blocked");
+});
