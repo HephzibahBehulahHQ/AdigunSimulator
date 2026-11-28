@@ -922,7 +922,7 @@
         "yMm": 26.67,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "payload:GND"
       },
       {
@@ -935,7 +935,7 @@
         "yMm": 29.21,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "payload:DATA"
       }
     ],
