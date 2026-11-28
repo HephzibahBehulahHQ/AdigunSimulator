@@ -342705,6 +342705,84 @@
           "unit": "V"
         }
       ]
+    },
+    {
+      "id": "nexperia.2n7002-215",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "2N7002,215",
+      "category": "Transistors",
+      "type": "N-channel enhancement MOSFET",
+      "package": "SOT23",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia 2N7002 product specifications",
+        "url": "https://www.nexperia.com/product/2N7002",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Nexperia 2N7002 orderable part numbers",
+          "url": "https://www.nexperia.com/chemical-content/2N7002.html"
+        }
+      ],
+      "evidenceNote": "library/evidence/nexperia.small-signal-mosfet.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bss138bkw-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BSS138BKW,115",
+      "category": "Transistors",
+      "type": "N-channel enhancement MOSFET",
+      "package": "SOT323",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BSS138BKW product specifications",
+        "url": "https://www.nexperia.com/product/BSS138BKW",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Nexperia BSS138BKW orderable part numbers",
+          "url": "https://www.nexperia.com/chemical-content/BSS138BKW.html"
+        }
+      ],
+      "evidenceNote": "library/evidence/nexperia.small-signal-mosfet.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
+    },
+    {
+      "id": "nexperia.bss138bks-115",
+      "manufacturer": "Nexperia",
+      "manufacturerPartNumber": "BSS138BKS,115",
+      "category": "Transistors",
+      "type": "Dual N-channel enhancement MOSFET",
+      "package": "SOT363",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Nexperia BSS138BKS product specifications",
+        "url": "https://www.nexperia.com/product/BSS138BKS",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Nexperia BSS138BKS orderable part numbers",
+          "url": "https://www.nexperia.com/chemical-content/BSS138BKS.html"
+        }
+      ],
+      "evidenceNote": "library/evidence/nexperia.small-signal-mosfet.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "Device behavior has not been validated in the native solver."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"

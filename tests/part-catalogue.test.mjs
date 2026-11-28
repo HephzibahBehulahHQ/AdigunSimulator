@@ -14,7 +14,7 @@ test("manufacturer evidence shows BCP pad identities and the breadboard adapter 
 });
 
 test("manufacturer evidence search returns exact records without promoting candidates", () => {
-  const matches = searchManufacturerParts("bss138bk");
+  const matches = searchManufacturerParts("bss138bk").filter(record => record.id === "nexperia.bss138bk");
   assert.equal(matches.length, 1);
   assert.equal(matches[0].id, "nexperia.bss138bk");
   const summary = getManufacturerPartEvidenceSummary(matches[0]);
@@ -32,7 +32,7 @@ test("manufacturer evidence search returns exact records without promoting candi
 });
 
 test("manufacturer evidence browser provides a searchable review snapshot for every ledger record", () => {
-  assert.equal(MANUFACTURER_PART_RECORDS.length, 12008);
+  assert.equal(MANUFACTURER_PART_RECORDS.length, 12011);
   assert.equal(searchManufacturerParts("Texas Instruments").length, 12);
   assert.equal(searchManufacturerParts("Texas LM555CN/NOPB").length, 1);
   assert.equal(searchManufacturerParts("LM555 Texas")[0].id, "ti.lm555p");
