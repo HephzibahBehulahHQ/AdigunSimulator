@@ -835958,8 +835958,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT23 breakout that preserves every numbered terminal."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -836047,8 +836047,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT323 breakout that preserves every numbered terminal."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -836154,8 +836154,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT363 breakout that preserves every numbered terminal."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",

@@ -13,3 +13,5 @@ Each product page lists Production status. The manufacturer chemical content tab
 - [Nexperia BSS138BKS datasheet](https://assets.nexperia.com/documents/data-sheet/BSS138BKS.pdf)
 
 The SOT23 pattern reuses the existing Nexperia copper geometry. SOT323 has 0.55 × 0.60 mm lands, 1.85 mm between rows, and 1.30 mm between pins 1 and 2. SOT363 has 0.60 mm square outer lands and 0.40 × 0.60 mm center lands in the stored orientation. Its row spacing is 1.80 mm and outer centers are 1.50 mm apart within each row. The numbered package outline sets the top-view orientation. [SOT323 drawing](https://www.nxp.com/docs/en/package-information/SOT323.pdf) · [SOT363 drawing](https://www.nxp.com/docs/en/package-information/SOT363.pdf)
+
+All three parts now place from the manufacturer catalogue in Schematic and PCB. The dual BSS138BKS keeps its six numbered terminals, with separate symbols for the two channels. Breadboard shows the breakout requirement and analysis reports the missing device model.
