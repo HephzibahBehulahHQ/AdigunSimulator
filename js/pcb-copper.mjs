@@ -1,4 +1,4 @@
-import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
+import { hasRoundCopper, padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { pcbCopperPads, validatePcbVias } from "./pcb-vias.mjs";
 const EPS = 1e-9;
@@ -19,9 +19,10 @@ export function segmentPadGap(a, b, pad) {
     const sections = padCopperSections(pad);
     return sections.length ? Math.min(...sections.map(section => segmentPadGap(a, b, section))) : NaN;
   }
-  if (pad.technology === "through-hole") return pointSegmentDistance([pad.xMm, pad.yMm], a, b) - pad.diameterMm / 2;
-  const left = pad.xMm - pad.widthMm / 2, right = pad.xMm + pad.widthMm / 2;
-  const top = pad.yMm - pad.heightMm / 2, bottom = pad.yMm + pad.heightMm / 2;
+  if (hasRoundCopper(pad)) return pointSegmentDistance([pad.xMm, pad.yMm], a, b) - pad.diameterMm / 2;
+  const [{widthMm, heightMm}] = padCopperSections(pad);
+  const left = pad.xMm - widthMm / 2, right = pad.xMm + widthMm / 2;
+  const top = pad.yMm - heightMm / 2, bottom = pad.yMm + heightMm / 2;
   const inside = ([x, y]) => x >= left && x <= right && y >= top && y <= bottom;
   if (inside(a) || inside(b)) return 0;
   const corners = [[left, top], [right, top], [right, bottom], [left, bottom]];
@@ -41,7 +42,7 @@ export function netPairClearance(pcb, a, b) {
 export function auditPcbCopper(pcb) {
   const point = (value) => Array.isArray(value) && value.length === 2 && value.every(Number.isFinite);
   if (!pcb?.board || !Number.isFinite(pcb.board.minimumClearanceMm) || pcb.board.minimumClearanceMm <= 0 || !Array.isArray(pcb.pads) || !Array.isArray(pcb.routes)
-    || pcb.pads.some((pad) => !pad || ![pad.xMm, pad.yMm].every(Number.isFinite) || (pad.technology === "through-hole" ? pad.copperRects !== undefined || !Number.isFinite(pad.diameterMm) || pad.diameterMm <= 0 : pad.technology !== "smd" || !validSmdPad(pad)))
+    || pcb.pads.some((pad) => !pad || ![pad.xMm, pad.yMm].every(Number.isFinite) || (pad.technology === "through-hole" ? pad.copperRects !== undefined || (pad.copperShape !== undefined && !["round","square"].includes(pad.copperShape)) || !Number.isFinite(pad.diameterMm) || pad.diameterMm <= 0 : pad.technology !== "smd" || !validSmdPad(pad)))
     || pcb.routes.some((route) => !route || !["F.Cu", "B.Cu"].includes(route.layer) || !Number.isFinite(route.widthMm) || route.widthMm <= 0 || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || !route.pointsMm.every(point))) return [{ type: "invalid-geometry" }];
   if (validatePcbVias(pcb).length) return [{ type: "invalid-geometry" }];
   if (readPcbNetClasses(pcb).errors.length) return [{ type: "invalid-rules" }];

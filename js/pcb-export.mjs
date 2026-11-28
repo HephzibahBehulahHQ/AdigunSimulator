@@ -1,4 +1,4 @@
-import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
+import { hasRoundCopper, padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 import { readPcbNetClasses } from "./pcb-net-classes.mjs";
 import { boardDefinitionErrors, boardGeometryErrors, minimumPcbTraceWidth } from "./pcb-board.mjs";
 import { auditPcbCopper, netPairClearance, disconnectedPcbNets } from "./pcb-copper.mjs";
@@ -70,9 +70,9 @@ export function validatePcbFabrication(project) {
   if (!Number.isFinite(clearance) || clearance <= 0) errors.push("Minimum copper clearance must be a positive millimetre value.");
   const padGap=(a,b)=>{
     const dx=Math.abs(a.xMm-b.xMm),dy=Math.abs(a.yMm-b.yMm);
-    if(a.technology==="through-hole"&&b.technology==="through-hole")return Math.hypot(dx,dy)-(a.diameterMm+b.diameterMm)/2;
-    if(a.technology==="smd"&&b.technology==="smd")return Math.hypot(Math.max(0,dx-(a.widthMm+b.widthMm)/2),Math.max(0,dy-(a.heightMm+b.heightMm)/2));
-    const circle=a.technology==="through-hole"?a:b,rect=a.technology==="smd"?a:b;
+    if(hasRoundCopper(a)&&hasRoundCopper(b))return Math.hypot(dx,dy)-(a.diameterMm+b.diameterMm)/2;
+    if(!hasRoundCopper(a)&&!hasRoundCopper(b))return Math.hypot(Math.max(0,dx-(a.widthMm+b.widthMm)/2),Math.max(0,dy-(a.heightMm+b.heightMm)/2));
+    const circle=hasRoundCopper(a)?a:b,rect=hasRoundCopper(a)?b:a;
     const nearestX=Math.max(0,dx-rect.widthMm/2),nearestY=Math.max(0,dy-rect.heightMm/2);
     return Math.hypot(nearestX,nearestY)-circle.diameterMm/2;
   };
@@ -117,8 +117,8 @@ export function validatePcbFabrication(project) {
   for(const keepout of pcb.keepouts??[]){
     if(![keepout.xMm,keepout.yMm,keepout.widthMm,keepout.heightMm].every(Number.isFinite)||keepout.widthMm<=0||keepout.heightMm<=0){errors.push(`Keep-out ${keepout.id??"unnamed"} has invalid dimensions.`);continue;}
     for(const pad of pads.flatMap(padCopperSections)){
-      const radius=pad.technology==="through-hole"?pad.diameterMm/2:0;
-      const left=pad.technology==="smd"?pad.widthMm/2:radius,top=pad.technology==="smd"?pad.heightMm/2:radius;
+      const radius=hasRoundCopper(pad)?pad.diameterMm/2:0;
+      const left=!hasRoundCopper(pad)?pad.widthMm/2:radius,top=!hasRoundCopper(pad)?pad.heightMm/2:radius;
       if(pad.xMm+left>=keepout.xMm&&pad.xMm-left<=keepout.xMm+keepout.widthMm&&pad.yMm+top>=keepout.yMm&&pad.yMm-top<=keepout.yMm+keepout.heightMm)errors.push(`Pad ${pad.reference}.${pad.number} overlaps keep-out ${keepout.id??"unnamed"}.`);
     }
     for(const route of routes)for(let i=1;i<(route.pointsMm??[]).length;i++)if(segmentHitsRect(route.pointsMm[i-1],route.pointsMm[i],keepout,route.widthMm/2)){errors.push(`Route ${route.netId} intersects keep-out ${keepout.id??"unnamed"}.`);break;}
@@ -138,8 +138,8 @@ function gerberFile(pcb, { outline=false, layer="F.Cu" }={}) {
   const apertures = new Map();
   const apertureCode = (key, definition) => { if (!apertures.has(key)) apertures.set(key,{code:10+apertures.size,definition}); return apertures.get(key).code; };
   const padDraws = outline ? [] : pcbCopperPads(pcb).filter((pad) => layer === "F.Cu" || pad.technology === "through-hole").flatMap(padCopperSections).map((pad) => {
-    const key=pad.technology==="through-hole" ? `C:${round(pad.diameterMm)}` : `R:${round(pad.widthMm)}x${round(pad.heightMm)}`;
-    const definition=pad.technology==="through-hole" ? `C,${round(pad.diameterMm)}` : `R,${round(pad.widthMm)}X${round(pad.heightMm)}`;
+    const key=hasRoundCopper(pad) ? `C:${round(pad.diameterMm)}` : `R:${round(pad.widthMm)}x${round(pad.heightMm)}`;
+    const definition=hasRoundCopper(pad) ? `C,${round(pad.diameterMm)}` : `R,${round(pad.widthMm)}X${round(pad.heightMm)}`;
     return { pad, code:apertureCode(key,definition) };
   });
   const traceDraws = outline ? [] : pcb.routes.filter((route) => route.layer === layer).map((route) => ({route,code:apertureCode(`C:${round(route.widthMm)}`,`C,${round(route.widthMm)}`)}));

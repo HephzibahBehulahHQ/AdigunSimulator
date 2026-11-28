@@ -20,7 +20,13 @@ export function validSmdPad(pad) {
   return pad.copperRects === undefined ? finitePositive(pad.widthMm) && finitePositive(pad.heightMm) : validCompositePad(pad);
 }
 
+// Through-hole diameterMm remains the nominal copper size for existing project documents.
+export const hasRoundCopper = pad => pad.technology === "through-hole" && pad.copperShape !== "square";
+
 export function padCopperSections(pad) {
+  if (pad.technology === "through-hole" && pad.copperShape === "square") {
+    return [{ ...pad, widthMm: pad.diameterMm, heightMm: pad.diameterMm }];
+  }
   if (pad.copperRects === undefined) return [pad];
   if (!validCompositePad(pad)) return [];
   return pad.copperRects.map(({ dxMm, dyMm, widthMm, heightMm }) => ({
