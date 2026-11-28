@@ -835925,19 +835925,19 @@
           "pin": "1",
           "name": "Gate",
           "electricalType": "input",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Source",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Drain",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         }
       ],
       "symbolAsset": {
@@ -835946,7 +835946,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.2n7002-215/footprint.json",
+        "sha256": "1ca2fc165721a62e7c48d01167ea6d4289ba4abd1e5689e8bac83b575f0235d4",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -835961,7 +835967,8 @@
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/2N7002.pdf",
-        "https://www.nexperia.com/chemical-content/2N7002.html"
+        "https://www.nexperia.com/chemical-content/2N7002.html",
+        "https://assets.nexperia.com/documents/package-information/SOT23.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835969,12 +835976,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -835985,18 +835989,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -836013,19 +836014,19 @@
           "pin": "1",
           "name": "Gate",
           "electricalType": "input",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Source",
           "electricalType": "passive",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Drain",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         }
       ],
       "symbolAsset": {
@@ -836034,7 +836035,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bss138bkw-115/footprint.json",
+        "sha256": "37f3dbb36f6c1a2c7eec57caf4abd830f18f5baaf9706409b17039b203573b9a",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -836049,7 +836056,8 @@
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BSS138BKW.pdf",
-        "https://www.nexperia.com/chemical-content/BSS138BKW.html"
+        "https://www.nexperia.com/chemical-content/BSS138BKW.html",
+        "https://assets.nexperia.com/documents/package-information/SOT323.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836057,12 +836065,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -836073,18 +836078,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     },
@@ -836101,37 +836103,37 @@
           "pin": "1",
           "name": "Source1",
           "electricalType": "passive",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "Gate1",
           "electricalType": "input",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "Drain2",
           "electricalType": "passive",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "Source2",
           "electricalType": "passive",
-          "pad": null
+          "pad": "4"
         },
         {
           "pin": "5",
           "name": "Gate2",
           "electricalType": "input",
-          "pad": null
+          "pad": "5"
         },
         {
           "pin": "6",
           "name": "Drain1",
           "electricalType": "passive",
-          "pad": null
+          "pad": "6"
         }
       ],
       "symbolAsset": {
@@ -836140,7 +836142,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/nexperia.bss138bks-115/footprint.json",
+        "sha256": "e8e6faec69bc2fdd466d6c81fe5de40868a3b9c0a6d5679dde4fb09cf3613cc6",
+        "licenseId": "CC0-1.0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "designStatus": "manufacturer-recommended"
+      },
       "viewSupport": {
         "breadboard": {
           "compatible": false,
@@ -836155,7 +836163,8 @@
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BSS138BKS.pdf",
-        "https://www.nexperia.com/chemical-content/BSS138BKS.html"
+        "https://www.nexperia.com/chemical-content/BSS138BKS.html",
+        "https://assets.nexperia.com/documents/package-information/SOT363.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836163,12 +836172,9 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -836179,18 +836185,15 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "manufacturer-recommended",
         "simulation": "not-modelled"
       }
     }

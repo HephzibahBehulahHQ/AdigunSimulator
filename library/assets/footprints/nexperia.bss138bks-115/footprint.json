@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "kind": "manufacturer-recommended-smd-land-pattern",
+  "partId": "nexperia.bss138bks-115",
+  "package": "Nexperia SOT363",
+  "view": "top",
+  "units": "mm",
+  "pads": [
+    {
+      "number": "1",
+      "xMm": -0.75,
+      "yMm": 0.9,
+      "shape": "rectangle",
+      "widthMm": 0.6,
+      "heightMm": 0.6
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": 0.9,
+      "shape": "rectangle",
+      "widthMm": 0.4,
+      "heightMm": 0.6
+    },
+    {
+      "number": "3",
+      "xMm": 0.75,
+      "yMm": 0.9,
+      "shape": "rectangle",
+      "widthMm": 0.6,
+      "heightMm": 0.6
+    },
+    {
+      "number": "4",
+      "xMm": 0.75,
+      "yMm": -0.9,
+      "shape": "rectangle",
+      "widthMm": 0.6,
+      "heightMm": 0.6
+    },
+    {
+      "number": "5",
+      "xMm": 0,
+      "yMm": -0.9,
+      "shape": "rectangle",
+      "widthMm": 0.4,
+      "heightMm": 0.6
+    },
+    {
+      "number": "6",
+      "xMm": -0.75,
+      "yMm": -0.9,
+      "shape": "rectangle",
+      "widthMm": 0.6,
+      "heightMm": 0.6
+    }
+  ],
+  "limitations": [
+    "Geometry describes reflow copper. Validate solder mask, paste and clearances for the application."
+  ],
+  "license": {
+    "id": "CC0-1.0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  }
+}
