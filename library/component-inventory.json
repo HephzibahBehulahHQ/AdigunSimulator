@@ -835145,10 +835145,10 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "https://assets.nexperia.com/documents/data-sheet/BCP51_SER.pdf",
         "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
@@ -835160,7 +835160,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835173,7 +835172,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835240,10 +835238,10 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "https://assets.nexperia.com/documents/data-sheet/BCP51_SER.pdf",
         "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
@@ -835255,7 +835253,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835268,7 +835265,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835335,10 +835331,10 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "https://assets.nexperia.com/documents/data-sheet/BCP51_SER.pdf",
         "https://assets.nexperia.com/documents/package-information/SOT223.pdf"
       ],
       "readiness": {
@@ -835350,7 +835346,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835363,7 +835358,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835430,7 +835424,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
@@ -835445,7 +835439,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835458,7 +835451,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835525,7 +835517,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
@@ -835540,7 +835532,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835553,7 +835544,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835620,7 +835610,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BCP55_SER.pdf",
@@ -835635,7 +835625,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835648,7 +835637,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835715,7 +835703,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
@@ -835730,7 +835718,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835743,7 +835730,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835810,7 +835796,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
@@ -835825,7 +835811,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835838,7 +835823,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
@@ -835905,7 +835889,7 @@
       },
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "sources": [
         "https://assets.nexperia.com/documents/data-sheet/BCP56_SER.pdf",
@@ -835920,7 +835904,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
           "TRANSLATIONS",
@@ -835933,7 +835916,6 @@
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
           "PACKAGE_EVIDENCE",
-          "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"

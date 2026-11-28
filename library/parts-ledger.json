@@ -341664,13 +341664,13 @@
       "verificationStatus": "candidate",
       "datasheet": {
         "title": "Nexperia BCP51 series datasheet",
-        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -341717,7 +341717,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = −2 V, IC = −150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 63,
+          "maximum": 250,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp51-10-135",
@@ -341730,13 +341738,13 @@
       "verificationStatus": "candidate",
       "datasheet": {
         "title": "Nexperia BCP51 series datasheet",
-        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -341783,7 +341791,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = −2 V, IC = −150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 63,
+          "maximum": 160,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp51-16-115",
@@ -341796,13 +341812,13 @@
       "verificationStatus": "candidate",
       "datasheet": {
         "title": "Nexperia BCP51 series datasheet",
-        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_BCX51_BC51PA.pdf",
+        "url": "https://assets.nexperia.com/documents/data-sheet/BCP51_SER.pdf",
         "accessedAt": "2026-11-24"
       },
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -341849,7 +341865,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = −2 V, IC = −150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 100,
+          "maximum": 250,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp55-115",
@@ -341868,7 +341892,7 @@
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -341915,7 +341939,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 63,
+          "maximum": 250,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp55-10-115",
@@ -341934,7 +341966,7 @@
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -341981,7 +342013,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 63,
+          "maximum": 160,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp55-16-115",
@@ -342000,7 +342040,7 @@
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -342047,7 +342087,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 100,
+          "maximum": 250,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp56-115",
@@ -342066,7 +342114,7 @@
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -342113,7 +342161,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 63,
+          "maximum": 250,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp56-10-115",
@@ -342132,7 +342188,7 @@
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -342179,7 +342235,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 63,
+          "maximum": 160,
+          "unit": "A/A"
+        }
+      ]
     },
     {
       "id": "nexperia.bcp56-16-115",
@@ -342198,7 +342262,7 @@
       "evidenceNote": "library/evidence/nexperia.bcp-sot223.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet pulse-test gain limits are recorded. A device model for the exact gain grade still needs qualification in the native solver."
       },
       "symbolPinMap": {
         "1": "Base",
@@ -342245,7 +342309,15 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 150 mA, 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 100,
+          "maximum": 250,
+          "unit": "A/A"
+        }
+      ]
     }
   ],
   "lastUpdated": "2026-11-13"
