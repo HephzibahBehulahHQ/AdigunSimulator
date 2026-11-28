@@ -57,6 +57,14 @@ test('9 V LED Current Limiter maps sourced through-hole parts and connected PCB 
  assert.deepEqual(entry.unmapped,[]);assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
  assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
  assert.equal(project.pcbFabrication.parts.find(item=>item.reference==='R1').manufacturerPartNumber,'CFR25J470R');
+ for(const view of ['breadboard','schematic'])assert.deepEqual(projectComponentsForView(project,view).reconciliationItems,[]);
+ assert.equal(validateBreadboardTopology(project,{getPartPins:id=>findLibraryPart(id)?.pins??[]}).state,'complete');
+ const fabrication=exportPcbFabrication(project);
+ assert.equal(fabrication.status,'passed',JSON.stringify(fabrication.drc.errors));
+ const drill=fabrication.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0008000000\n${tool}\nX0004000000Y0010540000\n`));
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.reference),['J1','R1','D1']);
  assert.equal(validatePcbFabrication(project).status,'passed');
  assert.equal(runProjectAnalysis(project).result.kind,'led-current-limiter');
