@@ -1339,7 +1339,7 @@
         "yMm": 24.892,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9,
+        "drillMm": 1.02,
         "bridgeEndpoint": "supply:+"
       },
       {
@@ -1352,7 +1352,7 @@
         "yMm": 27.432,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9,
+        "drillMm": 1.02,
         "bridgeEndpoint": "supply:-"
       },
       {
@@ -1788,7 +1788,7 @@
         "yMm": 9.906,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "sensor:VCC"
       },
       {
@@ -1801,7 +1801,7 @@
         "yMm": 12.446,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "sensor:TRIG"
       },
       {
@@ -1814,7 +1814,7 @@
         "yMm": 14.986,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "sensor:ECHO"
       },
       {
@@ -1827,7 +1827,7 @@
         "yMm": 17.526,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "sensor:GND"
       },
       {
@@ -1840,7 +1840,7 @@
         "yMm": 8.128,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "oled:GND"
       },
       {
@@ -1853,7 +1853,7 @@
         "yMm": 8.128,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "oled:VCC"
       },
       {
@@ -1866,7 +1866,7 @@
         "yMm": 8.128,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "oled:SDA"
       },
       {
@@ -1879,7 +1879,7 @@
         "yMm": 8.128,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.8,
+        "drillMm": 1.02,
         "bridgeEndpoint": "oled:SCL"
       }
     ],

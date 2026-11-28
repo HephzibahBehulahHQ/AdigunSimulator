@@ -863,7 +863,19 @@ test('Example 065 maps both off-board assemblies across breadboard, schematic an
  assert.equal(parts.U1.pinMapping['14'],'ECHO');
  assert.equal(parts.U1.pinMapping['15'],'TRIG');
  assert.equal(validatePcbFabrication(p).status,'passed');
- assert.equal(exportPcbFabrication(p).status,'passed');
+ const fabrication=exportPcbFabrication(p);
+ assert.equal(fabrication.status,'passed');
+ const headers=p.pcbFabrication.pads.filter(pad=>['supply','sensor','oled'].includes(pad.instanceId));
+ assert.equal(headers.length,10);
+ assert.ok(headers.every(pad=>pad.drillMm===1.02));
+ const drill=fabrication.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ for(const coordinate of [
+  'X0005842000Y0024892000','X0005842000Y0027432000',
+  'X0055626000Y0009906000','X0055626000Y0012446000','X0055626000Y0014986000','X0055626000Y0017526000',
+  'X0010668000Y0008128000','X0013208000Y0008128000','X0015748000Y0008128000','X0018288000Y0008128000'
+ ])assert.ok(drill.includes(`${tool}\n${coordinate}\n`),coordinate);
  const broken=structuredClone(p);
  const sda=broken.nets.find(n=>n.id==='OLED_SDA'),scl=broken.nets.find(n=>n.id==='OLED_SCL');
  sda.endpoints[1]='oled:SCL';
