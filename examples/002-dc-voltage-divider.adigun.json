@@ -167,7 +167,7 @@
         "yMm": 8,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9
+        "drillMm": 1.02
       },
       {
         "instanceId": "source-1",
@@ -180,7 +180,7 @@
         "yMm": 10.54,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9
+        "drillMm": 1.02
       },
       {
         "instanceId": "resistor-top-1",

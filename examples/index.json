@@ -31,7 +31,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "2b92b07af9b07bd2a7515f8893e796a805fbb55763ed795b9f8897153d11b6ec",
+      "sha256": "ec03c600ef4061caad7955c0f108bc4d06b81328f27a89186e8d59225ecc6b0d",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC voltage-divider calculation",
