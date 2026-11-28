@@ -341724,6 +341724,21 @@
           "minimum": 63,
           "maximum": 250,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = −2 V, IC = −500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = −500 mA, IB = −50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = −2 V, IC = −500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -341798,6 +341813,21 @@
           "minimum": 63,
           "maximum": 160,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = −2 V, IC = −500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = −500 mA, IB = −50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = −2 V, IC = −500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -341872,6 +341902,21 @@
           "minimum": 100,
           "maximum": 250,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = −2 V, IC = −500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = −500 mA, IB = −50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = −2 V, IC = −500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -341946,6 +341991,21 @@
           "minimum": 63,
           "maximum": 250,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = 500 mA, IB = 50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -342020,6 +342080,21 @@
           "minimum": 63,
           "maximum": 160,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = 500 mA, IB = 50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -342094,6 +342169,21 @@
           "minimum": 100,
           "maximum": 250,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = 500 mA, IB = 50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -342168,6 +342258,21 @@
           "minimum": 63,
           "maximum": 250,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = 500 mA, IB = 50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -342242,6 +342347,21 @@
           "minimum": 63,
           "maximum": 160,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = 500 mA, IB = 50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     },
@@ -342316,6 +342436,21 @@
           "minimum": 100,
           "maximum": 250,
           "unit": "A/A"
+        },
+        {
+          "name": "DC current gain hFE at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "minimum": 40,
+          "unit": "A/A"
+        },
+        {
+          "name": "Collector-emitter saturation voltage magnitude at IC = 500 mA, IB = 50 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 0.5,
+          "unit": "V"
+        },
+        {
+          "name": "Base-emitter voltage magnitude at VCE = 2 V, IC = 500 mA at 25 °C (pulse ≤ 300 µs, duty ≤ 2%)",
+          "maximum": 1,
+          "unit": "V"
         }
       ]
     }
