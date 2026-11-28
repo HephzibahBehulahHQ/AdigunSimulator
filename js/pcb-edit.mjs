@@ -1,3 +1,4 @@
+import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 import { getPcbPreviewScale } from "./pcb-preview.mjs";
 const clone=value=>JSON.parse(JSON.stringify(value));
 const close=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1])<=.001;
@@ -8,7 +9,8 @@ export function movePcbFootprint(project,instanceId,deltaMm){
  if(!pcb.parts.some(p=>p.instanceId===instanceId))return{status:"blocked",code:"UNKNOWN_FOOTPRINT"};
  const pads=pcb.pads.filter(p=>p.instanceId===instanceId);if(!pads.length)return{status:"blocked",code:"NO_FOOTPRINT_PADS"};
  const dx=Number(deltaMm?.x),dy=Number(deltaMm?.y);if(!Number.isFinite(dx)||!Number.isFinite(dy))return{status:"blocked",code:"INVALID_DELTA"};if(Math.hypot(dx,dy)<.0001)return{status:"unchanged",project};
- const bounds=pads.map(p=>{const x=Number(p.xMm),y=Number(p.yMm),w=p.technology==="through-hole"?Number(p.diameterMm):Number(p.widthMm),h=p.technology==="through-hole"?Number(p.diameterMm):Number(p.heightMm);if(!Number.isFinite(x)||!Number.isFinite(y)||!Number.isFinite(w)||!Number.isFinite(h)||w<=0||h<=0)return null;return{x:x+dx,y:y+dy,rx:w/2,ry:h/2};});
+ if(pads.some(p=>p.technology==="smd"&&!validSmdPad(p)))return{status:"blocked",code:"INVALID_FOOTPRINT_GEOMETRY"};
+ const bounds=pads.flatMap(padCopperSections).map(p=>{const x=Number(p.xMm),y=Number(p.yMm),w=p.technology==="through-hole"?Number(p.diameterMm):Number(p.widthMm),h=p.technology==="through-hole"?Number(p.diameterMm):Number(p.heightMm);if(!Number.isFinite(x)||!Number.isFinite(y)||!Number.isFinite(w)||!Number.isFinite(h)||w<=0||h<=0)return null;return{x:x+dx,y:y+dy,rx:w/2,ry:h/2};});
  if(bounds.some(p=>!p))return{status:"blocked",code:"INVALID_FOOTPRINT_GEOMETRY"};
  if(bounds.some(p=>p.x-p.rx<0||p.y-p.ry<0||p.x+p.rx>board.widthMm||p.y+p.ry>board.heightMm))return{status:"blocked",code:"OUT_OF_BOUNDS"};
  const byNet=new Map();for(const p of pads){const a=byNet.get(p.netId)??[];a.push([p.xMm,p.yMm]);byNet.set(p.netId,a);}

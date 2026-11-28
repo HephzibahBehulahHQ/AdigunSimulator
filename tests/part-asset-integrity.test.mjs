@@ -365,3 +365,44 @@ test("BCX SOT89 reflow copper keeps one connected, stepped collector terminal", 
     assert.equal(validCompositePad(collector), false);
   }
 });
+
+test("native PCB keeps the SOT89 collector as one terminal with exact copper in preview and Gerber", async () => {
+  const { rotatePcbFootprint } = await import("../js/pcb-rotate.mjs");
+  const { movePcbFootprint } = await import("../js/pcb-edit.mjs");
+  const { segmentPadGap } = await import("../js/pcb-copper.mjs");
+  const asset = JSON.parse(await readFile(new URL("../library/assets/footprints/nexperia.bcx51-115/footprint.json", import.meta.url), "utf8"));
+  const pads = asset.pads.map(pad => ({
+    ...pad, xMm: pad.xMm + 9, yMm: pad.yMm + 6, instanceId: "q1", reference: "Q1",
+    pin: pad.number, technology: "smd", netId: "NC"
+  }));
+  pads[1].netId = "C";
+  pads.push({ instanceId: "tp1", reference: "TP1", pin: "1", number: "1", technology: "smd", xMm: 9, yMm: 15, widthMm: 1, heightMm: 1, netId: "C" });
+  const project = {
+    components: [{ instanceId: "q1", reference: "Q1", value: "BCX51,115" }, { instanceId: "tp1", reference: "TP1", value: "collector test point" }],
+    nets: [{ id: "C", endpoints: ["q1:2", "tp1:1"] }],
+    pcbFabrication: {
+      board: { widthMm: 20, heightMm: 20, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2 },
+      parts: [{ instanceId: "q1", reference: "Q1", footprint: "SOT89", technology: "smd" }, { instanceId: "tp1", reference: "TP1", footprint: "SMD test pad", technology: "smd" }],
+      routes: [{ netId: "C", layer: "F.Cu", widthMm: 0.25, pointsMm: [[9, pads[1].yMm], [9, 15]] }], pads
+    }
+  };
+  const svg = renderPcbPreviewSvg(project);
+  assert.equal((svg.match(/data-pcb-pad="q1:2"/g) ?? []).length, 1);
+  assert.equal((svg.match(/class="pcb-pad-smd"/g) ?? []).length, 5);
+  const output = exportPcbFabrication(project);
+  assert.equal(output.status, "passed", output.drc.errors.join("\n"));
+  const copper = output.files["board-F_Cu.gbr"];
+  assert.match(copper, /R,2X2\.75/);
+  assert.match(copper, /R,0\.7X1\.85/);
+  assert.equal((copper.match(/D03\*/g) ?? []).length, 5);
+  assert.equal(segmentPadGap([9.95, 7], [9.95, 8], pads[1]), 0);
+  assert.ok(segmentPadGap([9.95, 9.1], [9.95, 9.8], pads[1]) > 0.3);
+  assert.equal(movePcbFootprint(project, "q1", { x: 0, y: -6.01 }).code, "OUT_OF_BOUNDS");
+  const rotated = rotatePcbFootprint(project, "q1", 90);
+  assert.equal(rotated.status, "complete");
+  assert.equal(rotated.project.pcbFabrication.pads[1].copperRects[0].widthMm, 2.75);
+  assert.equal(rotated.project.pcbFabrication.pads[1].copperRects[0].dxMm, 2.675);
+
+  pads[1].copperRects[0].dyMm -= 0.01;
+  assert.equal(exportPcbFabrication(project).status, "blocked");
+});

@@ -1,3 +1,4 @@
+import { padCopperSections, validSmdPad } from "./pcb-pad-geometry.mjs";
 import { boardOutlineContainsBox, boardOutlineContainsCircle, boardOutlineContainsSegment, boardOutlineDefinitionErrors } from "./pcb-outline.mjs";
 const EPS = 1e-9;
 const positive = (value) => Number.isFinite(value) && value > 0;
@@ -29,10 +30,16 @@ export function boardGeometryErrors(pcb) {
   if (definitionErrors.length) return definitionErrors;
   for (const key of ["pads", "routes", "vias", "keepouts", "copperZones", "mechanicalFeatures"]) if (pcb[key] !== undefined && (!Array.isArray(pcb[key]) || pcb[key].some((item) => !item || typeof item !== "object"))) return [`PCB ${key} must be an array of records.`];
   for (const pad of [...(pcb.pads ?? []), ...(pcb.vias ?? []).map((via) => ({ ...via, technology: "through-hole", reference: `Via ${via.id}` }))]) {
-    const hx = pad.technology === "through-hole" ? pad.diameterMm / 2 : pad.widthMm / 2;
-    const hy = pad.technology === "through-hole" ? hx : pad.heightMm / 2;
-    const fits = pad.technology === "through-hole" ? boardOutlineContainsCircle(board, pad.xMm, pad.yMm, hx) : boardOutlineContainsBox(board, pad.xMm, pad.yMm, hx, hy);
-    if (!fits) errors.push(`Copper pad ${pad.reference ?? pad.instanceId ?? "unknown"} leaves the board outline or has invalid dimensions.`);
+    if (pad.technology === "smd" && !validSmdPad(pad)) {
+      errors.push(`Copper pad ${pad.reference ?? pad.instanceId} has invalid dimensions.`);
+      continue;
+    }
+    for (const section of padCopperSections(pad)) {
+      const hx = section.technology === "through-hole" ? section.diameterMm / 2 : section.widthMm / 2;
+      const hy = pad.technology === "through-hole" ? hx : section.heightMm / 2;
+      const fits = pad.technology === "through-hole" ? boardOutlineContainsCircle(board, section.xMm, section.yMm, hx) : boardOutlineContainsBox(board, section.xMm, section.yMm, hx, hy);
+      if (!fits) errors.push(`Copper pad ${pad.reference ?? pad.instanceId ?? "unknown"} leaves the board outline or has invalid dimensions.`);
+    }
   }
   for (const route of pcb.routes ?? []) {
     if (!positive(route.widthMm) || !Array.isArray(route.pointsMm) || route.pointsMm.length < 2 || route.pointsMm.some((point) => !Array.isArray(point) || point.length !== 2 || !point.every(Number.isFinite)) || route.pointsMm.slice(1).some((point, index) => !boardOutlineContainsSegment(board, route.pointsMm[index], point, route.widthMm / 2))) errors.push(`Route ${route.netId} copper leaves the board outline or has invalid dimensions.`);
