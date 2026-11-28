@@ -7,6 +7,9 @@ const patterns = [[eeprom2, "24LC02B-I/P", 256], [eeprom32, "24LC32A-I/P", 4096]
 const size = Object.freeze({ width: 132, height: 104 });
 const pins = Object.freeze(["1", "2", "3", "4", "5", "6", "7", "8"]);
 const signalNames = ["A0", "A1", "A2", "VSS", "SDA", "SCL", "WP", "VCC"];
+const byteFixture = Object.freeze({
+  status: "supported", id: "analytical-i2c-eeprom-write-read", scope: "Ideal single-byte write/read fixture"
+});
 
 const records = new Map(patterns.map(([footprint, orderCode, capacityBytes]) => {
   const id = footprint.partId;
@@ -14,7 +17,8 @@ const records = new Map(patterns.map(([footprint, orderCode, capacityBytes]) => 
     id, footprint, technology: "through-hole", package: footprint.package, manufacturer: "Microchip Technology",
     type: "Microchip " + orderCode, defaultValue: orderCode, prefix: "U", category: "Active",
     pins, symbolSize: size,
-    simulation: "analytical-i2c-eeprom-write-read",
+    simulation: byteFixture.id,
+    runtimeModel: byteFixture,
     capacityBytes,
     addressBytes: capacityBytes === 256 ? 1 : 2,
     eepromSignalPins: Object.freeze({ GND: "4", SDA: "5", SCL: "6", WP: "7", VCC: "8" }),

@@ -436,6 +436,10 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
     const [instance] = project.components;
     const part = findLibraryPart(row.id);
     const { parts: physical, pads } = project.pcbFabrication;
+    const summary = getManufacturerPartEvidenceSummary(row);
+    assert.equal(summary.runtimeModel?.scope, "Ideal single-byte write/read fixture");
+    assert.equal(summary.verified, false);
+    assert.match(runProjectAnalysis(project).message, /single-byte I²C transaction fixture/);
     assert.equal(physical[0].manufacturerPartNumber, row.manufacturerPartNumber);
     assert.equal(physical[0].designStatus, "educational-candidate");
     assert.deepEqual(pads.map(({instanceId, pin, number}) => [instanceId, pin, number]),

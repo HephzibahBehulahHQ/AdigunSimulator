@@ -1,5 +1,6 @@
 import ledger from "../library/parts-ledger.json" with { type: "json" };
 import { getPartVerificationReadiness } from "./part-ledger.mjs";
+import { findNativeEeprom } from "./native-eeprom-parts.mjs";
 
 export const MANUFACTURER_PART_RECORDS = Object.freeze(ledger.records.map((record) => Object.freeze(record)));
 
@@ -40,6 +41,7 @@ export function getManufacturerPartEvidenceSummary(record) {
     missingEvidenceCodes: readiness.missingEvidenceCodes,
     evidenceBlockerCodes: readiness.evidenceBlockerCodes,
     simulationStatus: record.modelStatus ?? record.simulationModel?.status ?? "unspecified",
+    runtimeModel: findNativeEeprom(record.id)?.runtimeModel ?? null,
     datasheetUrl: record.datasheet?.url ?? null,
     datasheetChecksumPresent: Boolean(record.datasheet?.sha256),
     pinMap: Object.freeze(pinMap.map(Object.freeze)),
