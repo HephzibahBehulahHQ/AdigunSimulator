@@ -430,3 +430,19 @@ test("mobile command menus retain touch-sized targets", async () => {
   assert.match(mobile[1], /\.command-bar > \.menu-buttons > \.app-menu > summary, \.command-bar \.draw-menu-button \{[^}]*min-height:44px/);
   assert.match(mobile[1], /display:flex; align-items:center/);
 });
+
+test("Adigun Overview routes only known Studio and preset hashes", async () => {
+  const { studioRoute } = await import("../js/studio-navigation.mjs");
+  const html = await readFile(indexFile, "utf8");
+  assert.deepEqual(studioRoute(""), { studio: false, preset: undefined });
+  assert.deepEqual(studioRoute("#studio"), { studio: true, preset: undefined });
+  assert.deepEqual(studioRoute("#workspace"), { studio: true, preset: undefined });
+  assert.deepEqual(studioRoute("#studio/invalid"), { studio: false, preset: undefined });
+  for (const hash of ["#studio/led", "#studio/rc-low-pass"]) {
+    const route = studioRoute(hash);
+    assert.equal(route.studio, true);
+    assert.ok((await readFile(new URL("../" + route.preset, import.meta.url), "utf8")).length > 0);
+    assert.ok(html.includes('href="' + hash + '"'));
+  }
+  assert.match(html, /id="back-to-overview"[^>]+>← Back to Overview/);
+});

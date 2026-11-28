@@ -9,6 +9,44 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="studio-overview" hidden>
+      <nav class="overview-nav" aria-label="Overview">
+        <a class="overview-brand" href="./"><span aria-hidden="true">◈</span> Adigun Studio</a>
+        <a class="overview-pill" href="#studio">Simulator <span aria-hidden="true">→</span></a>
+      </nav>
+      <main id="overview-content">
+        <section class="overview-hero" aria-labelledby="overview-heading">
+          <div class="overview-intro">
+            <h1 id="overview-heading" tabindex="-1">Build a circuit.<br><em>See it come alive.</em></h1>
+            <p>Adigun Studio is an electronics workspace for drawing circuits, checking connections, and exploring how supported designs behave.</p>
+            <a class="overview-launch" href="#studio">Launch Studio <span aria-hidden="true">→</span></a>
+          </div>
+          <figure class="overview-telemetry">
+            <canvas id="overview-traces" width="720" height="420" aria-hidden="true"></canvas>
+            <figcaption>Illustrative signal preview</figcaption>
+          </figure>
+        </section>
+        <section class="overview-guide" aria-labelledby="overview-guide-heading">
+          <h2 id="overview-guide-heading">From a connection to a reading</h2>
+          <div class="overview-grid">
+            <article><h3>Draw it</h3><p>Add components and connect their pins. Schematic, Breadboard, and PCB share the project’s component and net identities. Physical views flag any missing mappings.</p></article>
+            <article><h3>Run it</h3><p>For supported circuits, the solver uses the connections and component models to calculate results. Diagnostics explain missing models and wiring problems.</p></article>
+            <article><h3>Inspect it</h3><p>Use the floating controls to change views or run analysis. When the solver can produce supported readings, open the oscilloscope to examine the signal.</p></article>
+          </div>
+        </section>
+        <section class="overview-presets" aria-labelledby="overview-presets-heading">
+          <h2 id="overview-presets-heading">Start with a working circuit</h2>
+          <div class="overview-grid">
+            <a href="#studio/led"><strong>LED current limiter</strong><span>See how a series resistor controls current. →</span></a>
+            <a href="#studio/rc-low-pass"><strong>RC low-pass filter</strong><span>Explore what happens as input frequency rises. →</span></a>
+            <a href="#studio"><strong>Open the canvas</strong><span>Start with your current project. →</span></a>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div id="studio-shell">
+      <a id="back-to-overview" class="studio-back-link" href="#">← Back to Overview</a>
+      <div id="studio-content">
     <a class="skip-link" href="#workspace" data-i18n="skipToWorkspace">Skip to workspace</a>
     <header class="identity-header">
       <div class="identity">
@@ -750,6 +788,8 @@
         </div>
       </form>
     </dialog>
+      </div>
+    </div>
     <script type="module" src="app.js"></script>
   </body>
 </html>
