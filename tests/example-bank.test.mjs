@@ -838,6 +838,10 @@ test('Two-LED polarity indicator maps sourced LED branches across BB400 and rout
  assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);assert.equal(validatePcbFabrication(project).status,'passed');assert.equal(runProjectAnalysis(project).result.kind,'led-polarity-indicator');
  assert.deepEqual(project.pcbFabrication.physicalEvidence.map(item=>item.manufacturerPartNumber),['TSW-102-07-T-S','MRS25000C3300FCT00','LTL-307E-002A','MRS25000C3300FCT00','LTL-307G']);
  const exported=exportPcbFabrication(project);assert.equal(exported.status,'passed');assert.match(exported.files['BOM.csv'],/LTL-307G/);assert.match(exported.files['board-F_Cu.gbr'],/M02\*/);
+ const drill=exported.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0008000000\n${tool}\nX0004000000Y0010540000\n`));
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="led-green"/);assert.ok(renderBreadboardAssemblySvg(project).includes('led-green'));
 });
 test('Example 064 maps the LM35DZ, AVR and LCD connector in all three views',async()=>{
