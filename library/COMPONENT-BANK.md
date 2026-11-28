@@ -10,7 +10,7 @@ Continue in source-backed batches. Attach exact pin and package evidence, retain
 
 ## Sourcing coverage after the Microchip PDIP EEPROM batch
 
-The ledger contains 12,015 manufacturer records. It has 12,013 candidates, two in review and zero independently verified parts. 1,606 records have symbol assets and 1,582 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
+The ledger contains 12,015 manufacturer records. It has 12,013 candidates, two in review and zero independently verified parts. 1,606 records have symbol assets and 1,586 have footprint assets. Asset counts alone do not establish native placement or validated simulation.
 
 | Directive family | Target | Ledger records |
 | --- | ---: | ---: |
