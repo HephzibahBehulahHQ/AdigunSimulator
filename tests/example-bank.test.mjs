@@ -195,7 +195,10 @@ test('RC low-pass uses a mapped bipolar capacitor and a model-backed cutoff trac
  assert.equal(exported.status,'passed');
  assert.match(exported.files['BOM.csv'],/UES1E101MPM/);
  assert.match(exported.files['board-F_Cu.gbr'],/M02\*/);
- assert.match(exported.files['board-PTH.drl'],/T01/);
+ const drill=exported.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0005000000\n${tool}\nX0004000000Y0007540000\n`));
  const analysis=runProjectAnalysis(project);
  assert.equal(analysis.state,'complete');
  const scope=analysis.scopeRecording;

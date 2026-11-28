@@ -382,7 +382,7 @@
       "type": "Analog",
       "level": "Intermediate",
       "category": "Passive networks and sensors",
-      "sha256": "195dce35f74055e270a85bc841a4175d7111f705e03603071a5a0aa78d917198",
+      "sha256": "3cdc3edc755185f958fff16bfcfd653ae19e718af8f76597be9f3071fbf48b79",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical first-order RC low-pass frequency response",
