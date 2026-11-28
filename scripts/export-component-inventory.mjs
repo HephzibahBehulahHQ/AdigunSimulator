@@ -40,7 +40,9 @@ const manufacturerRows = MANUFACTURER_PART_RECORDS.map(part => {
       schematic: nativeViews?.schematic ?? part.views?.schematic ?? null,
       pcb: nativeViews?.pcb ?? part.views?.pcb ?? null
     },
-    simulationModel: part.simulationModel ?? nativePart?.simulation ?? null,
+    simulationModel: nativePart?.simulation
+      ? { status: "supported", id: nativePart.simulation, scope: "Ideal single-byte write/read fixture" }
+      : part.simulationModel ?? null,
     sources: [...new Set([part.datasheet.url, ...((part.manufacturerSources ?? []).map(source => source.url)),
       part.packageEvidence?.sourceUrl, part.footprintEvidence?.sourceUrl].filter(Boolean))],
     readiness: {
