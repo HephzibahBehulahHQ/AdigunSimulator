@@ -834089,8 +834089,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834175,8 +834175,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834261,8 +834261,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834347,8 +834347,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834433,8 +834433,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834519,8 +834519,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834605,8 +834605,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834691,8 +834691,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834777,8 +834777,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834863,8 +834863,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -834949,8 +834949,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
@@ -835035,8 +835035,8 @@
           "compatible": false,
           "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
         },
-        "schematic": null,
-        "pcb": null
+        "schematic": true,
+        "pcb": true
       },
       "simulationModel": {
         "status": "not-modelled",
