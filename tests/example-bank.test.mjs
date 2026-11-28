@@ -41,6 +41,12 @@ test('Example 001 LED current limiter routes its return without assigning a foot
  assert.deepEqual(projectComponentsForView(project,'pcb').reconciliationItems,[]);
  assert.deepEqual(project.pcbFabrication.nonPhysicalItems.map(item=>item.reference),['GND']);
  assert.equal(validatePcbFabrication(project).status,'passed');
+ const fabrication=exportPcbFabrication(project);
+ assert.equal(fabrication.status,'passed');
+ const drill=fabrication.files['board-PTH.drl'];
+ const tool=drill.match(/^(T\d+)C1\.02$/m)?.[1];
+ assert.ok(tool);
+ assert.ok(drill.includes(`${tool}\nX0004000000Y0008000000\n${tool}\nX0004000000Y0010540000\n`));
  assert.equal(runProjectAnalysis(project).result.kind,'led-current-limiter');
  assert.match(renderPcbPreviewSvg(project),/data-pcb-footprint="led-1"/);
 });

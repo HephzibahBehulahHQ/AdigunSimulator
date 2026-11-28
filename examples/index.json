@@ -15,7 +15,7 @@
       "type": "Analog",
       "level": "Beginner",
       "category": "LEDs, switches and supplies",
-      "sha256": "5f8cbc2fafadcfb9a7e336c19fec028d03da313ac915bbae5039707000d5a8cc",
+      "sha256": "4e585ba5622040d3f02f199851e3f9bb6881667bc54f61046344ef6c8fe42e06",
       "components": 4,
       "analysis": "complete",
       "engine": "Analytical DC LED demonstration",
