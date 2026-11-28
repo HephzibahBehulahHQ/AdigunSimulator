@@ -233,7 +233,7 @@
         "yMm": 5,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9
+        "drillMm": 1.02
       },
       {
         "instanceId": "source-1",
@@ -246,7 +246,7 @@
         "yMm": 7.54,
         "technology": "through-hole",
         "diameterMm": 1.8,
-        "drillMm": 0.9
+        "drillMm": 1.02
       },
       {
         "instanceId": "switch-1",
