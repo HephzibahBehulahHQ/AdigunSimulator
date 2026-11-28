@@ -836207,49 +836207,49 @@
           "pin": "1",
           "name": "A0 (NC)",
           "electricalType": "no-connect",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "A1 (NC)",
           "electricalType": "no-connect",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "A2 (NC)",
           "electricalType": "no-connect",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "VSS",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "4"
         },
         {
           "pin": "5",
           "name": "SDA",
           "electricalType": "bidirectional",
-          "pad": null
+          "pad": "5"
         },
         {
           "pin": "6",
           "name": "SCL",
           "electricalType": "input",
-          "pad": null
+          "pad": "6"
         },
         {
           "pin": "7",
           "name": "WP",
           "electricalType": "input",
-          "pad": null
+          "pad": "7"
         },
         {
           "pin": "8",
           "name": "VCC",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "8"
         }
       ],
       "symbolAsset": {
@@ -836258,7 +836258,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24lc02b-i-p/footprint.json",
+        "sha256": "e1449313737ba75912d915ca1183fcf8e14ab436029e3306bb73ee77b18e2d3d",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
+      },
       "viewSupport": {
         "breadboard": null,
         "schematic": null,
@@ -836271,7 +836277,8 @@
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21709G.pdf",
         "https://www.microchip.com/en-us/product/24LC02B",
-        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836279,11 +836286,8 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -836294,17 +836298,14 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "educational-candidate",
         "simulation": "not-modelled"
       }
     },
@@ -836321,49 +836322,49 @@
           "pin": "1",
           "name": "A0",
           "electricalType": "input",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "A1",
           "electricalType": "input",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "A2",
           "electricalType": "input",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "VSS",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "4"
         },
         {
           "pin": "5",
           "name": "SDA",
           "electricalType": "bidirectional",
-          "pad": null
+          "pad": "5"
         },
         {
           "pin": "6",
           "name": "SCL",
           "electricalType": "input",
-          "pad": null
+          "pad": "6"
         },
         {
           "pin": "7",
           "name": "WP",
           "electricalType": "input",
-          "pad": null
+          "pad": "7"
         },
         {
           "pin": "8",
           "name": "VCC",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "8"
         }
       ],
       "symbolAsset": {
@@ -836372,7 +836373,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24lc32a-i-p/footprint.json",
+        "sha256": "8f128e7c5dd43ea11b039cc2760812ecfe71081baf8f99de3fd878be53a2d06a",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
+      },
       "viewSupport": {
         "breadboard": null,
         "schematic": null,
@@ -836385,7 +836392,8 @@
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21713L.pdf",
         "https://www.microchip.com/en-us/product/24LC32A",
-        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836393,11 +836401,8 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -836408,17 +836413,14 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "educational-candidate",
         "simulation": "not-modelled"
       }
     },
@@ -836435,49 +836437,49 @@
           "pin": "1",
           "name": "A0",
           "electricalType": "input",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "A1",
           "electricalType": "input",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "A2",
           "electricalType": "input",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "VSS",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "4"
         },
         {
           "pin": "5",
           "name": "SDA",
           "electricalType": "bidirectional",
-          "pad": null
+          "pad": "5"
         },
         {
           "pin": "6",
           "name": "SCL",
           "electricalType": "input",
-          "pad": null
+          "pad": "6"
         },
         {
           "pin": "7",
           "name": "WP",
           "electricalType": "input",
-          "pad": null
+          "pad": "7"
         },
         {
           "pin": "8",
           "name": "VCC",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "8"
         }
       ],
       "symbolAsset": {
@@ -836486,7 +836488,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24lc64-i-p/footprint.json",
+        "sha256": "f29bab50e2fb6621a8ac9b8abf8aab69644968e2338e9422f2b52ca67047210c",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
+      },
       "viewSupport": {
         "breadboard": null,
         "schematic": null,
@@ -836499,7 +836507,8 @@
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21189S.pdf",
         "https://www.microchip.com/en-us/product/24LC64",
-        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836507,11 +836516,8 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -836522,17 +836528,14 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "educational-candidate",
         "simulation": "not-modelled"
       }
     },
@@ -836549,49 +836552,49 @@
           "pin": "1",
           "name": "A0",
           "electricalType": "input",
-          "pad": null
+          "pad": "1"
         },
         {
           "pin": "2",
           "name": "A1",
           "electricalType": "input",
-          "pad": null
+          "pad": "2"
         },
         {
           "pin": "3",
           "name": "A2",
           "electricalType": "input",
-          "pad": null
+          "pad": "3"
         },
         {
           "pin": "4",
           "name": "VSS",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "4"
         },
         {
           "pin": "5",
           "name": "SDA",
           "electricalType": "bidirectional",
-          "pad": null
+          "pad": "5"
         },
         {
           "pin": "6",
           "name": "SCL",
           "electricalType": "input",
-          "pad": null
+          "pad": "6"
         },
         {
           "pin": "7",
           "name": "WP",
           "electricalType": "input",
-          "pad": null
+          "pad": "7"
         },
         {
           "pin": "8",
           "name": "VCC",
           "electricalType": "power-in",
-          "pad": null
+          "pad": "8"
         }
       ],
       "symbolAsset": {
@@ -836600,7 +836603,13 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
-      "footprintAsset": null,
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24fc256-i-p/footprint.json",
+        "sha256": "b4e4191a615bca81eef2b58dfd8e9834a9bf3168d88c435b89485ecf205ec714",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
+      },
       "viewSupport": {
         "breadboard": null,
         "schematic": null,
@@ -836613,7 +836622,8 @@
       "sources": [
         "https://ww1.microchip.com/downloads/en/DeviceDoc/21203R.pdf",
         "https://www.microchip.com/en-us/product/24FC256",
-        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf"
+        "https://ww1.microchip.com/downloads/aemDocuments/documents/MPD/ProductDocuments/DataSheets/24AA64-24FC64-24LC64-64-Kbit-I2C-Serial-EEPROM-DS20001189.pdf",
+        "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod"
       ],
       "readiness": {
         "verification": "candidate",
@@ -836621,11 +836631,8 @@
         "missingEvidence": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
           "REVIEW_DATE",
@@ -836636,17 +836643,14 @@
         "blockers": [
           "BREADBOARD_COMPATIBILITY",
           "DATASHEET_CHECKSUM",
-          "FOOTPRINT_ASSET_EVIDENCE",
-          "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
           "TYPE_CODE",
           "VERIFIED_EVIDENCE"
         ],
-        "footprintEvidence": "not-recorded",
+        "footprintEvidence": "educational-candidate",
         "simulation": "not-modelled"
       }
     }

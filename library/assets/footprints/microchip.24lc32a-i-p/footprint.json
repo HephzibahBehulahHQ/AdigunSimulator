@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "kind": "educational-through-hole-footprint",
+  "partId": "microchip.24lc32a-i-p",
+  "package": "PDIP-8 (300 mil)",
+  "view": "top",
+  "units": "mm",
+  "source": {
+    "title": "KiCad Libraries DIP-8_W7.62mm",
+    "url": "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod",
+    "originalAuthors": "KiCad Libraries contributors",
+    "changes": "Mechanical copper and drill dimensions transcribed into JSON and associated with this order code."
+  },
+  "pads": [
+    {
+      "number": "1",
+      "xMm": 0,
+      "yMm": 0,
+      "shape": "rectangle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "2",
+      "xMm": 0,
+      "yMm": 2.54,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "3",
+      "xMm": 0,
+      "yMm": 5.08,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "4",
+      "xMm": 0,
+      "yMm": 7.62,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "5",
+      "xMm": 7.62,
+      "yMm": 7.62,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "6",
+      "xMm": 7.62,
+      "yMm": 5.08,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "7",
+      "xMm": 7.62,
+      "yMm": 2.54,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    },
+    {
+      "number": "8",
+      "xMm": 7.62,
+      "yMm": 0,
+      "shape": "circle",
+      "widthMm": 1.6,
+      "heightMm": 1.6,
+      "drillMm": 0.8
+    }
+  ],
+  "limitations": [
+    "This candidate uses the generic KiCad land pattern. Microchip publishes the package outline separately.",
+    "Confirm finished-hole tolerance, annular ring and physical fit before manufacturing."
+  ],
+  "license": {
+    "id": "CC-BY-SA-4.0",
+    "url": "https://www.kicad.org/libraries/license/"
+  }
+}

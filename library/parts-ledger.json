@@ -343076,6 +343076,29 @@
         "sha256": "081204bee635b646059f419488025138018d1c3885224bc3176223efa47bb4b9",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/microchip.24lc02b-i-p/footprint.json",
+        "sourceUrl": "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod",
+        "designStatus": "educational-candidate",
+        "designNote": "Source-backed KiCad DIP-8 pattern, pending physical package fit and independent review."
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24lc02b-i-p/footprint.json",
+        "sha256": "e1449313737ba75912d915ca1183fcf8e14ab436029e3306bb73ee77b18e2d3d",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
       }
     },
     {
@@ -343149,6 +343172,29 @@
         "sha256": "4ce1cd6aa45ed9431daad268c8fa7018fa4bc89a7c95206f9f7242f194992a2e",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/microchip.24lc32a-i-p/footprint.json",
+        "sourceUrl": "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod",
+        "designStatus": "educational-candidate",
+        "designNote": "Source-backed KiCad DIP-8 pattern, pending physical package fit and independent review."
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24lc32a-i-p/footprint.json",
+        "sha256": "8f128e7c5dd43ea11b039cc2760812ecfe71081baf8f99de3fd878be53a2d06a",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
       }
     },
     {
@@ -343222,6 +343268,29 @@
         "sha256": "38400bc246bed45da93e3015854e849a4399cdab2a541a679f85d96a937e232d",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/microchip.24lc64-i-p/footprint.json",
+        "sourceUrl": "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod",
+        "designStatus": "educational-candidate",
+        "designNote": "Source-backed KiCad DIP-8 pattern, pending physical package fit and independent review."
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24lc64-i-p/footprint.json",
+        "sha256": "f29bab50e2fb6621a8ac9b8abf8aab69644968e2338e9422f2b52ca67047210c",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
       }
     },
     {
@@ -343295,6 +343364,29 @@
         "sha256": "a97f4122e77f793b409f9821443865ec93f3c5deaa980736e7fe2b89a8fe9e41",
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "footprintPadMap": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8"
+      },
+      "footprintEvidence": {
+        "assetPath": "library/assets/footprints/microchip.24fc256-i-p/footprint.json",
+        "sourceUrl": "https://github.com/KiCad/kicad-footprints/blob/master/Package_DIP.pretty/DIP-8_W7.62mm.kicad_mod",
+        "designStatus": "educational-candidate",
+        "designNote": "Source-backed KiCad DIP-8 pattern, pending physical package fit and independent review."
+      },
+      "footprintAsset": {
+        "sourceUrl": "https://raw.githubusercontent.com/HephzibahBehulahHQ/AdigunSimulator/main/library/assets/footprints/microchip.24fc256-i-p/footprint.json",
+        "sha256": "b4e4191a615bca81eef2b58dfd8e9834a9bf3168d88c435b89485ecf205ec714",
+        "licenseId": "CC-BY-SA-4.0",
+        "licenseUrl": "https://www.kicad.org/libraries/license/",
+        "designStatus": "educational-candidate"
       }
     }
   ],
