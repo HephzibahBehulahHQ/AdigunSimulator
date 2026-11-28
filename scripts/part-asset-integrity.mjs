@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { validCompositePad } from "../js/pcb-pad-geometry.mjs";
 
 const sha256 = (value) => createHash("sha256").update(value.replace(/\r\n/g, "\n")).digest("hex");
 const decodeXml = (value) => value.replace(/&(?:amp|lt|gt|quot|apos);/g, (entity) => ({
@@ -39,6 +40,8 @@ function footprintPads(json) {
     const numbers = footprint.pads.map((pad) => String(pad.number));
     if (numbers.some((number) => !number || number === "undefined") || new Set(numbers).size !== numbers.length) return null;
     if (footprint.pads.some((pad) => !Number.isFinite(pad.xMm) || !Number.isFinite(pad.yMm))) return null;
+    if (footprint.pads.some((pad) => (pad.shape === "composite" || pad.copperRects !== undefined) &&
+      (pad.shape !== "composite" || !validCompositePad(pad)))) return null;
     return { partId: footprint.partId, numbers };
   } catch {
     return null;
