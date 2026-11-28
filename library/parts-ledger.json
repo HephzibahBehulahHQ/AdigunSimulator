@@ -343004,6 +343004,110 @@
           "unit": "Ω"
         }
       ]
+    },
+    {
+      "id": "microchip.24lc02b-i-p",
+      "manufacturer": "Microchip Technology",
+      "manufacturerPartNumber": "24LC02B-I/P",
+      "category": "Digital logic and memory",
+      "type": "2 Kbit I²C serial EEPROM",
+      "package": "PDIP-8 (300 mil)",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Microchip 24LC02B serial EEPROM datasheet",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21709G.pdf",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Microchip 24LC02B production status",
+          "url": "https://www.microchip.com/en-us/product/24LC02B"
+        }
+      ],
+      "evidenceNote": "library/evidence/microchip.pdip-i2c-eeprom.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No exact-device model has been validated for this component-bank record."
+      }
+    },
+    {
+      "id": "microchip.24lc32a-i-p",
+      "manufacturer": "Microchip Technology",
+      "manufacturerPartNumber": "24LC32A-I/P",
+      "category": "Digital logic and memory",
+      "type": "32 Kbit I²C serial EEPROM",
+      "package": "PDIP-8 (300 mil)",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Microchip 24LC32A serial EEPROM datasheet",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21713L.pdf",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Microchip 24LC32A production status",
+          "url": "https://www.microchip.com/en-us/product/24LC32A"
+        }
+      ],
+      "evidenceNote": "library/evidence/microchip.pdip-i2c-eeprom.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No exact-device model has been validated for this component-bank record."
+      }
+    },
+    {
+      "id": "microchip.24lc64-i-p",
+      "manufacturer": "Microchip Technology",
+      "manufacturerPartNumber": "24LC64-I/P",
+      "category": "Digital logic and memory",
+      "type": "64 Kbit I²C serial EEPROM",
+      "package": "PDIP-8 (300 mil)",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Microchip 24LC64 serial EEPROM datasheet",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21189S.pdf",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Microchip 24LC64 production status",
+          "url": "https://www.microchip.com/en-us/product/24LC64"
+        }
+      ],
+      "evidenceNote": "library/evidence/microchip.pdip-i2c-eeprom.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No exact-device model has been validated for this component-bank record."
+      }
+    },
+    {
+      "id": "microchip.24fc256-i-p",
+      "manufacturer": "Microchip Technology",
+      "manufacturerPartNumber": "24FC256-I/P",
+      "category": "Digital logic and memory",
+      "type": "256 Kbit I²C serial EEPROM",
+      "package": "PDIP-8 (300 mil)",
+      "lifecycle": "active",
+      "verificationStatus": "candidate",
+      "datasheet": {
+        "title": "Microchip 24FC256 serial EEPROM datasheet",
+        "url": "https://ww1.microchip.com/downloads/en/DeviceDoc/21203R.pdf",
+        "accessedAt": "2026-11-28"
+      },
+      "manufacturerSources": [
+        {
+          "title": "Microchip 24FC256 production status",
+          "url": "https://www.microchip.com/en-us/product/24FC256"
+        }
+      ],
+      "evidenceNote": "library/evidence/microchip.pdip-i2c-eeprom.md",
+      "simulationModel": {
+        "status": "not-modelled",
+        "reason": "No exact-device model has been validated for this component-bank record."
+      }
     }
   ],
   "lastUpdated": "2026-11-13"
