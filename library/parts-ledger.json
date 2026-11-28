@@ -342729,7 +342729,7 @@
       "evidenceNote": "library/evidence/nexperia.small-signal-mosfet.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
       },
       "symbolPinMap": {
         "1": "Gate",
@@ -342772,7 +342772,26 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "RDS(on) at VGS = 10 V, ID = 500 mA, Tj = 25 °C",
+          "typical": 2.8,
+          "maximum": 5,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 10 V, ID = 500 mA, Tj = 150 °C",
+          "maximum": 9.25,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 4.5 V, ID = 75 mA, Tj = 25 °C",
+          "typical": 3.8,
+          "maximum": 5.3,
+          "unit": "Ω"
+        }
+      ]
     },
     {
       "id": "nexperia.bss138bkw-115",
@@ -342797,7 +342816,7 @@
       "evidenceNote": "library/evidence/nexperia.small-signal-mosfet.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
       },
       "symbolPinMap": {
         "1": "Gate",
@@ -342840,7 +342859,33 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "RDS(on) at VGS = 10 V, ID = 320 mA, Tj = 25 °C",
+          "typical": 1,
+          "maximum": 1.6,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 10 V, ID = 320 mA, Tj = 150 °C",
+          "typical": 2,
+          "maximum": 3.2,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 4.5 V, ID = 200 mA, Tj = 25 °C",
+          "typical": 1.1,
+          "maximum": 2.2,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 2.5 V, ID = 10 mA, Tj = 25 °C",
+          "typical": 1.4,
+          "maximum": 6.5,
+          "unit": "Ω"
+        }
+      ]
     },
     {
       "id": "nexperia.bss138bks-115",
@@ -342865,7 +342910,7 @@
       "evidenceNote": "library/evidence/nexperia.small-signal-mosfet.md",
       "simulationModel": {
         "status": "not-modelled",
-        "reason": "Device behavior has not been validated in the native solver."
+        "reason": "Datasheet on-resistance checkpoints are recorded. The exact device still needs a qualified model."
       },
       "symbolPinMap": {
         "1": "Source1",
@@ -342920,7 +342965,33 @@
         "licenseId": "CC0-1.0",
         "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
         "designStatus": "manufacturer-recommended"
-      }
+      },
+      "ratings": [
+        {
+          "name": "RDS(on) at VGS = 10 V, ID = 320 mA, Tj = 25 °C per channel",
+          "typical": 1,
+          "maximum": 1.6,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 10 V, ID = 320 mA, Tj = 150 °C per channel",
+          "typical": 2,
+          "maximum": 3.2,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 4.5 V, ID = 200 mA, Tj = 25 °C per channel",
+          "typical": 1.1,
+          "maximum": 2.2,
+          "unit": "Ω"
+        },
+        {
+          "name": "RDS(on) at VGS = 2.5 V, ID = 10 mA, Tj = 25 °C per channel",
+          "typical": 1.4,
+          "maximum": 6.5,
+          "unit": "Ω"
+        }
+      ]
     }
   ],
   "lastUpdated": "2026-11-13"
