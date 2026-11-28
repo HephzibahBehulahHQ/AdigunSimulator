@@ -1,6 +1,5 @@
-import { findNativeMosfet } from "./native-mosfet-parts.mjs";
+import { findNativeCataloguePart } from "./native-catalogue-parts.mjs";
 import { padCopperSections } from "./pcb-pad-geometry.mjs";
-import { findNativeBipolar } from "./bcp-native-parts.mjs";
 import sot89 from "../library/assets/footprints/nexperia.bcx51-115/footprint.json" with { type: "json" };
 import sot223 from "../library/assets/footprints/nexperia.bcp51-115/footprint.json" with { type: "json" };
 import { boardGeometryErrors } from "./pcb-board.mjs";
@@ -8,25 +7,28 @@ import { auditPcbCopper } from "./pcb-copper.mjs";
 
 const defaultBoard = { widthMm: 40, heightMm: 24, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2 };
 
-export function placeNativeTransistorFootprint(project, component, definition) {
+export function placeNativeCatalogueFootprint(project, component, definition) {
   const land = definition.footprint ?? (definition.package === "SOT89" ? sot89 : sot223);
+  const technology = definition.technology ?? "smd";
+  const plated = technology === "through-hole";
   const current = project.pcbFabrication ?? { board: { ...defaultBoard, copperLayers: ["F.Cu"] }, parts: [], pads: [], routes: [] };
   if (current.copperZones?.length || !Array.isArray(current.parts) || !Array.isArray(current.pads) || !Array.isArray(current.routes) ||
       !current.board || boardGeometryErrors(current).length || auditPcbCopper(current).length) return project;
   const { board } = current;
   const part = {
-    instanceId: component.instanceId, reference: component.reference, footprint: definition.package, technology: "smd",
-    manufacturer: "Nexperia", manufacturerPartNumber: definition.defaultValue,
-    sourceUrl: `https://assets.nexperia.com/documents/package-information/${definition.package}.pdf`
+    instanceId: component.instanceId, reference: component.reference, footprint: definition.package, technology,
+    manufacturer: definition.manufacturer ?? "Nexperia", manufacturerPartNumber: definition.defaultValue,
+    sourceUrl: land.source?.url ?? `https://assets.nexperia.com/documents/package-information/${definition.package}.pdf`,
+    ...(plated ? { designStatus: "educational-candidate" } : {})
   };
   const clearance = board.minimumClearanceMm;
   const occupied = [...current.pads, ...(current.vias ?? [])].flatMap(padCopperSections);
   for (let y = 5; y <= board.heightMm - 5 && y <= 205; y += 10) {
     for (let x = 5; x <= board.widthMm - 5 && x <= 205; x += 10) {
       const pads = land.pads.map(({ number, xMm, yMm, ...geometry }) => ({
-        ...structuredClone(geometry),
+        ...(plated ? { diameterMm: geometry.widthMm, drillMm: geometry.drillMm, copperShape: geometry.shape === "rectangle" ? "square" : "round" } : structuredClone(geometry)),
         instanceId: component.instanceId, reference: component.reference, number, pin: number,
-        technology: "smd", xMm: x + xMm, yMm: y + yMm, netId: "NC"
+        technology, xMm: x + xMm, yMm: y + yMm, netId: "NC"
       }));
       const sections = pads.flatMap(padCopperSections);
       const overlaps = sections.some(pad => occupied.some(other =>
@@ -45,10 +47,10 @@ export function placeNativeTransistorFootprint(project, component, definition) {
   return project;
 }
 
-export function syncNativeTransistorPadNets(project) {
+export function syncNativeCataloguePadNets(project) {
   const pcb = project.pcbFabrication;
   if (!pcb?.parts?.length) return project;
-  const instances = new Set(project.components.filter(component => findNativeBipolar(component.libraryId) || findNativeMosfet(component.libraryId)).map(component => component.instanceId));
+  const instances = new Set(project.components.filter(component => findNativeCataloguePart(component.libraryId)).map(component => component.instanceId));
   if (!instances.size) return project;
   const nets = new Map(project.nets.flatMap(net => net.endpoints.map(pin => [pin, net.id])));
   const pads = pcb.pads.map(pad => instances.has(pad.instanceId)

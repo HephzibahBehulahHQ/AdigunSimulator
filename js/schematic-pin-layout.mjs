@@ -1,3 +1,4 @@
+import { eepromPinPoint, findNativeEeprom } from "./native-eeprom-parts.mjs";
 import { findNativeMosfet } from "./native-mosfet-parts.mjs";
 import { bipolarSchematicPin, bipolarSchematicSize, findNativeBipolar } from "./bcp-native-parts.mjs";
 import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
@@ -58,6 +59,8 @@ const customPinSides = {
 // Visual anchors for the editor's named electrical terminals.
 // Pin order here defines schematic placement only; it does not assert physical package pin numbers.
 export function schematicSymbolSize(libraryId) {
+  const eeprom = findNativeEeprom(libraryId);
+  if (eeprom) return eeprom.symbolSize;
   const mosfet = findNativeMosfet(libraryId);
   if (mosfet) return mosfet.symbolSize;
   if (findNativeBipolar(libraryId)) return bipolarSchematicSize;
@@ -89,6 +92,10 @@ function basePinPoint(component, pins, pin) {
   if (index < 0) return null;
   const [x = 120, y = 120] = component.position?.schematic ?? [];
   if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  if (findNativeEeprom(component.libraryId)) {
+    const point = eepromPinPoint(pin);
+    return point ? { x: x + point.x, y: y + point.y, side: point.side } : null;
+  }
   const mosfet = findNativeMosfet(component.libraryId);
   if (mosfet) {
     const point = mosfet.pinPoints[pin];

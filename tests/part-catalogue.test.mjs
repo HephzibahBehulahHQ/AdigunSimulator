@@ -421,3 +421,37 @@ test("MOSFET native placement preserves numbered schematic terminals and exact P
     }
   }
 });
+
+test("EEPROM catalogue placement keeps physical pad numbering and detects wired no-connect pins", async () => {
+  const { addComponent, connectPins, createEmptyProject, findLibraryPart, parseProject, serializeProject, validateProject } = await import("../js/core.mjs");
+  const { projectComponentsForView } = await import("../js/view-projection.mjs");
+  const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
+  const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
+  const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
+  const parts = MANUFACTURER_PART_RECORDS.filter(row => row.evidenceNote === "library/evidence/microchip.pdip-i2c-eeprom.md");
+  assert.equal(parts.length, 4);
+  for (const row of parts) {
+    const project = parseProject(serializeProject(addComponent(createEmptyProject(), row.id)));
+    const [instance] = project.components;
+    const part = findLibraryPart(row.id);
+    const { parts: physical, pads } = project.pcbFabrication;
+    assert.equal(physical[0].manufacturerPartNumber, row.manufacturerPartNumber);
+    assert.equal(physical[0].designStatus, "educational-candidate");
+    assert.deepEqual(pads.map(({instanceId, pin, number}) => [instanceId, pin, number]),
+      part.pins.map(pin => [instance.instanceId, pin, row.footprintPadMap[pin]]));
+    assert.deepEqual(pads.map(({copperShape, drillMm}) => [copperShape, drillMm]),
+      [["square", 0.8], ...Array.from({length: 7}, () => ["round", 0.8])]);
+    const anchors = part.pins.map(pin => schematicPinPoint(instance, part.pins, pin));
+    assert.equal(new Set(anchors.map(({x,y}) => x + ":" + y)).size, 8);
+    for (const view of ["schematic", "pcb"]) {
+      assert.equal(projectComponentsForView(project, view).components[0].instanceId, instance.instanceId);
+    }
+    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /PDIP/);
+    assert.equal(runProjectAnalysis(project).errors[0].code, "EEPROM_MODEL_UNAVAILABLE");
+    if (row.manufacturerPartNumber.startsWith("24LC02B")) {
+      assert.match(renderSchematicSymbol(part), /1 A0 NC/);
+      const miswired = connectPins(project, instance.instanceId + ":1", instance.instanceId + ":8");
+      assert.ok(validateProject(miswired).errors.some(error => error.rule === "EEPROM_NC_CONNECTED"));
+    }
+  }
+});

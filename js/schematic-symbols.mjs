@@ -1,3 +1,4 @@
+import { findNativeEeprom, renderNativeEeprom } from "./native-eeprom-parts.mjs";
 import { findNativeMosfet, renderNativeMosfet } from "./native-mosfet-parts.mjs";
 import { findNativeBipolar, renderNativeBipolarSchematic } from "./bcp-native-parts.mjs";
 import { schematicPinPoint, schematicSymbolSize } from "./schematic-pin-layout.mjs";
@@ -6,6 +7,8 @@ import { SCHEMATIC_PRIMITIVES } from "./schematic-primitives.mjs";
 const escape = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" })[c]);
 export function renderSchematicSymbol(part, component) {
   if (!part || !Array.isArray(part.pins) || !part.pins.length) return null;
+  const eeprom = findNativeEeprom(part.id);
+  if (eeprom) return renderNativeEeprom(eeprom);
   const mosfet = findNativeMosfet(part.id);
   if (mosfet) return renderNativeMosfet(mosfet);
   const bcp = findNativeBipolar(part.id);
