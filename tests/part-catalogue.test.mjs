@@ -345,3 +345,48 @@ test("BCP qualification compares signed model measurements with the exact gain g
   highSaturation.saturation500.vceV = 0.6;
   assert.equal(checkBcpModelMeasurements("nexperia.bcp55-16-115", highSaturation).checks[2].passed, false);
 });
+
+test("BCX catalogue placement shares exact instance identity between schematic and composite PCB copper", async () => {
+  const { addComponent, connectPins, createEmptyProject, findLibraryPart } = await import("../js/core.mjs");
+  const { runProjectAnalysis } = await import("../js/analysis-dispatch.mjs");
+  const { projectComponentsForView } = await import("../js/view-projection.mjs");
+  const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
+  const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
+  const { exportPcbFabrication } = await import("../js/pcb-export.mjs");
+  const rows = MANUFACTURER_PART_RECORDS.filter(row => row.evidenceNote === "library/evidence/nexperia.bcx-sot89.md");
+  assert.equal(rows.length, 12);
+  for (const row of rows) {
+    let project = addComponent(createEmptyProject(), row.id);
+    project = addComponent(project, row.id);
+    const [first, second] = project.components;
+    const [left, right] = project.pcbFabrication.parts;
+    assert.equal(left.instanceId, first.instanceId);
+    assert.equal(right.instanceId, second.instanceId);
+    assert.equal(left.manufacturerPartNumber, row.manufacturerPartNumber);
+    const definition = findLibraryPart(row.id);
+    assert.deepEqual(definition.pins, Object.keys(row.symbolPinMap));
+    assert.match(renderSchematicSymbol(definition), /E \(1\)/);
+    assert.match(renderSchematicSymbol(definition), /B \(3\)/);
+    assert.equal(schematicPinPoint(first, definition.pins, "3").side, "left");
+    for (const view of ["schematic", "pcb"]) {
+      assert.deepEqual(projectComponentsForView(project, view).components.map(part => part.instanceId), [first.instanceId, second.instanceId]);
+    }
+    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /SOT89 breakout/);
+    assert.equal(runProjectAnalysis(project).errors[0].code, "BCX_MODEL_UNAVAILABLE");
+
+    project = connectPins(project, first.instanceId + ":2", second.instanceId + ":2");
+    const netId = project.nets[0].id;
+    const collectors = project.pcbFabrication.pads.filter(pad => pad.netId === netId);
+    assert.equal(collectors.length, 2);
+    assert.ok(collectors.every(pad => pad.number === "2" && pad.copperRects.length === 2));
+    assert.equal(exportPcbFabrication(project).status, "blocked");
+    const pointsMm = collectors.map(({ xMm, yMm }) => [xMm, yMm]);
+    const [[x1, y], [x2]] = pointsMm;
+    project.pcbFabrication.routes.push({
+      netId, layer: "F.Cu", widthMm: 0.25, pointsMm: [pointsMm[0], [x1, y+2], [x2, y+2], pointsMm[1]]
+    });
+    const output = exportPcbFabrication(project);
+    assert.equal(output.status, "passed", output.drc.errors.join("\n"));
+    assert.match(output.files["board-F_Cu.gbr"], /R,2X2\.75/);
+  }
+});
