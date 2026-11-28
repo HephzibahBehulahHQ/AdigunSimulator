@@ -341156,6 +341156,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341201,6 +341205,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341246,6 +341254,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341291,6 +341303,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341336,6 +341352,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341381,6 +341401,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341426,6 +341450,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341471,6 +341499,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341516,6 +341548,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341561,6 +341597,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341606,6 +341646,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {
@@ -341651,6 +341695,10 @@
       "breadboard": {
         "compatible": false,
         "adapter": "Use a documented SOT89 breakout that preserves emitter (1), collector (2), and base (3)."
+      },
+      "packageEvidence": {
+        "package": "SOT89 (SC-62)",
+        "sourceUrl": "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       }
     },
     {

@@ -834091,7 +834091,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834103,7 +834104,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834119,7 +834119,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834178,7 +834177,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834190,7 +834190,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834206,7 +834205,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834265,7 +834263,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834277,7 +834276,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834293,7 +834291,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834352,7 +834349,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834364,7 +834362,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834380,7 +834377,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834439,7 +834435,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834451,7 +834448,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834467,7 +834463,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834526,7 +834521,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX53_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834538,7 +834534,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834554,7 +834549,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834613,7 +834607,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834625,7 +834620,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834641,7 +834635,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834700,7 +834693,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834712,7 +834706,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834728,7 +834721,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834787,7 +834779,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX56-Q_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834799,7 +834792,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834815,7 +834807,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834874,7 +834865,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834886,7 +834878,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834902,7 +834893,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -834961,7 +834951,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -834973,7 +834964,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -834989,7 +834979,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
@@ -835048,7 +835037,8 @@
         "reason": "Device behavior has not been validated in the native solver."
       },
       "sources": [
-        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf"
+        "https://assets.nexperia.com/documents/data-sheet/BCX51-Q_SER.pdf",
+        "https://assets.nexperia.com/documents/package-information/SOT89.pdf"
       ],
       "readiness": {
         "verification": "candidate",
@@ -835060,7 +835050,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "REVIEWER_IDENTITY",
@@ -835076,7 +835065,6 @@
           "FOOTPRINT_PAD_MAP",
           "LIFECYCLE_EVIDENCE",
           "LIMITS_AND_ALTERNATES",
-          "PACKAGE_EVIDENCE",
           "PIN_MAP_ALIGNMENT",
           "RATINGS_UNITS",
           "TRANSLATIONS",
