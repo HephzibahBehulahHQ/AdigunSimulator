@@ -344,3 +344,24 @@ test("BCP SOT223 copper assets preserve both routed collector pads in the native
     assert.match(disconnected.drc.errors.join("\n"), /Net COLLECTOR has physical pads but no copper route/);
   }
 });
+
+test("BCX SOT89 reflow copper keeps one connected, stepped collector terminal", async () => {
+  const { validCompositePad } = await import("../js/pcb-pad-geometry.mjs");
+  const load = async path => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
+  const ledger = await load("../library/parts-ledger.json");
+  const rows = ledger.records.filter(record => record.evidenceNote === "library/evidence/nexperia.bcx-sot89.md");
+  assert.equal(rows.length, 12);
+  for (const row of rows) {
+    const asset = await load(`../${row.footprintEvidence.assetPath}`);
+    assert.deepEqual(row.footprintPadMap, { 1: "1", 2: "2", 3: "3" });
+    const [emitter, collector, base] = asset.pads;
+    assert.deepEqual([emitter.xMm, base.xMm], [1.5, -1.5]);
+    assert.deepEqual(collector.copperRects, [
+      { dxMm: 0, dyMm: -2.675, widthMm: 2, heightMm: 2.75 },
+      { dxMm: 0, dyMm: -0.375, widthMm: 0.7, heightMm: 1.85 }
+    ]);
+    assert.ok(validCompositePad(collector));
+    collector.copperRects[0].dyMm -= 0.01;
+    assert.equal(validCompositePad(collector), false);
+  }
+});
