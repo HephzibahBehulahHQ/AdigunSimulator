@@ -1,4 +1,5 @@
 import { findBcpPart } from "./bcp-native-parts.mjs";
+import { findNativeEeprom } from "./native-eeprom-parts.mjs";
 
 export const BREADBOARD_MODEL = Object.freeze({
   id: "busboard-bb400",
@@ -156,6 +157,13 @@ export function validateBreadboardTopology(project, { getPartPins, model: reques
 
   const missingPins = requiredPins.filter(endpoint => !pinHoles.has(endpoint));
   for (const component of components.values()) {
+    const part = findNativeEeprom(component.libraryId);
+    if (part?.nativeBreadboard && part.pins.some(pin => pinHoles.has(component.instanceId + ":" + pin)) &&
+        !eepromBreadboardPlacement(component, project)) {
+      errors.push({ code: "BREADBOARD_EEPROM_PDIP", message: component.reference + " needs all eight numbered PDIP leads across rows E and F." });
+    }
+  }
+  for (const component of components.values()) {
     if (findBcpPart(component.libraryId) &&
         ["1", "2", "3", "4"].some(pin => pinHoles.has(component.instanceId + ":" + pin)) &&
         !bcpAdapterPlacement(component, project)) {
@@ -227,6 +235,43 @@ export const BREADBOARD_GENERIC_PACKAGE_GEOMETRY = Object.freeze({
 
 function bcpAdapterHoles(column) {
   return ["E"+column, "E"+(column+1), "F"+(column+1), "F"+column];
+}
+
+function eepromHoles(column) {
+  return [column, column + 1, column + 2, column + 3].map(n => "F" + n)
+    .concat([column + 3, column + 2, column + 1, column].map(n => "E" + n));
+}
+
+export function eepromBreadboardPlacement(component, project) {
+  const part = findNativeEeprom(component?.libraryId);
+  if (!part?.nativeBreadboard || project?.breadboard?.model !== BREADBOARD_MODEL.id) return null;
+  const holes = part.pins.map(pin => project.breadboard.pinHoles?.[component.instanceId + ":" + pin]);
+  const column = Number(normalizeBreadboardHole(holes[0])?.slice(1));
+  return Number.isInteger(column) && column >= 2 && column <= BREADBOARD_MODEL.columns - 4 &&
+    eepromHoles(column).every((hole, index) => hole === holes[index]) ? holes : null;
+}
+
+export function placeEepromOnBreadboard(project, component) {
+  const part = findNativeEeprom(component.libraryId);
+  if (!part?.nativeBreadboard) return project;
+  const model = BREADBOARD_MODEL;
+  const existing = project.breadboard ?? { model: model.id, pinHoles: {}, jumpers: [] };
+  if (existing.model !== model.id || !existing.pinHoles || !Array.isArray(existing.jumpers)) return project;
+  const reserved = (existing.assembly?.packages ?? []).flatMap(pkg => [
+    ...(pkg.noConnectHoles ?? []), ...(pkg.noConnectHole ? [pkg.noConnectHole] : [])
+  ]);
+  const used = [...Object.values(existing.pinHoles), ...existing.jumpers.flatMap(jumper => [jumper.from, jumper.to]), ...reserved];
+  const groups = new Set(used.map(hole => breadboardConnectionGroup(hole, model)));
+  const bodyColumns = used.map(hole => /^[D-G](\d+)$/.exec(normalizeBreadboardHole(hole, model))?.[1]).filter(Boolean).map(Number);
+  for (let column = 2; column <= model.columns - 4; column++) {
+    const holes = eepromHoles(column);
+    if (holes.some(hole => groups.has(breadboardConnectionGroup(hole, model))) ||
+        bodyColumns.some(usedColumn => usedColumn >= column - 1 && usedColumn <= column + 4)) continue;
+    const pinHoles = { ...existing.pinHoles };
+    holes.forEach((hole, index) => { pinHoles[component.instanceId + ":" + part.pins[index]] = hole; });
+    return { ...project, breadboard: { ...existing, pinHoles } };
+  }
+  return project;
 }
 
 export function bcpAdapterPlacement(component, project) {

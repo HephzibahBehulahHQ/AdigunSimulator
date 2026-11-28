@@ -836266,7 +836266,10 @@
         "designStatus": "educational-candidate"
       },
       "viewSupport": {
-        "breadboard": null,
+        "breadboard": {
+          "model": "busboard-bb400",
+          "assembly": "300 mil PDIP"
+        },
         "schematic": true,
         "pcb": true
       },

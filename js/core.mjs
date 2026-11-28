@@ -11,7 +11,7 @@ import { validateSchematicWires } from "./schematic-wire-data.mjs";
 import { reviewPanelMountMechanicals } from "./panel-mount-mechanical-review.mjs";
 import { reviewBgaEscapeConcept } from "./bga-escape-review.mjs";
 import { reviewQfnFootprint } from "./qfn-footprint-review.mjs";
-import { placeBcpBreadboardAdapter, validateBreadboardTopology } from "./breadboard-topology.mjs";
+import { placeBcpBreadboardAdapter, placeEepromOnBreadboard, validateBreadboardTopology } from "./breadboard-topology.mjs";
 import { validateBreadboardAssembly } from "./breadboard-assembly.mjs";
 export const SCHEMA_VERSION = 1;
 export const DESIGN_VIEWS = Object.freeze(["breadboard", "schematic", "pcb"]);
@@ -474,7 +474,7 @@ export function addComponent(project, libraryId) {
   };
   const next = { ...project, components: [...project.components, item], metadata: { ...project.metadata, updatedAt: new Date().toISOString() } };
   const withBoard = findNativeCataloguePart(libraryId) ? placeNativeCatalogueFootprint(next, item, part) : next;
-  return findBcpPart(libraryId) ? placeBcpBreadboardAdapter(withBoard, item) : withBoard;
+  return findBcpPart(libraryId) ? placeBcpBreadboardAdapter(withBoard, item) : placeEepromOnBreadboard(withBoard, item);
 }
 
 function nextFreePosition(project, view) {
