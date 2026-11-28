@@ -1214,7 +1214,7 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "000ce8def6958d0f98cab5e0d1f28f8474b30bc5be6aaaf6baaa69c927123691",
+      "sha256": "549a62f9beec5f5d992d4e588d3ad932b8331072e6d6e03d30ca37a964c058f5",
       "components": 10,
       "analysis": "complete",
       "engine": "Ideal Uno-class linear temperature monitor",
