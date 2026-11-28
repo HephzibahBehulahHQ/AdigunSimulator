@@ -1,3 +1,5 @@
+import { findBcpPart } from "./bcp-native-parts.mjs";
+
 export const BREADBOARD_MODEL = Object.freeze({
   id: "busboard-bb400",
   manufacturer: "BusBoard Prototype Systems",
@@ -153,10 +155,18 @@ export function validateBreadboardTopology(project, { getPartPins, model: reques
   }
 
   const missingPins = requiredPins.filter(endpoint => !pinHoles.has(endpoint));
+  for (const component of components.values()) {
+    if (findBcpPart(component.libraryId) &&
+        ["1", "2", "3", "4"].some(pin => pinHoles.has(component.instanceId + ":" + pin)) &&
+        !bcpAdapterPlacement(component, project)) {
+      errors.push({ code: "BREADBOARD_BCP_ADAPTER", message: `${component.reference} requires the PA0174C pin order across rows E and F.` });
+    }
+  }
   if (missingPins.length) warnings.push({ code: "BREADBOARD_PIN_UNMAPPED", endpoints: missingPins, fix: "Place each listed pin in a real hole or declare an off-board interface with its physical lead connection.", message: `Breadboard placements are missing for ${missingPins.join(", ")}.` });
 
   const dsu = makeDisjointSet();
   for (const hole of pinHoles.values()) dsu.root(breadboardConnectionGroup(hole, model));
+  joinBcpCollectorHoles(project, model, dsu);
   const jumpers = Array.isArray(config.jumpers) ? config.jumpers : [];
   if (!Array.isArray(config.jumpers)) errors.push({ code: "BREADBOARD_JUMPERS", message: "Physical jumpers must be stored as an array." });
   const jumperKeys = new Set();
@@ -215,6 +225,44 @@ export const BREADBOARD_GENERIC_PACKAGE_GEOMETRY = Object.freeze({
   "active.npn-small-signal": Object.freeze({ kind: "to92-transistor", pins: Object.freeze(["B", "C", "E"]), bodyWidthMm: 4.5, bodyHeightMm: 5, exactManufacturerFootprint: false })
 });
 
+function bcpAdapterHoles(column) {
+  return ["E"+column, "E"+(column+1), "F"+(column+1), "F"+column];
+}
+
+export function bcpAdapterPlacement(component, project) {
+  if (!findBcpPart(component?.libraryId) || project?.breadboard?.model !== BREADBOARD_MODEL.id) return null;
+  const holes = ["1", "2", "3", "4"].map(pin => project.breadboard.pinHoles?.[component.instanceId + ":" + pin]);
+  const column = Number(normalizeBreadboardHole(holes[0])?.slice(1));
+  if (!Number.isInteger(column) || column < 2 || column > BREADBOARD_MODEL.columns - 2 ||
+      !bcpAdapterHoles(column).every((hole, index) => hole === holes[index])) return null;
+  return holes;
+}
+
+export function placeBcpBreadboardAdapter(project, component) {
+  const model = BREADBOARD_MODEL;
+  const existing = project.breadboard ?? { model: model.id, pinHoles: {}, jumpers: [] };
+  if (existing.model !== model.id || !existing.pinHoles || !Array.isArray(existing.jumpers)) return project;
+  const usedHoles = [...Object.values(existing.pinHoles), ...existing.jumpers.flatMap(jumper => [jumper.from, jumper.to])];
+  const occupiedGroups = new Set(usedHoles.map(hole => breadboardConnectionGroup(hole, model)));
+  const terminalColumns = usedHoles.map(hole => /^[D-G](\d+)$/.exec(normalizeBreadboardHole(hole, model))?.[1]).filter(Boolean).map(Number);
+  for (let column = 2; column <= model.columns - 2; column++) {
+    const holes = bcpAdapterHoles(column);
+    if (terminalColumns.some(used => used >= column - 1 && used <= column + 2) ||
+        holes.some(hole => occupiedGroups.has(breadboardConnectionGroup(hole, model)))) continue;
+    const pinHoles = { ...existing.pinHoles };
+    holes.forEach((hole, index) => { pinHoles[component.instanceId + ":" + (index+1)] = hole; });
+    return { ...project, breadboard: { ...existing, pinHoles } };
+  }
+  return project;
+}
+
+function joinBcpCollectorHoles(project, model, sets) {
+  for (const component of project.components ?? []) {
+    const holes = bcpAdapterPlacement(component, project);
+    if (holes) sets.union(breadboardConnectionGroup(holes[1], model), breadboardConnectionGroup(holes[3], model));
+  }
+}
+
 export function breadboardPackagePlacement(component, project) {
   const packageModel = BREADBOARD_GENERIC_PACKAGE_GEOMETRY[component?.libraryId];
   if (!packageModel || !project?.breadboard?.pinHoles) return null;
@@ -270,6 +318,7 @@ export function deriveBreadboardSchematicNets(project, { getPartPins, model: req
   const sets = makeDisjointSet();
   const pinHoles = project.breadboard.pinHoles;
   for (const hole of Object.values(pinHoles)) sets.root(breadboardConnectionGroup(hole, model));
+  joinBcpCollectorHoles(project, model, sets);
   for (const jumper of project.breadboard.jumpers ?? []) {
     const from = normalizeBreadboardHole(jumper?.from, model), to = normalizeBreadboardHole(jumper?.to, model);
     if (from && to) sets.union(breadboardConnectionGroup(from, model), breadboardConnectionGroup(to, model));

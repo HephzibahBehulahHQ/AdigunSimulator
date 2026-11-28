@@ -254,6 +254,7 @@ test("all BCP records place their exact native schematic instance and show physi
   const { renderSchematicSymbol } = await import("../js/schematic-symbols.mjs");
   const { projectComponentsForView } = await import("../js/view-projection.mjs");
   const { exportPcbFabrication } = await import("../js/pcb-export.mjs");
+  const { validateBreadboardTopology, breadboardConnectionGroup } = await import("../js/breadboard-topology.mjs");
   const rows = MANUFACTURER_PART_RECORDS.filter((row) => row.evidenceNote === "library/evidence/nexperia.bcp-sot223.md");
   assert.equal(rows.length, 9);
   for (const row of rows) {
@@ -273,9 +274,11 @@ test("all BCP records place their exact native schematic instance and show physi
     assert.deepEqual(schematicPinPoint(component, part.pins, "4"), { x: x + 108, y: y + 36, side: "right" });
     assert.equal(projectComponentsForView(project, "schematic").components[0].instanceId, instanceId);
     const breadboard = projectComponentsForView(project, "breadboard");
-    assert.equal(breadboard.components.length, 0);
-    assert.equal(breadboard.reconciliationItems[0].instanceId, instanceId);
-    assert.match(breadboard.reconciliationItems[0].reason, /PA0174C SOT223-4 to DIP-4/);
+    assert.equal(breadboard.components[0].instanceId, instanceId);
+    assert.deepEqual(breadboard.reconciliationItems, []);
+    const holes = part.pins.map(pin => project.breadboard.pinHoles[instanceId + ":" + pin]);
+    assert.deepEqual(holes, ["E2", "E3", "F3", "F2"]);
+    assert.equal(new Set(holes.map(hole => breadboardConnectionGroup(hole))).size, 4);
     assert.equal(projectComponentsForView(project, "pcb").components[0].instanceId, instanceId);
     const { parts, pads } = project.pcbFabrication;
     assert.equal(parts[0].manufacturerPartNumber, row.manufacturerPartNumber);
@@ -284,6 +287,9 @@ test("all BCP records place their exact native schematic instance and show physi
     ]);
     const collectors = [instanceId + ":2", instanceId + ":4"];
     const wired = connectPins(project, ...collectors);
+    const topology = validateBreadboardTopology(wired, { getPartPins: id => findLibraryPart(id)?.pins });
+    assert.equal(topology.state, "complete");
+    assert.equal(topology.nets[0].connected, true);
     const copper = wired.pcbFabrication.pads;
     assert.equal(copper[1].netId, wired.nets[0].id);
     assert.equal(copper[3].netId, wired.nets[0].id);
@@ -297,6 +303,7 @@ test("all BCP records place their exact native schematic instance and show physi
     const removed = removeComponent(wired, instanceId);
     assert.deepEqual(removed.pcbFabrication.parts, []);
     assert.deepEqual(removed.pcbFabrication.pads, []);
+    assert.deepEqual(removed.breadboard.pinHoles, {});
     const blocked = commitComponentPlacement({
       ...before, pcbFabrication: {
         board: { widthMm: 8, heightMm: 8, copperLayers: ["F.Cu"], minimumClearanceMm: 0.2 },
