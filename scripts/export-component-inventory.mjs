@@ -22,7 +22,8 @@ const primitiveRows = STARTER_LIBRARY.map(part => ({
 
 const manufacturerRows = MANUFACTURER_PART_RECORDS.map(part => {
   const evidence = getManufacturerPartEvidenceSummary(part);
-  const nativeViews = findNativeCataloguePart(part.id)?.views;
+  const nativePart = findNativeCataloguePart(part.id);
+  const nativeViews = nativePart?.views;
   return {
     kind: "manufacturer-record",
     id: part.id,
@@ -35,7 +36,7 @@ const manufacturerRows = MANUFACTURER_PART_RECORDS.map(part => {
     symbolAsset: part.symbolAsset ?? null,
     footprintAsset: part.footprintAsset ?? null,
     viewSupport: {
-      breadboard: findBcpPart(part.id) && part.breadboard ? { ...part.breadboard, nativeAdapter: "PA0174C" } : part.breadboard ?? null,
+      breadboard: findBcpPart(part.id) && part.breadboard ? { ...part.breadboard, nativeAdapter: "PA0174C" } : nativePart?.nativeBreadboard ? { model: "busboard-bb400", assembly: "300 mil PDIP" } : part.breadboard ?? null,
       schematic: nativeViews?.schematic ?? part.views?.schematic ?? null,
       pcb: nativeViews?.pcb ?? part.views?.pcb ?? null
     },

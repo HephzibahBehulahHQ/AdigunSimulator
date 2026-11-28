@@ -423,6 +423,7 @@ test("MOSFET native placement preserves numbered schematic terminals and exact P
 });
 
 test("EEPROM catalogue placement keeps physical pad numbering and detects wired no-connect pins", async () => {
+  const { breadboardConnectionGroup, eepromBreadboardPlacement } = await import("../js/breadboard-topology.mjs");
   const { addComponent, connectPins, createEmptyProject, findLibraryPart, parseProject, serializeProject, validateProject } = await import("../js/core.mjs");
   const { projectComponentsForView } = await import("../js/view-projection.mjs");
   const { schematicPinPoint } = await import("../js/schematic-pin-layout.mjs");
@@ -446,12 +447,20 @@ test("EEPROM catalogue placement keeps physical pad numbering and detects wired 
     for (const view of ["schematic", "pcb"]) {
       assert.equal(projectComponentsForView(project, view).components[0].instanceId, instance.instanceId);
     }
-    assert.match(projectComponentsForView(project, "breadboard").reconciliationItems[0].reason, /PDIP/);
+    const breadboard = projectComponentsForView(project, "breadboard");
     assert.equal(runProjectAnalysis(project).errors[0].code, "EEPROM_MODEL_UNAVAILABLE");
     if (row.manufacturerPartNumber.startsWith("24LC02B")) {
+      const holes = eepromBreadboardPlacement(instance, project);
+      assert.deepEqual(holes, ["F2", "F3", "F4", "F5", "E5", "E4", "E3", "E2"]);
+      assert.equal(new Set(holes.map(hole => breadboardConnectionGroup(hole))).size, 8);
+      assert.equal(breadboard.components[0].instanceId, instance.instanceId);
+      const pinHoles = { ...project.breadboard.pinHoles, [instance.instanceId + ":1"]: "E2" };
+      assert.equal(eepromBreadboardPlacement(instance, { ...project, breadboard: { ...project.breadboard, pinHoles } }), null);
       assert.match(renderSchematicSymbol(part), /1 A0 NC/);
       const miswired = connectPins(project, instance.instanceId + ":1", instance.instanceId + ":8");
       assert.ok(validateProject(miswired).errors.some(error => error.rule === "EEPROM_NC_CONNECTED"));
+    } else {
+      assert.match(breadboard.reconciliationItems[0].reason, /PDIP/);
     }
   }
 });

@@ -15,7 +15,7 @@ import { createAccountClient, createAccountSession } from "./js/account-auth.mjs
 import { createAccountUi } from "./js/account-ui.mjs";
 import { createCloudProjectStore } from "./js/cloud-projects.mjs";
 import { createCloudProjectsUi } from "./js/cloud-projects-ui.mjs";
-import { bcpAdapterPlacement, BREADBOARD_MODEL, breadboardModelFor, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
+import { bcpAdapterPlacement, eepromBreadboardPlacement, BREADBOARD_MODEL, breadboardModelFor, breadboardHoleIds, breadboardHolePoint, breadboardPackagePlacement, deriveBreadboardSchematicNets, normalizeBreadboardHole, validateBreadboardTopology } from "./js/breadboard-topology.mjs";
 import { renderBreadboardAssemblySvg } from "./js/breadboard-assembly.mjs";
 import { renderNucleoG031K8Breadboard } from "./js/nucleo-g031k8.mjs";
 import { schematicPinPoint, schematicSymbolSize, schematicGeometry } from "./js/schematic-pin-layout.mjs";
@@ -828,6 +828,18 @@ function breadboardPackageSvg(project) {
   return project.components.filter(component => !assemblyIds.has(component.instanceId)).map((component) => {
     const nucleoBoard = renderNucleoG031K8Breadboard(project, component);
     if (nucleoBoard) return nucleoBoard;
+    const eeprom = eepromBreadboardPlacement(component, project);
+    if (eeprom) {
+      const points = eeprom.map(hole => breadboardHolePoint(hole));
+      const scale = (points[1].x - points[0].x) / 2.54;
+      const centerX = (points[0].x + points[3].x) / 2;
+      const centerY = (points[0].y + points[7].y) / 2;
+      return `<g class="breadboard-package" data-instance-id="${escape(component.instanceId)}" aria-label="${escape(component.reference)} PDIP-8 EEPROM">
+        <rect class="breadboard-bridge-body" x="${centerX - 5.08 * scale}" y="${centerY - 3.556 * scale}" width="${10.16 * scale}" height="${7.112 * scale}" rx="3"/>
+        ${points.map((point, index) => `<circle class="symbol-fill" cx="${point.x}" cy="${point.y}" r="${index === 0 ? 4 : 3}"><title>Pin ${index + 1} · ${eeprom[index]}</title></circle>`).join("")}
+        <text class="symbol-text" x="${centerX}" y="${centerY + 4}" text-anchor="middle" fill="white">${escape(component.reference)}</text>
+      </g>`;
+    }
     const adapter = bcpAdapterPlacement(component, project);
     if (adapter) {
       const points = adapter.map(hole => breadboardHolePoint(hole));

@@ -14,11 +14,14 @@ const records = new Map(patterns.map(([footprint, orderCode]) => {
     id, footprint, technology: "through-hole", package: footprint.package, manufacturer: "Microchip Technology",
     type: "Microchip " + orderCode, defaultValue: orderCode, prefix: "U", category: "Active",
     pins, symbolSize: size, simulation: null,
+    nativeBreadboard: orderCode === "24LC02B-I/P",
     noConnectPins: Object.freeze(orderCode.startsWith("24LC02B") ? pins.slice(0, 3) : []),
     status: "Manufacturer candidate with an educational PCB land pattern",
     views: Object.freeze({ schematic: true, breadboard: false, pcb: true }),
     mappingDiagnostics: Object.freeze({
-      breadboard: "Verify the formed PDIP leads fit the BB400 center gap, then map all eight numbered holes.",
+      breadboard: orderCode === "24LC02B-I/P"
+        ? "Use a clear four-column BB400 center-gap position for the eight numbered PDIP leads."
+        : "Verify the formed PDIP leads fit the BB400 center gap, then map all eight numbered holes.",
       pcb: "Clear a location for the DIP-8 pattern on the board and add the part again."
     })
   })];
