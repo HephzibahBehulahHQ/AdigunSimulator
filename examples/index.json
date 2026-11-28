@@ -1278,7 +1278,7 @@
       "type": "Digital",
       "level": "Advanced",
       "category": "Microcontrollers and embedded systems",
-      "sha256": "135541064f6d07b97a26f15050e3ec0d444c487af1d4d8918e761b8431bec0b7",
+      "sha256": "2515bc74110c69d11611177cc6f0ae671ee74969f283a920f152dae734af9b9d",
       "components": 5,
       "analysis": "complete",
       "engine": "Ideal ESP32-class offline telemetry formatter",

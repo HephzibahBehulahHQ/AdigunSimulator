@@ -2551,6 +2551,17 @@ test("catalogue Arduino stepper driver sequence maps CW/CCW pulses to motion",as
 
 test("catalogue ESP32 telemetry mock forms JSON locally without network transmission",async()=>{
   const project=JSON.parse(await readFile(new URL("../examples/068-esp32-telemetry-mock.adigun.json",import.meta.url)));
+  const headerPads = project.pcbFabrication.pads.filter(pad => pad.instanceId === "payload");
+  assert.deepEqual(headerPads.map(({ number, pin, netId, drillMm }) => [number, pin, netId, drillMm]), [
+    ["1", "GND", "GND", 1.02],
+    ["2", "DATA", "TX", 1.02]
+  ]);
+  const fabrication = exportPcbFabrication(project);
+  assert.equal(fabrication.status, "passed", JSON.stringify(fabrication.drc.errors));
+  const drill = fabrication.files["board-PTH.drl"];
+  const tool = drill.match(/^(T\d+)C1\.02$/m)?.[1];
+  assert.ok(tool);
+  assert.ok(drill.includes(`${tool}\nX0042418000Y0026670000\n${tool}\nX0042418000Y0029210000\n`));
   for(const celsius of [0,25,80]){
     const configured=updateComponent(project,"sensor",{value:`Temperature ${celsius} C; Scale 10 mV/C; Offset 500 mV`});
     const result=runSupportedAnalysis(configured);
